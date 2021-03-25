@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0;
+
+}
+
+a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.side-nav {
+    float: left;
+    width: 20%;
+}
+
+.page-content {
+    float: left;
+    width: 80%;
+    margin: 10px 0 0 10px;
+}
+
+.carousel-main {
+    object-fit: cover;
+}
+
+.text-decoration {
+    text-decoration: none;
+}
