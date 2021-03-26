@@ -13,6 +13,7 @@ const Category = () => {
     const [name, setName] = useState(null)
     const [categories, setCategories] = useState([])
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
@@ -20,8 +21,10 @@ const Category = () => {
     }, [])
 
     const loadCategories = async () => {
+        setLoading(true)
         await getCategories().then(res => {
             setCategories(res.data)
+            setLoading(false)
         }).catch(error => {
             console.log(error);
         })
@@ -79,7 +82,7 @@ const Category = () => {
                     </Row>
                     <hr></hr>
                     <Row className="mt-2">
-                        {categories.map((c) => (
+                        {loading ? "Loading..." : categories.map((c) => (
                             <Col key={c._id} md="3">
                                 <div>
                                     <Alert variant="dark">{c.name}

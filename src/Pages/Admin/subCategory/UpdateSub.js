@@ -63,7 +63,7 @@ const UpdateSub = ({ history, match }) => {
                     <Row md="4">
                         <Col className="float-left">
                             <h2>Sub Category</h2>
-                            <select className="form-control" onChange={(e) => setCategory(e.target.value)}>
+                            <select style={{ width: "100%" }} className="form-control" onChange={(e) => setCategory(e.target.value)}>
                                 {
                                     categories.map(c => (
                                         <option key={c._id} selected={c._id === category} value={c._id}>{c.name}</option>

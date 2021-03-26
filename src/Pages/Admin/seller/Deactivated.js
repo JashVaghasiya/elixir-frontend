@@ -52,13 +52,18 @@ const Deactivate = () => {
             <AdminSideNav />
             <div className="page-content">
                 <h3 className="mb-3">Deactivate Sellers</h3>
-                <Row>
-                    {
-                        user && sellers && sellers.length > 0 ? sellers.map(p => (
-                            <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                        )) : <p className="m-3">Empty</p>
-                    }
-                </Row>
+                <div className="container-fluid">
+                    <Row>
+                        {
+                            loading ? "Loading..." : user && sellers && sellers.length > 0 ? sellers.map(p => (
+                                <div className="mt-22">
+                                    <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                </div>
+                            )) : <p className="m-3">No Deactivated Sellers</p>
+                        }
+                    </Row>
+                </div>
+
             </div>
         </div>
     )

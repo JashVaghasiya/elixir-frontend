@@ -65,7 +65,7 @@ const UpdateCity = ({ history, match }) => {
                     <Row md="4">
                         <Col className="float-left">
                             <h2>Update City</h2>
-                            <select className="form-control" onChange={(e) => setState(e.target.value)}>
+                            <select style={{ width: "100%" }} className="form-control" onChange={(e) => setState(e.target.value)}>
                                 {
                                     states.map(c => (
                                         <option key={c._id} selected={c._id === state} value={c._id}>{c.name}</option>

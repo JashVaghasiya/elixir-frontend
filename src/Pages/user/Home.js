@@ -19,11 +19,13 @@ const Home = () => {
     }
 
     return (
-        <Row>
-            {products ? products.map(product => (
-                <UserProductCard key={product._id} product={product} />
-            )) : <p className="m-5">No products To show</p>}
-        </Row>
+        <div className="container-fluid">
+            <Row>
+                {products ? products.map(product => (
+                    <UserProductCard key={product._id} product={product} />
+                )) : <p className="m-5">No products To show</p>}
+            </Row>
+        </div>
     )
 }
 

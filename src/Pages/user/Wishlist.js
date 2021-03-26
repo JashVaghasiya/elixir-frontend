@@ -31,13 +31,15 @@ const Wishlist = () => {
     }
 
     return (
-        <>
+        <div className="container-fluid">
             <Row>
                 {loading ? <p className="m-5">Loading...</p> : user && products.map(product => (
-                    <Col><UserProductCard key={product._id} product={product} /></Col>
+                    <UserProductCard key={product._id} product={product} />
                 ))}
             </Row>
-        </>
+        </div>
+
+
     )
 }
 

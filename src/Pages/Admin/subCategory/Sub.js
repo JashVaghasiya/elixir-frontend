@@ -16,6 +16,7 @@ const Sub = () => {
     const [subs, setSubs] = useState([])
     const user = useSelector(state => state.user)
     const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         loadAll()
@@ -27,8 +28,11 @@ const Sub = () => {
         }).catch(error => {
             console.log(error);
         })
+        setLoading(true)
         await getSubs().then(res => {
+
             setSubs(res.data)
+            setLoading(false)
         }).catch(err => {
             console.log(err);
         })
@@ -79,7 +83,7 @@ const Sub = () => {
                     <Row md="3">
                         <Col className="float-left">
                             <h2>Sub Category</h2>
-                            <Select className="mt-2" onChange={(value) => setCategory(value)} defaultValue="Select Category">
+                            <Select style={{ width: "100%" }} className="mt-2" onChange={(value) => setCategory(value)} defaultValue="Select Category">
                                 {
                                     categories.map(c => (
                                         <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
@@ -92,17 +96,15 @@ const Sub = () => {
                         </Col>
                     </Row>
                     <hr></hr>
-                    <Row className="mt-2">
-                        {subs.map((s) => (
-                            <Col key={s._id} md="3" className="m-2">
-                                <div>
-                                    <Alert variant="dark">{s.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
+                    <Row>
+                        {loading ? "Loading..." : subs.map((s) => (
+                            <Col key={s._id} md="3">
+                                <Alert variant="dark">{s.name}
+                                    <span className="float-right text-center">
+                                        <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                        <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
+                                    </span>
+                                </Alert>
                             </Col>
                         ))}
                     </Row>

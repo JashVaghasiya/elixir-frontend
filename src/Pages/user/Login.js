@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import '../../App.css'
 import { findUser, roleBasedRedirect } from '../../functions/user'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Login = ({ history }) => {
 
@@ -74,19 +75,26 @@ const Login = ({ history }) => {
     }
 
     return (
-        <Container fluid>
-            <Row className="mt-5">
-                <Col sm="6" md="6" lg="4" className='mt-5'>
-                    <Form className='mt-5'>
-                        <h1>Login</h1>
-                        <Input placeholder='Enter Email' type='email' required size='large' value={email} onChange={e => setEmail(e.target.value)} className='mt-2'></Input>
-                        <Input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)} className='mt-2'></Input>
-                        <Button block disabled={loading} size='large' onClick={handleLogin} type="primary" className='mt-3'>{loading ? <Spin /> : 'Login'}</Button>
-                        {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
+        <div className="container">
+            <Form style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                <h1 className="mt-5">Login</h1>
+                <hr />
+                <div className="form-group">
+                    <label>Email</label>
+                    <Input placeholder='Enter Email' type='email' required size='large' value={email} onChange={e => setEmail(e.target.value)}></Input>
+                </div>
+                <div className="form-group">
+                    <label>Password</label>
+                    <Input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)}></Input>
+                </div>
+                <Button block disabled={loading} size='large' onClick={handleLogin} type="primary" className='mt-2'>{loading ? <Spin /> : 'Login'}</Button>
+                {error !== null ? <Alert className="mt-3" variant="danger">{error}</Alert> : ''}
+                <div className="float-right mt-3" style={{ fontSize: "18px" }}>
+                    <Link to="/change/password">Forgot Password ?</Link>
+                </div>
+            </Form>
+        </div>
+
     )
 }
 

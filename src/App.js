@@ -47,6 +47,8 @@ import UpdateState from './Pages/Admin/state/UpdateState'
 import City from './Pages/Admin/city/City'
 import UpdateCity from './Pages/Admin/city/UpdateCity'
 import UpdatePackage from './Pages/Admin/pack/UpdatePackage'
+import AdminProducts from './Pages/Admin/product/Product'
+import Orders from './Pages/Admin/order/Orders'
 
 
 const App = () => {
@@ -134,21 +136,23 @@ const App = () => {
           <Route path='/admin/sub/' exact component={Sub}></Route>
           <Route path='/admin/sub/:id' exact component={UpdateSub}></Route>
           <Route path='/admin/dashboard' exact component={AdminDashboard}></Route>
+          <Route path='/admin/product' exact component={AdminProducts}></Route>
           <Route path='/admin/product/unapproved' exact component={UnapprovedProduct}></Route>
           <Route path='/admin/states' exact component={State}></Route>
           <Route path='/admin/state/:id' exact component={UpdateState}></Route>
           <Route path='/admin/cities' exact component={City}></Route>
           <Route path='/admin/city/:id' exact component={UpdateCity}></Route>
-          <Route path='/admin/user' exact component={Users}></Route>
+          <Route path='/admin/users' exact component={Users}></Route>
           <Route path='/admin/user/deactivated' exact component={DeactivatedUser}></Route>
           <Route path='/admin/user/activated' exact component={ActivatedUser}></Route>
-          <Route path='/admin/seller' exact component={Seller}></Route>
+          <Route path='/admin/sellers' exact component={Seller}></Route>
           <Route path='/admin/seller/deactivated' exact component={DeactivateSeller}></Route>
           <Route path='/admin/seller/activated' exact component={ActivatedSellers}></Route>
           <Route path='/admin/coupon' exact component={Coupon}></Route>
           <Route path='/admin/coupon/:id' exact component={UpdateCoupon}></Route>
           <Route path='/admin/package' exact component={CreatePackage}></Route>
           <Route path='/admin/package/:id' exact component={UpdatePackage}></Route>
+          <Route path='/admin/orders' exact component={Orders}></Route>
 
           {/*seller routes*/}
           <Route path='/seller/registration' exact component={SellerRegistration}></Route>

@@ -11,6 +11,7 @@ const Activated = () => {
     const [sellers, setSellers] = useState([])
     const user = useSelector(state => state.user)
     const [activeId, setActiveId] = useState("")
+    const [loading, setLoading] = useState(false)
     const [loaded, setLoader] = useState(true)
 
     useEffect(() => {
@@ -19,12 +20,14 @@ const Activated = () => {
 
     const getProducts = () => {
         if (user && user._id) {
+            setLoading(true)
             getSeller(user && user.token).then(res => {
                 setSellers(res.data)
                 console.log(res.data)
                 console.log(sellers)
                 const deactivateSellers = res.data && res.data.filter(seller => seller.activated === true)
                 setSellers(deactivateSellers)
+                setLoading(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -50,14 +53,19 @@ const Activated = () => {
             <AdminSideNav />
             <div className="page-content">
                 <h3 className="mb-3">Activate Sellers</h3>
-                <Row>
-                    {
-                        user && sellers.length > 0 ? sellers.map(p => (
-                            <ActivationCard key={p._id} p={p} setId={setActiveId} />
-                        )) : <div>
-                            <p className="m-3">No Active Sellers</p></div>
-                    }
-                </Row>
+                <div className="container-fluid">
+                    <Row>
+                        {
+                            loading ? "Loading..." : user && sellers.length > 0 ? sellers.map(p => (
+                                <div className="m-2">
+                                    <ActivationCard key={p._id} p={p} setId={setActiveId} />
+                                </div>
+                            )) : <div>
+                                <p className="m-3">No Activated Sellers</p>
+                            </div>
+                        }
+                    </Row>
+                </div>
             </div>
         </div>
     )

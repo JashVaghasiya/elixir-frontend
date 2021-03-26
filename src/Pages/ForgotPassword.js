@@ -6,7 +6,7 @@ import '../App.css'
 import { Col, Container, Row, Toast } from 'react-bootstrap'
 import SideNav from '../components/nav/SellerSideNav'
 import { useSelector } from 'react-redux'
-import AdminDashboard from './Admin/AdminDashboard'
+import AdminSideNav from '../components/nav/AdminSideNav'
 
 const ForgotPassword = ({ history }) => {
 
@@ -36,7 +36,8 @@ const ForgotPassword = ({ history }) => {
 
     return (
         <div>
-            {user && user.role === "admin" ? <AdminDashboard /> : <SideNav />}
+            {user && user !== null ?
+                user && user.role === "admin" ? <AdminSideNav /> : <SideNav /> : ''}
             <div className="page-content">
                 <Container fluid>
                     <h2>Forgot Password</h2>
@@ -45,7 +46,7 @@ const ForgotPassword = ({ history }) => {
                             <Form>
                                 <Input placeholder='Enter Email' type='email' size='large' value={email} onChange={e => setEmail(e.target.value)} className='mt-2'></Input>
                                 <Button block disabled={loading} size='large' onClick={handleForgotPassword} type="primary" className='mt-3'>{loading ? <Spin /> : 'Send link'}</Button>
-                                <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+                                <Toast className="mt-2" onClose={() => setShow(false)} show={show} delay={2000} autohide>
                                     <Toast.Header>
                                         Link has been send to your email Address.
                             </Toast.Header>

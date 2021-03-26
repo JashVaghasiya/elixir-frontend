@@ -105,9 +105,9 @@ const Package = ({ history }) => {
                             <li>One Time Cost</li>
                         </ul>
                         <div class="plan-footer footer-first">
-                            {/* <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR"> */}
-                            <button onClick={handleBasic} class="btn btn-first btn-lg btn-rounded">Select Basic</button>
-                            {/* </StripeCheckout> */}
+                            <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">
+                                <button onClick={handleBasic} class="btn btn-first btn-lg btn-rounded">Select Basic</button>
+                            </StripeCheckout>
                         </div>
                     </div>
                 </div>
@@ -127,9 +127,9 @@ const Package = ({ history }) => {
                             <li>One Time Cost</li>
                         </ul>
                         <div class="plan-footer footer-second">
-                            {/* <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR"> */}
-                            <button onClick={handleStandard} class="btn btn-second btn-lg btn-rounded">Select Standard</button>
-                            {/* </StripeCheckout> */}
+                            <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">
+                                <button onClick={handleStandard} class="btn btn-second btn-lg btn-rounded">Select Standard</button>
+                            </StripeCheckout>
                         </div>
                     </div>
                 </div>
@@ -149,9 +149,9 @@ const Package = ({ history }) => {
                             <li>One Time Cost</li>
                         </ul>
                         <div class="plan-footer footer-third">
-                            {/* <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR"> */}
-                            <button onClick={handlePremium} class="btn btn-third btn-lg btn-rounded">Select Premium</button>
-                            {/* </StripeCheckout> */}
+                            <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">
+                                <button onClick={handlePremium} class="btn btn-third btn-lg btn-rounded">Select Premium</button>
+                            </StripeCheckout>
                         </div>
                     </div>
                 </div>

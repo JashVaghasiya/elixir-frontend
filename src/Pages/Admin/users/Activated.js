@@ -11,6 +11,7 @@ const Activated = () => {
     const [users, setUsers] = useState([])
     const user = useSelector(state => state.user)
     const [activeId, setActiveId] = useState("")
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getUser()
@@ -18,10 +19,12 @@ const Activated = () => {
 
     const getUser = () => {
         if (user && user._id) {
+            setLoading(true)
             getUsers(user && user.token).then(res => {
                 setUsers(res.data)
                 const deactivateUsers = res.data && res.data.filter(user => user.activated === true)
                 setUsers(deactivateUsers)
+                setLoading(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -47,14 +50,18 @@ const Activated = () => {
             <AdminSideNav />
             <div className="page-content">
                 <h3 className="mb-3">Activate Users</h3>
-                <Row>
-                    {
-                        user && users.length > 0 ? users.map(p => (
-                            <ActivationCard key={p._id} p={p} setId={setActiveId} />
-                        )) : <div>
-                            <p className="m-3">No Active Sellers</p></div>
-                    }
-                </Row>
+                <div className="container-fluid">
+                    <Row>
+                        {
+                            loading ? "Loading..." : user && users.length > 0 ? users.map(p => (
+                                <div className="mt-2">
+                                    <ActivationCard key={p._id} p={p} setId={setActiveId} />
+                                </div>
+                            )) : <div>
+                                <p className="m-3">No Active Sellers</p></div>
+                        }
+                    </Row>
+                </div>
             </div>
         </div>
     )

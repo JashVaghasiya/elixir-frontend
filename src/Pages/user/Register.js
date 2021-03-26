@@ -30,22 +30,23 @@ const Register = () => {
     }
 
     return (
-        <Container fluid>
-            <Row className="mt-5">
-                <Col sm="6" md="6" lg="4" className='mt-5'>
-                    <Form className='mt-5'>
-                        <h1>Register</h1>
-                        <Input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
-                        <Button type="primary" style={{ marginTop: "10px" }} onClick={submitHandler} block disabled={loading}>{loading ? <Spin /> : 'Sign Up'}</Button>
-                        <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
-                            <Toast.Header>
-                                Email has been send to your email address.
+        <div className="container">
+
+            <Form style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                <h1 className="mt-5">Register</h1>
+                <hr />
+                <div className="form-group">
+                    <label>Email</label>
+                    <Input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
+                </div>
+                <Button type="primary" style={{ marginTop: "10px" }} onClick={submitHandler} block disabled={loading}>{loading ? <Spin /> : 'Sign Up'}</Button>
+                <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+                    <Toast.Header>
+                        Email has been send to your email address.
                             </Toast.Header>
-                        </Toast>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
+                </Toast>
+            </Form>
+        </div>
     )
 }
 

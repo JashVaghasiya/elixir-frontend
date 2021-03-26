@@ -10,6 +10,7 @@ const Deactivate = () => {
     const [users, setUsers] = useState([])
     const user = useSelector(state => state.user)
     const [activeId, setActiveId] = useState("")
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
@@ -19,11 +20,12 @@ const Deactivate = () => {
     const getSellers = () => {
 
         if (user && user._id) {
-
+            setLoading(true)
             getUsers(user && user.token).then(res => {
                 setUsers(res.data)
                 const deactivateSellers = res.data && res.data.filter(user => user.activated === false)
                 setUsers(deactivateSellers)
+                setLoading(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -49,13 +51,18 @@ const Deactivate = () => {
             <AdminSideNav />
             <div className="page-content">
                 <h3 className="mb-3">Deactivate Users</h3>
-                <Row>
-                    {
-                        user && users && users.length > 0 ? users.map(p => (
-                            <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                        )) : <p className="m-3">Empty</p>
-                    }
-                </Row>
+                <div className="container-fluid">
+                    <Row>
+                        {
+                            loading ? "Loading..." : user && users && users.length > 0 ? users.map(p => (
+                                <div className="mt-2">
+                                    <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                </div>
+                            )) : <p className="m-3">Empty</p>
+                        }
+                    </Row>
+                </div>
+
             </div>
         </div>
     )

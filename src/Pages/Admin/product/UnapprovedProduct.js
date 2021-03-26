@@ -60,16 +60,18 @@ const UnapprovedProduct = ({ history }) => {
             <AdminSideNav />
             <div className="page-content">
                 <h3 className="mb-3">Unapproved Products</h3>
-                <Row>
-                    {
-                        loading ? <p className="m-3">Loading...</p> :
-                            user && products.length > 0 ? products.map(p => (
-                                <Col md="5" className="mb-2">
-                                    <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
-                                </Col>
-                            )) : <p className="m-3">No Unapproved Products</p>
-                    }
-                </Row>
+                <div className="container-fluid">
+                    <Row>
+                        {
+                            loading ? <p className="m-3">Loading...</p> :
+                                user && products.length > 0 ? products.map(p => (
+                                    <div className="m-2">
+                                        <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
+                                    </div>
+                                )) : <p className="m-3">No Unapproved Products</p>
+                        }
+                    </Row>
+                </div>
             </div>
         </div>
     )

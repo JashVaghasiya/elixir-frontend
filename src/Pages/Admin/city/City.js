@@ -81,7 +81,7 @@ const City = () => {
                     <Row md="3">
                         <Col className="float-left">
                             <h2>City</h2>
-                            <Select id="txtState" className="mt-2" onChange={(value) => setState(value)} defaultValue="Select State">
+                            <Select style={{ width: "100%" }} id="txtState" className="mt-2" onChange={(value) => setState(value)} defaultValue="Select State">
                                 {
                                     states.map(c => (
                                         <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>

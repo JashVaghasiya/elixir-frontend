@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, Input } from 'antd'
-import { Container } from 'react-bootstrap'
+import { Button, Input } from 'antd'
+import { Container, Alert } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { getCategory, updateCategory } from '../../../functions/category'
 import AdminSideNav from '../../../components/nav/AdminSideNav'
@@ -24,7 +24,7 @@ const UpdateCategory = ({ history, match }) => {
 
     const submitHandler = async (id) => {
         if (name !== null) {
-            if (name.length > 25) {
+            if (name.length < 25) {
                 await updateCategory(id, name, user.token).then(res => {
                     if (res.data.categoryError) {
                         setError(res.data.categoryError)
