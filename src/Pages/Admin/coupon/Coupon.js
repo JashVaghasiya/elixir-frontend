@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { createCoupon, getCoupons, deleteCoupon } from '../../../functions/coupon'
 import { Button, Input, Tooltip } from 'antd'
@@ -54,7 +55,7 @@ const Coupon = () => {
                             setDiscount(null)
                             setTime(null)
                         } else {
-                            setError('You can\'t set expiry time more than "365" days!')
+                            setError('You can\'t set expiry time more than "365" or "0" days!')
                             document.getElementById("txtTime").focus()
                         }
 
@@ -91,37 +92,42 @@ const Coupon = () => {
 
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Coupon</h2>
-                            <Input className="mt-2" maxlength="15" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
-                            <Input className="mt-2" maxlength="2" type="number" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
-                            <Input className="mt-2" maxlength="3" type="number" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Create Coupon</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row className="mt-2">
-                        {coupon.map((c) => (
-                            <Col key={c._id} md="3">
-                                <div>
-                                    <Alert variant="dark">{c.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="coupon" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Coupon</h2>
+                                    <Input className="mt-2" maxlength="15" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
+                                    <Input className="mt-2" min="0" maxlength="2" type="number" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
+                                    <Input className="mt-2" min="0" maxlength="3" type="number" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Create Coupon</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                            <hr></hr>
+                            <Row className="mt-2">
+                                {coupon.map((c) => (
+                                    <Col key={c._id} md="3">
+                                        <div>
+                                            <Alert variant="dark">{c.name}
+                                                <span className="float-right text-center">
+                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>
+                                                </span>
+                                            </Alert>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
 
-                </Container>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

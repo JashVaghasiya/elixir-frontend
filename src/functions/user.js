@@ -36,7 +36,7 @@ export const getCurrentUser = async (authtoken) => {
 // add to cart
 // user._id, product._id, quantity, product.price, user.token
 export const addToCart = async (userId, productId, qty, authtoken) => {
-    return await axios.post(`http://localhost:8001/api/user/cart/add`, { userId, productId, qty }, {
+    return await axios.post(`http://localhost:8000/api/user/cart/add`, { userId, productId, qty }, {
         headers: {
             authtoken: authtoken
         }

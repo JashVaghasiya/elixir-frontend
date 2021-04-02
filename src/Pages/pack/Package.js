@@ -94,7 +94,7 @@ const Package = ({ history }) => {
                         <div class="pricing-header">
                             <h4 class="plan-title">{pack1.name}</h4>
                             <div class="plan-cost">₹{pack1.price}</div>
-                            <div class="plan-save"><del className="text-muted">{pack1.previousPrice === null ? "New" : <p>₹{pack1.previousPrice}</p>}</del></div>
+                            <div class="plan-save">{pack1.previousPrice === null ? "New" : <del className="text-muted"><p>₹{pack1.previousPrice}</p></del>}</div>
                         </div>
                         <ul class="plan-features">
                             <li>{pack1.products} Products</li>
@@ -102,7 +102,6 @@ const Package = ({ history }) => {
                             <li>{pack1.ads ? "Advertisement" : <del>Advertisement</del>}</li>
                             <li>24/7 Tech Support</li>
                             <li>Daily Backups</li>
-                            <li>One Time Cost</li>
                         </ul>
                         <div class="plan-footer footer-first">
                             <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">
@@ -124,7 +123,7 @@ const Package = ({ history }) => {
                             <li>{pack2.ads ? "Advertisement" : <del>Advertisement</del>}</li>
                             <li>24/7 Tech Support</li>
                             <li>Daily Backups</li>
-                            <li>One Time Cost</li>
+
                         </ul>
                         <div class="plan-footer footer-second">
                             <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">
@@ -146,7 +145,7 @@ const Package = ({ history }) => {
                             <li>{pack3.ads ? "Advertisement" : <del>Advertisement</del>}</li>
                             <li>24/7 Tech Support</li>
                             <li>Daily Backups</li>
-                            <li>One Time Cost</li>
+
                         </ul>
                         <div class="plan-footer footer-third">
                             <StripeCheckout stripeKey="pk_test_51IRbfUHUA6kmXMG3HN6V0Cxs9GhieMaLr39a1e1zCSHbWJbWyawjrhg6Ak9ScFRrDCQKlPZTS13PJNSkkmTnz8Of00cMto6JAg" token={makePayment} name={packages.packageType} amount={packages.price * 100} currency="INR">

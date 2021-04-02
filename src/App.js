@@ -1,5 +1,9 @@
 import Header from './components/nav/Header'
 import { Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 import Home from '../src/Pages/user/Home'
 import Register from '../src/Pages/user/Register'
 import Login from '../src/Pages/user/Login'
@@ -7,20 +11,20 @@ import Category from './Pages/Admin/category/Category'
 import UpdateCategory from './Pages/Admin/category/UpdateCategory'
 import RegisterComplete from '../src/Pages/user/RegisterComplete'
 import ForgotPassword from './Pages/ForgotPassword'
-import AdminDashboard from '../src/Pages/Admin/AdminDashboard'
+import AdminDashboard from '../src/Pages/Admin/dashboard/AdminDashboard'
 import Sub from './Pages/Admin/subCategory/Sub'
 import UpdateSub from './Pages/Admin/subCategory/UpdateSub'
-import { useEffect } from 'react'
+
 import { auth } from './firebase/firebase'
 import { getCurrentUser } from './functions/user'
-import { useDispatch } from 'react-redux'
+
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Dashboard from './Pages/seller/Dashboard'
 import CreateProduct from './Pages/seller/product/CreateProduct'
 import UpdateProduct from './Pages/seller/product/UpdateProduct'
 import Products from './Pages/seller/product/Products'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import UnapprovedProduct from './Pages/Admin/product/UnapprovedProduct'
 import ProductDetails from './Pages/product/ProductDetails'
 import SellerRegistration from './Pages/seller/Registration'
@@ -34,6 +38,8 @@ import ActivatedUser from './Pages/Admin/users/Activated'
 import Coupon from './Pages/Admin/coupon/Coupon'
 import UpdateCoupon from './Pages/Admin/coupon/UpdateCoupon'
 import Chart from './Pages/Admin/Chart/Chart'
+import Agency from './Pages/Admin/agency/Agency'
+
 
 import { getProducts, getSellerProducts } from './functions/product'
 import Package from '../src/Pages/pack/Package'
@@ -49,6 +55,10 @@ import UpdateCity from './Pages/Admin/city/UpdateCity'
 import UpdatePackage from './Pages/Admin/pack/UpdatePackage'
 import AdminProducts from './Pages/Admin/product/Product'
 import Orders from './Pages/Admin/order/Orders'
+import Ads from './Pages/Admin/ads/Ads'
+
+import AdminRoute from './components/auth/Admin'
+import SellerRoute from './components/auth/Seller'
 
 
 const App = () => {
@@ -116,7 +126,7 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route path='/' exact component={Home}></Route>
           <Route path='/login' exact component={Login}></Route>
@@ -131,38 +141,41 @@ const App = () => {
           <Route path='/product/:id' exact component={ProductDetails}></Route>
 
           {/*admin routes*/}
-          <Route path='/admin/category' exact component={Category}></Route>
-          <Route path='/admin/category/:id' exact component={UpdateCategory}></Route>
-          <Route path='/admin/sub/' exact component={Sub}></Route>
-          <Route path='/admin/sub/:id' exact component={UpdateSub}></Route>
-          <Route path='/admin/dashboard' exact component={AdminDashboard}></Route>
-          <Route path='/admin/product' exact component={AdminProducts}></Route>
-          <Route path='/admin/product/unapproved' exact component={UnapprovedProduct}></Route>
-          <Route path='/admin/states' exact component={State}></Route>
-          <Route path='/admin/state/:id' exact component={UpdateState}></Route>
-          <Route path='/admin/cities' exact component={City}></Route>
-          <Route path='/admin/city/:id' exact component={UpdateCity}></Route>
-          <Route path='/admin/users' exact component={Users}></Route>
-          <Route path='/admin/user/deactivated' exact component={DeactivatedUser}></Route>
-          <Route path='/admin/user/activated' exact component={ActivatedUser}></Route>
-          <Route path='/admin/sellers' exact component={Seller}></Route>
-          <Route path='/admin/seller/deactivated' exact component={DeactivateSeller}></Route>
-          <Route path='/admin/seller/activated' exact component={ActivatedSellers}></Route>
-          <Route path='/admin/coupon' exact component={Coupon}></Route>
-          <Route path='/admin/coupon/:id' exact component={UpdateCoupon}></Route>
-          <Route path='/admin/package' exact component={CreatePackage}></Route>
-          <Route path='/admin/package/:id' exact component={UpdatePackage}></Route>
-          <Route path='/admin/orders' exact component={Orders}></Route>
+          <AdminRoute path='/admin/category/:id' exact component={UpdateCategory} />
+          <AdminRoute path='/admin/category' exact component={Category} />
+          <AdminRoute path='/admin/sub/' exact component={Sub} />
+          <AdminRoute path='/admin/sub/:id' exact component={UpdateSub} />
+          <AdminRoute path='/admin/dashboard' exact component={AdminDashboard} />
+          <AdminRoute path='/admin/product' exact component={AdminProducts} />
+          <AdminRoute path='/admin/product/unapproved' exact component={UnapprovedProduct} />
+          <AdminRoute path='/admin/states' exact component={State} />
+          <AdminRoute path='/admin/state/:id' exact component={UpdateState} />
+          <AdminRoute path='/admin/cities' exact component={City} />
+          <AdminRoute path='/admin/city/:id' exact component={UpdateCity} />
+          <AdminRoute path='/admin/users' exact component={Users} />
+          <AdminRoute path='/admin/user/deactivated' exact component={DeactivatedUser} />
+          <AdminRoute path='/admin/user/activated' exact component={ActivatedUser} />
+          <AdminRoute path='/admin/sellers' exact component={Seller} />
+          <AdminRoute path='/admin/seller/deactivated' exact component={DeactivateSeller} />
+          <AdminRoute path='/admin/seller/activated' exact component={ActivatedSellers} />
+          <AdminRoute path='/admin/coupon' exact component={Coupon} />
+          <AdminRoute path='/admin/coupon/:id' exact component={UpdateCoupon} />
+          <AdminRoute path='/admin/package' exact component={CreatePackage} />
+          <AdminRoute path='/admin/package/:id' exact component={UpdatePackage} />
+          <AdminRoute path='/admin/orders' exact component={Orders} />
+          <AdminRoute path='/admin/ads' exact component={Ads} />
+          <AdminRoute path='/admin/shipping/agency' exact component={Agency} />
+
 
           {/*seller routes*/}
-          <Route path='/seller/registration' exact component={SellerRegistration}></Route>
-          <Route path='/seller/registration/complete' exact component={SellerRegistrationComplete}></Route>
-          <Route path='/seller/product' exact component={CreateProduct}></Route>
-          <Route path='/seller/products' exact component={Products}></Route>
-          <Route path='/seller/product/:id' exact component={UpdateProduct}></Route>
-          <Route path='/seller/dashboard' exact component={Dashboard}></Route>
-          <Route path='/seller/products/activate' exact component={Activate}></Route>
-          <Route path='/seller/products/deactivate' exact component={Deactivate}></Route>
+          <SellerRoute path='/seller/registration' exact component={SellerRegistration} />
+          <SellerRoute path='/seller/registration/complete' exact component={SellerRegistrationComplete} />
+          <SellerRoute path='/seller/product' exact component={CreateProduct} />
+          <SellerRoute path='/seller/products' exact component={Products} />
+          <SellerRoute path='/seller/product/:id' exact component={UpdateProduct} />
+          <SellerRoute path='/seller/dashboard' exact component={Dashboard} />
+          <SellerRoute path='/seller/products/activate' exact component={Activate} />
+          <SellerRoute path='/seller/products/deactivate' exact component={Deactivate} />
 
           {/* for testing */}
           <Route path='/package' exact component={Package}></Route>

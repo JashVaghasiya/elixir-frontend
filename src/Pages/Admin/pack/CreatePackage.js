@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { Button, Input, Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
@@ -42,37 +43,42 @@ const CreatePackage = () => {
     // }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Package</h2>
-                            {/* <Input className="mt-2" name="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Package Name" />
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="package" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Package</h2>
+                                    {/* <Input className="mt-2" name="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Package Name" />
                             <Input className="mt-2" name="txtDuration" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Enter Package Duration in Days" />
                             <Input className="mt-2" name="txtProduct" value={product} onChange={e => setProduct(e.target.value)} placeholder="Enter Number Products" />
                             <Input className="mt-2" name="txtPrice" value={price} onChange={e => setPrice(e.target.value)} placeholder="Enter Package Price" />
                             <Checkbox className="mt-2" onChange={e => setAds(e.target.checked)}>Seller can Make Ads of Product</Checkbox>
                             <Button className="mt-2" onClick={submitHandler} type="primary" block>Create Package</Button> */}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row className="mt-2">
-                        {packs.map((p) => (
-                            <Col key={p._id} md="3">
-                                <div>
-                                    <Alert variant="dark">{p.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/package/${p._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
+                                </Col>
+                            </Row>
+                            <hr></hr>
+                            <Row className="mt-2">
+                                {packs.map((p) => (
+                                    <Col key={p._id} md="3">
+                                        <div>
+                                            <Alert variant="dark">{p.name}
+                                                <span className="float-right text-center">
+                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/package/${p._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                </span>
+                                            </Alert>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
 
-                </Container>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

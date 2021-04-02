@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 const Cart = () => {
 
     const user = useSelector(state => state.user)
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState()
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Cart = () => {
     const getCart = async () => {
         await listCart(user._id, user.token).then(res => {
             console.log(res.data);
-            setProducts(res.data);
+            setProducts(res.data)
             setLoading(false)
         }).catch(err => {
             console.log(err);
@@ -28,13 +28,13 @@ const Cart = () => {
     }
 
     return (
-        <>
+        <div className="container-fluid">
             <Row>
                 {loading ? <p className="m-5">Loading...</p> : products && products.map(product => (
-                    <Col><UserProductCard product={product} /></Col>
+                    <UserProductCard product={product.productId} />
                 ))}
             </Row>
-        </>
+        </div>
     )
 }
 

@@ -4,7 +4,9 @@ import ActivationCard from '../../../components/cards/ActivationCard'
 import { Row } from 'react-bootstrap'
 import { getSeller } from '../../../functions/seller'
 import { activateUser } from '../../../functions/user'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
+import SellerHeader from './SellerHeader'
 
 const Deactivate = () => {
 
@@ -48,22 +50,27 @@ const Deactivate = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Deactivate Sellers</h3>
-                <div className="container-fluid">
-                    <Row>
-                        {
-                            loading ? "Loading..." : user && sellers && sellers.length > 0 ? sellers.map(p => (
-                                <div className="mt-22">
-                                    <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                                </div>
-                            )) : <p className="m-3">No Deactivated Sellers</p>
-                        }
-                    </Row>
-                </div>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="seller" />
+                <main>
+                    <div className="main__container">
+                        <h3 className="mb-3">Deactivate Sellers</h3>
+                        <div className="white2"></div>
+                        <SellerHeader active="seller" />
 
+                        <Row>
+                            {
+                                loading ? "Loading..." : user && sellers && sellers.length > 0 ? sellers.map(p => (
+                                    <div className="mt-22">
+                                        <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                    </div>
+                                )) : <p className="m-3">No Deactivated Sellers</p>
+                            }
+                        </Row>
+                    </div>
+                </main>
             </div>
         </div>
     )

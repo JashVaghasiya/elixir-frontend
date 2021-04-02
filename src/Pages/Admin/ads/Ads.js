@@ -4,42 +4,41 @@ import { Table } from 'react-bootstrap'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 
-const Orders = () => {
+const Ads = () => {
 
-    const [orders, setOrders] = useState([])
+    const [ads, setAds] = useState([])
 
     return (
-        <div id="body">
+        <div id="body" >
             <div className="container-main">
                 <Header />
-                <AdminSideNav active="order" />
+                <AdminSideNav active="ads" />
                 <main>
                     <div className="container-fluid">
-                        <h3>Orders</h3>
+                        <h3>Ads</h3>
                         <hr />
                         <Table striped bordered hover variant="dark" size="xm">
                             <thead>
                                 <tr>
-                                    <th>Order Id</th>
-                                    <th>Customer</th>
-                                    <th>Total Items</th>
-                                    <th>Amount</th>
+                                    <th>Ad Id</th>
+                                    <th>Seller Id</th>
+                                    <th>Seller Name</th>
+                                    <th>Product Id</th>
+                                    <th>Product Name</th>
+                                    <th>Days Remaining</th>
                                     <th>Paid</th>
-                                    <th>Paid At</th>
-                                    <th>Status</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {orders.length > 0 && orders.map(u => (
+                                {ads.length > 0 && ads.map(u => (
                                     <tr key={u._id}>
                                         <td>{u._id}</td>
-                                        <td>{u.name}</td>
-                                        <td>{u.email}</td>
-                                        <td>{u.package}</td>
+                                        <td>{u.sellerId}</td>
+                                        <td>{u.sellerName}</td>
+                                        <td>{u.productId}</td>
+                                        <td>{u.productName}</td>
                                         <td>{u.remainingDays}</td>
-                                        <td>{u.remainingProducts}</td>
-                                        <td>{u.activated ? "Active" : "Deactivated"}</td>
+                                        <td>{u.paidAt}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -51,4 +50,4 @@ const Orders = () => {
     )
 }
 
-export default Orders
+export default Ads

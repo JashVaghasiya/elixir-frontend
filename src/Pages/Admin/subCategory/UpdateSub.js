@@ -4,7 +4,8 @@ import { Button, Input } from 'antd'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { getCategories } from '../../../functions/category'
 import { getSub, updateSub } from '../../../functions/subCategory'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 
 const UpdateSub = ({ history, match }) => {
 
@@ -56,26 +57,31 @@ const UpdateSub = ({ history, match }) => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Sub Category</h2>
-                            <select style={{ width: "100%" }} className="form-control" onChange={(e) => setCategory(e.target.value)}>
-                                {
-                                    categories.map(c => (
-                                        <option key={c._id} selected={c._id === category} value={c._id}>{c.name}</option>
-                                    ))
-                                }
-                            </select>
-                            <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Update</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                </Container>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="sub" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Sub Category</h2>
+                                    <select style={{ width: "100%" }} className="form-control" onChange={(e) => setCategory(e.target.value)}>
+                                        {
+                                            categories.map(c => (
+                                                <option key={c._id} selected={c._id === category} value={c._id}>{c.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import UserProductCard from '../../../components/cards/UserProductCard'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { getProducts } from '../../../functions/product'
 
 const Products = ({ history }) => {
@@ -26,24 +27,30 @@ const Products = ({ history }) => {
         })
     }
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Products</h3>
-                <div className="container-fluid">
-                    <Row>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="product" />
+                <main>
+                    <div className="main__container">
+                        <h3 className="mb-3">Products</h3>
+                        <div className="container-fluid">
+                            <Row>
 
-                        {
-                            loading ? "Loading..." :
-                                user && products.length > 0 ? products.map(p => (
-                                    <div className="m-1">
-                                        <UserProductCard product={p} />
-                                    </div>
-                                )) : ''
-                        }
+                                {
+                                    loading ? "Loading..." :
+                                        user && products.length > 0 ? products.map(p => (
+                                            <div className="m-1">
+                                                <UserProductCard product={p} />
+                                            </div>
+                                        )) : ''
+                                }
 
-                    </Row>
-                </div>
+                            </Row>
+                        </div>
+                    </div>
+
+                </main>
             </div>
         </div>
     )

@@ -20,7 +20,7 @@ const SideNav = () => {
                 <Menu.Item key="dashboard">
                     <Link to="/seller/dashboard">Dashboard</Link>
                 </Menu.Item>
-                <SubMenu title="product">
+                <SubMenu title="Product">
                     <Menu.Item key="cerateProduct">
                         {seller && seller.remainingProducts > 0 ? <Link to="/seller/product">Create Product</Link> : 'Out of Limit'}
                     </Menu.Item>

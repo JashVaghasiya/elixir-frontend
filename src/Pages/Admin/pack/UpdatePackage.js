@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
-import { } from '../../../functions/coupon'
 import { Button, Input, Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
@@ -67,25 +67,30 @@ const UpdatePackage = ({ match, history }) => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Package</h2>
-                            <Input className="mt-2" maxlength="10" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Package Name" />
-                            <Input className="mt-2" maxlength="3" id="txtDuration" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Enter Package Duration in Days" />
-                            <Input className="mt-2" maxlength="2" id="txtProduct" value={products} onChange={e => setProducts(e.target.value)} placeholder="Enter Number Products" />
-                            <Input className="mt-2" maxlength="5" id="txtPrice" value={price} onChange={e => setPrice(e.target.value)} placeholder="Enter Package Price" />
-                            <Checkbox className="mt-2" checked={ads} onChange={e => setAds(e.target.checked)}>Seller can Make Ads of Product</Checkbox>
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Package</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <Row className="mt-2">
-                    </Row>
-                </Container>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="package" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Package</h2>
+                                    <Input className="mt-2" maxlength="10" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Package Name" />
+                                    <Input className="mt-2" maxlength="3" id="txtDuration" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Enter Package Duration in Days" />
+                                    <Input className="mt-2" maxlength="2" id="txtProduct" value={products} onChange={e => setProducts(e.target.value)} placeholder="Enter Number Products" />
+                                    <Input className="mt-2" maxlength="5" id="txtPrice" value={price} onChange={e => setPrice(e.target.value)} placeholder="Enter Package Price" />
+                                    <Checkbox className="mt-2" checked={ads} onChange={e => setAds(e.target.checked)}>Seller can Make Ads of Product</Checkbox>
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Package</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                            <Row className="mt-2">
+                            </Row>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

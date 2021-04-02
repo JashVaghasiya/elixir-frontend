@@ -6,7 +6,8 @@ import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { getStates } from '../../../functions/state'
 import { Link } from 'react-router-dom'
 import { createCity, deleteCity, getCities } from '../../../functions/city'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 
 const City = () => {
 
@@ -74,44 +75,50 @@ const City = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="3">
-                        <Col className="float-left">
-                            <h2>City</h2>
-                            <Select style={{ width: "100%" }} id="txtState" className="mt-2" onChange={(value) => setState(value)} defaultValue="Select State">
-                                {
-                                    states.map(c => (
-                                        <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
-                                    ))
-                                }
-                            </Select>
-                            <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City Name" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row className="mt-2">
-                        {cities.map((s) => (
-                            <Col key={s._id} md="3" className="m-2">
-                                <div>
-                                    <Alert variant="dark">{s.city}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/city/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCities(s._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="city" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="3">
+                                <Col className="float-left">
+                                    <h2>City</h2>
+                                    <Select style={{ width: "100%" }} id="txtState" className="mt-2" onChange={(value) => setState(value)} defaultValue="Select State">
+                                        {
+                                            states.map(c => (
+                                                <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
+                                            ))
+                                        }
+                                    </Select>
+                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City Name" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                            <hr></hr>
+                            <Row className="mt-2">
+                                {cities.map((s) => (
+                                    <Col key={s._id} md="3" className="m-2">
+                                        <div>
+                                            <Alert variant="dark">{s.city}
+                                                <span className="float-right text-center">
+                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/city/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCities(s._id)} /></Tooltip>
+                                                </span>
+                                            </Alert>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
 
-                </Container>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
+
     )
 }
 

@@ -6,7 +6,8 @@ import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { getCategories } from '../../../functions/category'
 import { Link } from 'react-router-dom'
 import { createSub, deleteSub, getSubs } from '../../../functions/subCategory'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 
 const Sub = () => {
 
@@ -76,39 +77,44 @@ const Sub = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="3">
-                        <Col className="float-left">
-                            <h2>Sub Category</h2>
-                            <Select style={{ width: "100%" }} className="mt-2" onChange={(value) => setCategory(value)} defaultValue="Select Category">
-                                {
-                                    categories.map(c => (
-                                        <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
-                                    ))
-                                }
-                            </Select>
-                            <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row>
-                        {loading ? "Loading..." : subs.map((s) => (
-                            <Col key={s._id} md="3">
-                                <Alert variant="dark">{s.name}
-                                    <span className="float-right text-center">
-                                        <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                        <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
-                                    </span>
-                                </Alert>
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="sub" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="3">
+                                <Col className="float-left">
+                                    <h2>Sub Category</h2>
+                                    <Select style={{ width: "100%" }} className="mt-2" onChange={(value) => setCategory(value)} defaultValue="Select Category">
+                                        {
+                                            categories.map(c => (
+                                                <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
+                                            ))
+                                        }
+                                    </Select>
+                                    <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                            <hr></hr>
+                            <Row>
+                                {loading ? "Loading..." : subs.map((s) => (
+                                    <Col key={s._id} md="3">
+                                        <Alert variant="dark">{s.name}
+                                            <span className="float-right text-center">
+                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
+                                            </span>
+                                        </Alert>
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

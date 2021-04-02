@@ -4,7 +4,8 @@ import { Button, Input, Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { createState, deleteState, getStates } from '../../../functions/state'
 
 const State = () => {
@@ -57,35 +58,40 @@ const State = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>States</h2>
-                            <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter State Name" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert State</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row className="mt-2">
-                        {user && states.length > 0 && states.map((c) => (
-                            <Col key={c._id} md="3">
-                                <div>
-                                    <Alert variant="dark">{c.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/state/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteStates(c._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="state" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>States</h2>
+                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter State Name" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert State</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                            <hr></hr>
+                            <Row className="mt-2">
+                                {user && states.length > 0 && states.map((c) => (
+                                    <Col key={c._id} md="3">
+                                        <div>
+                                            <Alert variant="dark">{c.name}
+                                                <span className="float-right text-center">
+                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/state/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteStates(c._id)} /></Tooltip>
+                                                </span>
+                                            </Alert>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
 
-                </Container>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

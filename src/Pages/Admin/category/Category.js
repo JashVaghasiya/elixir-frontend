@@ -5,7 +5,8 @@ import { CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { createCategory, deleteCategory, getCategories } from '../../../functions/category'
 import { Link } from 'react-router-dom'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import Chart from '../Chart/Chart'
 
 const Category = () => {
@@ -68,35 +69,38 @@ const Category = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Category</h2>
-                            <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                    <hr></hr>
-                    <Row className="mt-2">
-                        {loading ? "Loading..." : categories.map((c) => (
-                            <Col key={c._id} md="3">
-                                <div>
-                                    <Alert variant="dark">{c.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/category/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCategories(c._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </div>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="category" />
+                <main>
+                    <Container fluid className="mt-2">
+                        <Row md="4">
+                            <Col>
+                                <h2>Category</h2>
+                                <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
+                                <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                             </Col>
-                        ))}
-                    </Row>
+                        </Row>
+                        <hr></hr>
+                        <Row className="mt-2">
+                            {loading ? "Loading..." : categories.map((c) => (
+                                <Col key={c._id} md="3">
+                                    <div>
+                                        <Alert variant="dark">{c.name}
+                                            <span className="float-right text-center">
+                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/category/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCategories(c._id)} /></Tooltip>
+                                            </span>
+                                        </Alert>
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
 
-                </Container>
+                    </Container>
+                </main>
             </div>
         </div>
     )

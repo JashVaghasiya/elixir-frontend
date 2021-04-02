@@ -4,7 +4,8 @@ import ActivationCard from '../../../components/cards/ActivationCard'
 import { Row } from 'react-bootstrap'
 import { getUsers } from '../../../functions/user'
 import { deactivateUser } from '../../../functions/user'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 
 const Activated = () => {
 
@@ -46,22 +47,27 @@ const Activated = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Activate Users</h3>
-                <div className="container-fluid">
-                    <Row>
-                        {
-                            loading ? "Loading..." : user && users.length > 0 ? users.map(p => (
-                                <div className="mt-2">
-                                    <ActivationCard key={p._id} p={p} setId={setActiveId} />
-                                </div>
-                            )) : <div>
-                                <p className="m-3">No Active Sellers</p></div>
-                        }
-                    </Row>
-                </div>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="user" />
+                <main>
+                    <div className="container-fluid">
+                        <h3 className="mb-3">Activate Users</h3>
+
+                        <Row>
+                            {
+                                loading ? "Loading..." : user && users.length > 0 ? users.map(p => (
+                                    <div className="mt-2">
+                                        <ActivationCard key={p._id} p={p} setId={setActiveId} />
+                                    </div>
+                                )) : <div>
+                                    <p className="m-3">No Active Sellers</p></div>
+                            }
+                        </Row>
+
+                    </div>
+                </main>
             </div>
         </div>
     )

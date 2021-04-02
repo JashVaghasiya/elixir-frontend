@@ -24,14 +24,15 @@ const ProductDetails = ({ match, history }) => {
     const [wishlistProduct, setWishlistProduct] = useState(null)
 
     useEffect(() => {
-        getProducts()
         getWishlist()
         getCart()
-    }, [quantity])
+        getProducts()
+    }, [])
 
     const getProducts = async () => {
         setLoading(true)
         await getProduct(match.params.id).then(res => {
+            console.log(res.data);
             setProduct(res.data)
             setLoading(false)
         }).catch(err => {
@@ -40,30 +41,34 @@ const ProductDetails = ({ match, history }) => {
     }
 
     const getWishlist = async () => {
-        await listWishlist(user.token).then(res => {
+        await listWishlist(user && user.token).then(res => {
             setWishlist(res.data.wishlist);
-            setWishlistProduct(wishlist.filter(w => w.productId === product._id))
+            console.log("Wishlist: ", res.data.wishlist);
+            const result = wishlist.find(w => w.productId === product._id)
+            setWishlistProduct(result)
         }).catch(err => {
             console.log(err);
         })
     }
 
     const getCart = async () => {
-        await listCart(user._id, user.token).then(res => {
+        await listCart(user && user._id, user && user.token).then(res => {
             setCart(res.data);
+            console.log("Cart: ", res.data);
             setCartProduct(cart.filter(c => c.productId === product._id))
         }).catch(err => {
             console.log(err);
         })
     }
 
-    const handleAddToCart = () => {
-        addToCart(user._id, product._id, quantity, user.token)
+    const handleAddToCart = async () => {
+        await addToCart(user._id, product._id, quantity, user.token)
         history.push('/cart')
     }
 
-    const handleWishlist = () => {
-        addToWishlist(user._id, product._id, user.token)
+    const handleWishlist = async () => {
+        await addToWishlist(user && user._id, product._id, user && user.token)
+        history.push('/user/wishlist')
     }
     const handleBuyNow = () => {
         //
@@ -72,6 +77,7 @@ const ProductDetails = ({ match, history }) => {
     return (
         <div>
             {loading ? "Loading..." :
+
                 <div className="row">
                     <div className="col-md-4" style={{ marginLeft: 27, marginTop: 20, padding: 10 }}>
                         {
@@ -79,7 +85,7 @@ const ProductDetails = ({ match, history }) => {
                                 (
                                     <Carousel>
 
-                                        {product.images && product.images.map(i => <Carousel.Item className="carousel-main"> <Image style={{ height: 600, width: 300 }} className="d-block w-100" alt={i.name} src={i.url} key={i.url} /></Carousel.Item>)}
+                                        {product.images && product.images.map(i => <Carousel.Item key={i.name} className="carousel-main"> <Image style={{ height: 600, width: 300 }} className="d-block w-100" alt={i.name} src={i.url} key={i.url} /></Carousel.Item>)}
 
                                     </Carousel>
                                 ) : ""
@@ -99,7 +105,7 @@ const ProductDetails = ({ match, history }) => {
                                     <strong> Category</strong><span className="" style={{ float: 'right' }}><Link>{product && product.category.name}</Link></span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <strong> Sub Category</strong><span className="label" style={{ float: 'right' }}>{product && product.subs.map(s => (<Link to={``} style={{ marginLeft: 10 }}>{s.name}</Link>))}</span>
+                                    <strong> Sub Category</strong><span className="label" style={{ float: 'right' }}>{product && product.subs.map(s => (<Link key={s._id} to={``} style={{ marginLeft: 10 }}>{s.name}</Link>))}</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <strong>Price</strong><span className="" style={{ float: 'right', marginTop: "10px" }}>{product.price}</span>

@@ -4,6 +4,7 @@ import { Alert, Button, Input } from 'antd'
 import { Col, Container, Row } from 'react-bootstrap'
 import { getCity, updateCity } from '../../../functions/city'
 import AdminSideNav from '../../../components/nav/AdminSideNav'
+import Header from '../../../components/nav/HeaderMain'
 import { getStates } from '../../../functions/state'
 
 
@@ -58,27 +59,32 @@ const UpdateCity = ({ history, match }) => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Update City</h2>
-                            <select style={{ width: "100%" }} className="form-control" onChange={(e) => setState(e.target.value)}>
-                                {
-                                    states.map(c => (
-                                        <option key={c._id} selected={c._id === state} value={c._id}>{c.name}</option>
-                                    ))
-                                }
-                            </select>
-                            <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City" />
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="city" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Update City</h2>
+                                    <select style={{ width: "100%" }} className="form-control" onChange={(e) => setState(e.target.value)}>
+                                        {
+                                            states.map(c => (
+                                                <option key={c._id} selected={c._id === state} value={c._id}>{c.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City" />
 
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Update City</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                </Container>
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update City</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

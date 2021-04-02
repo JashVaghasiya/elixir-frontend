@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import ActivationCard from '../../../components/cards/ActivationCard'
 import { Row } from 'react-bootstrap'
 import { activateUser, getUsers } from '../../../functions/user'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 
 const Deactivate = () => {
 
@@ -47,22 +48,26 @@ const Deactivate = () => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Deactivate Users</h3>
-                <div className="container-fluid">
-                    <Row>
-                        {
-                            loading ? "Loading..." : user && users && users.length > 0 ? users.map(p => (
-                                <div className="mt-2">
-                                    <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                                </div>
-                            )) : <p className="m-3">Empty</p>
-                        }
-                    </Row>
-                </div>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="user" />
+                <main>
+                    <div className="container-fluid">
+                        <h3 className="mb-3">Deactivate Users</h3>
 
+                        <Row>
+                            {
+                                loading ? "Loading..." : user && users && users.length > 0 ? users.map(p => (
+                                    <div className="mt-2">
+                                        <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                    </div>
+                                )) : <p className="m-3">Empty</p>
+                            }
+                        </Row>
+
+                    </div>
+                </main>
             </div>
         </div>
     )

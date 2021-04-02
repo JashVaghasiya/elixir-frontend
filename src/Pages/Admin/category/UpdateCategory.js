@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Input } from 'antd'
-import { Container, Alert } from 'react-bootstrap'
+import { Container, Alert, Row, Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { getCategory, updateCategory } from '../../../functions/category'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 const UpdateCategory = ({ history, match }) => {
 
     const [name, setName] = useState(null)
@@ -45,14 +46,21 @@ const UpdateCategory = ({ history, match }) => {
         }
     }
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid>
-                    <Input id="txtName" maxlength="25" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
-                    <Button name="btnLogin" onClick={() => submitHandler(match.params.id)} type="primary">Update</Button>
-                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                </Container>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="category" />
+                <main>
+                    <Container fluid className="mt-2">
+                        <Row md="4">
+                            <Col>
+                                <Input id="txtName" maxlength="25" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
+                                <Button name="btnLogin" onClick={() => submitHandler(match.params.id)} type="primary">Update</Button>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
+                    </Container>
+                </main>
             </div>
         </div>
     )

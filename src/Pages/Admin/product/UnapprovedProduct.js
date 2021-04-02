@@ -2,7 +2,8 @@ import { Row, Col } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ApprovalCard from '../../../components/cards/ApprovalCard'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { getUnapprovedProduct, approveProduct, rejectProduct } from '../../../functions/product'
 
 const UnapprovedProduct = ({ history }) => {
@@ -56,22 +57,27 @@ const UnapprovedProduct = ({ history }) => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Unapproved Products</h3>
-                <div className="container-fluid">
-                    <Row>
-                        {
-                            loading ? <p className="m-3">Loading...</p> :
-                                user && products.length > 0 ? products.map(p => (
-                                    <div className="m-2">
-                                        <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
-                                    </div>
-                                )) : <p className="m-3">No Unapproved Products</p>
-                        }
-                    </Row>
-                </div>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="product" />
+                <main>
+                    <div className="container-fluid">
+                        <h3 className="mb-3">Unapproved Products</h3>
+                        <div className="container-fluid">
+                            <Row>
+                                {
+                                    loading ? <p className="m-3">Loading...</p> :
+                                        user && products.length > 0 ? products.map(p => (
+                                            <div className="m-2">
+                                                <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
+                                            </div>
+                                        )) : <p className="m-3">No Unapproved Products</p>
+                                }
+                            </Row>
+                        </div>
+                    </div>
+                </main>
             </div>
         </div>
     )

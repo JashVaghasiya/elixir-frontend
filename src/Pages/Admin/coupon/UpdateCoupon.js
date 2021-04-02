@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Input } from 'antd'
 import { Alert, Col, Container, Row } from 'react-bootstrap'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
 import { getCoupon, updateCoupon } from '../../../functions/coupon'
 
 
@@ -68,21 +69,26 @@ const UpdateCoupon = ({ history, match }) => {
     }
 
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <Container fluid className="mt-2">
-                    <Row md="4">
-                        <Col className="float-left">
-                            <h2>Update Coupon</h2>
-                            <Input className="mt-2" maxlength="15" id="txtName" value={name} disabled onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
-                            <Input className="mt-2" maxlength="2" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
-                            <Input className="mt-2" maxlength="3" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
-                            <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Coupon</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Col>
-                    </Row>
-                </Container>
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="coupon" />
+                <main>
+                    <div className="container-fluid">
+                        <Container fluid className="mt-2">
+                            <Row md="4">
+                                <Col className="float-left">
+                                    <h2>Update Coupon</h2>
+                                    <Input className="mt-2" maxlength="15" id="txtName" value={name} disabled onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
+                                    <Input className="mt-2" maxlength="2" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
+                                    <Input className="mt-2" maxlength="3" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
+                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Coupon</Button>
+                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                </main>
             </div>
         </div>
     )

@@ -4,12 +4,17 @@ import ActivationCard from '../../../components/cards/ActivationCard'
 import { Row } from 'react-bootstrap'
 import { getSeller } from '../../../functions/seller'
 import { activateUser, deactivateUser } from '../../../functions/user'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
+import Header from '../../../components/nav/HeaderMain'
+import SellerHeader from './SellerHeader'
+
+import { Link } from 'react-router-dom'
 
 const Activated = () => {
 
     const [sellers, setSellers] = useState([])
     const user = useSelector(state => state.user)
+
     const [activeId, setActiveId] = useState("")
     const [loading, setLoading] = useState(false)
     const [loaded, setLoader] = useState(true)
@@ -48,24 +53,33 @@ const Activated = () => {
         setActiveId("")
     }
 
+
+
     return (
-        <div>
-            <AdminSideNav />
-            <div className="page-content">
-                <h3 className="mb-3">Activate Sellers</h3>
-                <div className="container-fluid">
-                    <Row>
-                        {
-                            loading ? "Loading..." : user && sellers.length > 0 ? sellers.map(p => (
-                                <div className="m-2">
-                                    <ActivationCard key={p._id} p={p} setId={setActiveId} />
+        <div id="body">
+            <div className="container-main">
+                <Header />
+                <AdminSideNav active="seller" />
+                <main>
+                    <div className="main__container">
+                        <h3 className="mb-3">Activate Sellers</h3>
+                        <div className="white2"></div>
+                        <SellerHeader active="activated" />
+
+                        <Row>
+                            {
+                                loading ? "Loading..." : user && sellers.length > 0 ? sellers.map(p => (
+                                    <div className="m-2">
+                                        <ActivationCard key={p._id} p={p} setId={setActiveId} />
+                                    </div>
+                                )) : <div>
+                                    <p className="m-3">No Activated Sellers</p>
                                 </div>
-                            )) : <div>
-                                <p className="m-3">No Activated Sellers</p>
-                            </div>
-                        }
-                    </Row>
-                </div>
+                            }
+                        </Row>
+
+                    </div>
+                </main>
             </div>
         </div>
     )
