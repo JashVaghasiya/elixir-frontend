@@ -5,6 +5,7 @@ import ApprovalCard from '../../../components/cards/ApprovalCard'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import { getUnapprovedProduct, approveProduct, rejectProduct } from '../../../functions/product'
+import { Link } from 'react-router-dom'
 
 const UnapprovedProduct = ({ history }) => {
 
@@ -62,20 +63,23 @@ const UnapprovedProduct = ({ history }) => {
                 <Header />
                 <AdminSideNav active="product" />
                 <main>
-                    <div className="container-fluid">
-                        <h3 className="mb-3">Unapproved Products</h3>
-                        <div className="container-fluid">
-                            <Row>
-                                {
-                                    loading ? <p className="m-3">Loading...</p> :
-                                        user && products.length > 0 ? products.map(p => (
-                                            <div className="m-2">
-                                                <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
-                                            </div>
-                                        )) : <p className="m-3">No Unapproved Products</p>
-                                }
-                            </Row>
+                    <div className="main__container">
+                        <div className="header__link__container">
+                            <div id="all" className="header__link"><Link to="/admin/product/1"><p>All Products</p></Link></div>
+                            <div id="unapproved" className="header__link header__active__link"><Link to="/admin/product/unapproved"><p>Unapproved Products</p></Link></div>
                         </div>
+                        <h3>Unapproved Products</h3>
+                        <div className="white2"></div>
+                        <Row>
+                            {
+                                loading ? <p className="m-3">Loading...</p> :
+                                    user && products.length > 0 ? products.map(p => (
+                                        <div className="m-2">
+                                            <ApprovalCard key={p._id} p={p} approve={setApproveId} reject={setRejectId} />
+                                        </div>
+                                    )) : <p className="m-3">No Unapproved Products</p>
+                            }
+                        </Row>
                     </div>
                 </main>
             </div>

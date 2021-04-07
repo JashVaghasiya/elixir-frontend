@@ -3,18 +3,18 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../dashboard/css/styles.css'
 
-const SellerHeader = ({ active }) => {
+const SellerHeader = ({ activated }) => {
 
     useEffect(() => {
-        let link = document.getElementById(active)
+        let link = document.getElementById(activated)
         link.classList.add("header__active__link")
-    }, [active])
+    }, [activated])
 
     return (
         <div className="header__link__container">
-            <div id="all" className="header__link"><Link to="/admin/sellers"><p>All Sellers</p></Link></div>
+            <div id="all" className="header__link"><Link to="/admin/sellers/1"><p>All Sellers</p></Link></div>
             <div id="activated" className="header__link"><Link to="/admin/seller/activated"><p>Activated</p></Link></div>
-            <div id="deactivated" className="header__link"><Link to="/admin/seller/deactivated"><p>Deactivated</p></Link></div>
+            <div id="deactivate" className="header__link"><Link to="/admin/seller/deactivated"><p>Deactivated</p></Link></div>
         </div>
     )
 }

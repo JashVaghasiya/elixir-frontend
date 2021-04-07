@@ -587,12 +587,18 @@ p {
 }
 
 .header__link {
-  margin: 10px;
+  margin-bottom: 20px;
+  margin-right: 15px;
+  padding-top: 0px;
   color: #fff;
 }
 
-.header__active__link>Link {
-  color: #fff;
+.header__link>Link>p:hover {
+  border-bottom: 2px solid #fff;
+}
+
+.header__active__link {
+  border-bottom: 2px solid #fff;
 }
 
 .main__container>h3 {

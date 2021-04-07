@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Input, Select, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { getStates } from '../../../functions/state'
 import { Link } from 'react-router-dom'
 import { createCity, deleteCity, getCities } from '../../../functions/city'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import { inputField } from '../../../main'
+
 
 const City = () => {
 
@@ -19,6 +21,7 @@ const City = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadAll()
     }, [])
 
@@ -80,40 +83,52 @@ const City = () => {
                 <Header />
                 <AdminSideNav active="city" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="3">
-                                <Col className="float-left">
-                                    <h2>City</h2>
-                                    <Select style={{ width: "100%" }} id="txtState" className="mt-2" onChange={(value) => setState(value)} defaultValue="Select State">
-                                        {
-                                            states.map(c => (
-                                                <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
-                                            ))
-                                        }
-                                    </Select>
-                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City Name" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                                </Col>
-                            </Row>
-                            <hr></hr>
-                            <Row className="mt-2">
-                                {cities.map((s) => (
-                                    <Col key={s._id} md="3" className="m-2">
-                                        <div>
-                                            <Alert variant="dark">{s.city}
-                                                <span className="float-right text-center">
-                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/city/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCities(s._id)} /></Tooltip>
-                                                </span>
-                                            </Alert>
+                    <div className="main__container">
+                        <h3>City</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Select State</h5>
+                                                <select id="txtState" className="input-tag focus" onChange={(e) => setState(e.target.value)} defaultValue="Select State">
+                                                    {
+                                                        states.map(c => (
+                                                            <option key={c._id} value={c._id}>{c.name}</option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </div>
                                         </div>
-                                    </Col>
-                                ))}
-                            </Row>
-
-                        </Container>
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter City Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Create City" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
+                        <div className="white2"></div>
+                        <Row className="mt-2">
+                            {cities.map((s) => (
+                                <Col key={s._id} md="6" xl="4" sm="6">
+                                    <div>
+                                        <Alert variant="dark">{s.city}
+                                            <span className="float-right text-center">
+                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/city/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCities(s._id)} /></Tooltip>
+                                            </span>
+                                        </Alert>
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
                     </div>
                 </main>
             </div>

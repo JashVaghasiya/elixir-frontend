@@ -16,7 +16,6 @@ export const createSeller = async (packageData, authtoken) => {
     })
 }
 
-
 export const findUser = async (authtoken) => {
     return await axios.post('http://localhost:8000/api/user/login', {}, {
         headers: {
@@ -33,45 +32,8 @@ export const getCurrentUser = async (authtoken) => {
     })
 }
 
-// add to cart
-// user._id, product._id, quantity, product.price, user.token
-export const addToCart = async (userId, productId, qty, authtoken) => {
-    return await axios.post(`http://localhost:8000/api/user/cart/add`, { userId, productId, qty }, {
-        headers: {
-            authtoken: authtoken
-        }
-    })
-}
-
-//add to wishlist
-
-export const addToWishlist = async (id, productId, authtoken) => {
-    return await axios.put(`http://localhost:8000/api/user/wishlist/add`, { id, productId }, {
-        headers: {
-            authtoken: authtoken
-        }
-    })
-}
-
-
-export const listWishlist = async (authtoken) => {
-    return await axios.get(`http://localhost:8000/api/user/wishlist`, {
-        headers: {
-            authtoken: authtoken
-        }
-    })
-}
-
-export const listCart = async (id, authtoken) => {
-    return await axios.get(`http://localhost:8000/api/user/cart/${id}`, {
-        headers: {
-            authtoken: authtoken
-        }
-    })
-}
-
-export const getUsers = async (authtoken) => {
-    return await axios.get(`http://localhost:8000/api/admin/users`, {
+export const getUsers = async (limits, pageNumber, sortName, manner, authtoken) => {
+    return await axios.get(`http://localhost:8000/api/admin/users?pageSize=${limits}&pageNumber=${pageNumber}&sortName=${sortName}&manner=${manner}`, {
         headers: {
             authtoken: authtoken
         }
@@ -79,7 +41,7 @@ export const getUsers = async (authtoken) => {
 }
 
 export const deactivateUser = async (id, authtoken) => {
-    return await axios.put(`http://localhost:8000/api/admin/user/deactivate/${id}`, {}, {
+    return await axios.put(`http://localhost:8000/api/admin/deactivate/${id}`, {}, {
         headers: {
             authtoken: authtoken
         }
@@ -87,7 +49,7 @@ export const deactivateUser = async (id, authtoken) => {
 }
 
 export const activateUser = async (id, authtoken) => {
-    return await axios.put(`http://localhost:8000/api/admin/user/activate/${id}`, {}, {
+    return await axios.put(`http://localhost:8000/api/admin/activate/${id}`, {}, {
         headers: {
             authtoken: authtoken
         }

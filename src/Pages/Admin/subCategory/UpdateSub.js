@@ -6,6 +6,8 @@ import { getCategories } from '../../../functions/category'
 import { getSub, updateSub } from '../../../functions/subCategory'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const UpdateSub = ({ history, match }) => {
 
@@ -17,6 +19,7 @@ const UpdateSub = ({ history, match }) => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadAll()
     }, [])
 
@@ -62,24 +65,37 @@ const UpdateSub = ({ history, match }) => {
                 <Header />
                 <AdminSideNav active="sub" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>Sub Category</h2>
-                                    <select style={{ width: "100%" }} className="form-control" onChange={(e) => setCategory(e.target.value)}>
-                                        {
-                                            categories.map(c => (
-                                                <option key={c._id} selected={c._id === category} value={c._id}>{c.name}</option>
-                                            ))
-                                        }
-                                    </select>
-                                    <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                                </Col>
-                            </Row>
-                        </Container>
+                    <div className="main__container">
+                        <h3>Sub-Category</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Select Category</h5>
+                                                <select className="input-tag" onChange={(e) => setCategory(e.target.value)} defaultValue="Select Category">
+                                                    {
+                                                        categories.map(c => (
+                                                            <option key={c._id} selected={c._id === category} value={c._id}>{c.name}</option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter SubCategory Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update Sub-Category" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
                     </div>
                 </main>
             </div>

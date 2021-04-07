@@ -29,6 +29,7 @@ const CreateProduct = ({ history }) => {
     const [form, setForm] = useState('syrup')
     const [qtyPerPack, setQty] = useState('')
     const [stock, setStock] = useState('')
+    const [submit, setSubmit] = useState(true)
 
 
     useEffect(() => {
@@ -89,7 +90,7 @@ const CreateProduct = ({ history }) => {
             <SideNav />
             <div className="page-content">
                 <h2>Create Product</h2>
-                <UploadImage uploadedFile={images} setUploadedFile={setImages} />
+                <UploadImage uploadedFile={images} setUploadedFile={setImages} setSubmit={setSubmit} />
                 <Input className='form-control mt-2' value={name} onChange={e => setName(e.target.value)} placeholder="Enter Product Name" />
                 <Input.TextArea rows={4} className='form-control mt-2' value={description} onChange={e => setDescription(e.target.value)} placeholder="Enter Description" />
                 <label className='mr-2'>Type:</label>
@@ -128,7 +129,7 @@ const CreateProduct = ({ history }) => {
 
                 <Input className='form-control mt-2' value={stock} onChange={e => setStock(e.target.value)} placeholder="Enter Quantity" />
 
-                <Button className='mt-3' onClick={submitHandler} size="large" type="primary">Add Product</Button>
+                <Button className='mt-3' onClick={submitHandler} size="large" type="primary" disabled={submit}>Add Product</Button>
             </div>
         </div>
     )

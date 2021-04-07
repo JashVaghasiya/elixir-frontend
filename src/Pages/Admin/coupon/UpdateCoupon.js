@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Input } from 'antd'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import { getCoupon, updateCoupon } from '../../../functions/coupon'
-
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const UpdateCoupon = ({ history, match }) => {
 
@@ -16,6 +16,7 @@ const UpdateCoupon = ({ history, match }) => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadAll()
     }, [])
 
@@ -74,19 +75,37 @@ const UpdateCoupon = ({ history, match }) => {
                 <Header />
                 <AdminSideNav active="coupon" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>Update Coupon</h2>
-                                    <Input className="mt-2" maxlength="15" id="txtName" value={name} disabled onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
-                                    <Input className="mt-2" maxlength="2" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
-                                    <Input className="mt-2" maxlength="3" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Coupon</Button>
+                    <div className="main__container">
+                        <h3>Coupon</h3>
+                        <div class="content">
+                            <Row md="2" xl="3">
+                                <Col>
+
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Coupon Name</h5>
+                                                <input class="input-tag" maxlength="15" id="txtName" value={name} disabled onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Coupon Discount in %</h5>
+                                                <input class="input-tag" maxlength="2" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Coupon Expiry Date in Days</h5>
+                                                <input class="input-tag" min="0" maxlength="3" id="txtTime" value={time} onChange={e => setTime(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update Coupon" />
+                                    </div>
                                     {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                                 </Col>
                             </Row>
-                        </Container>
+                        </div>
                     </div>
                 </main>
             </div>

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { createCoupon, getCoupons, deleteCoupon } from '../../../functions/coupon'
-import { Button, Input, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const Coupon = () => {
 
@@ -18,6 +20,7 @@ const Coupon = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadCoupon()
     }, [user])
 
@@ -97,35 +100,54 @@ const Coupon = () => {
                 <Header />
                 <AdminSideNav active="coupon" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>Coupon</h2>
-                                    <Input className="mt-2" maxlength="15" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Coupon Name" />
-                                    <Input className="mt-2" min="0" maxlength="2" type="number" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="Enter Coupon Discount in %" />
-                                    <Input className="mt-2" min="0" maxlength="3" type="number" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="Enter Coupon Expiry Date in Days" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Create Coupon</Button>
+                    <div className="main__container">
+                        <h3>Coupon</h3>
+                        <div className="white2"></div>
+                        <div class="content">
+                            <Row md="2" xl="3">
+                                <Col>
+
+                                    <div class="form">
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter Coupon Name</h5>
+                                                <input class="input-tag" maxlength="15" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter Coupon Discount in %</h5>
+                                                <input class="input-tag" min="0" maxlength="2" type="number" id="txtDiscount" value={discount} onChange={e => setDiscount(e.target.value)} placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter Coupon Expiry Date in Days</h5>
+                                                <input class="input-tag" min="0" maxlength="3" type="number" id="txtTime" value={time} onChange={e => setTime(e.target.value)} placeholder="" />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Create Coupon" />
+                                    </div>
+
                                     {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                                 </Col>
                             </Row>
-                            <hr></hr>
-                            <Row className="mt-2">
-                                {coupon.map((c) => (
-                                    <Col key={c._id} md="3">
-                                        <div>
-                                            <Alert variant="dark">{c.name}
-                                                <span className="float-right text-center">
-                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>
-                                                </span>
-                                            </Alert>
-                                        </div>
-                                    </Col>
-                                ))}
-                            </Row>
-
-                        </Container>
+                        </div>
+                        <div className="white2"></div>
+                        <Row className="mt-3">
+                            {coupon.map((c) => (
+                                <Col key={c._id} md="6" xl="4" sm="6">
+                                    <div>
+                                        <Alert variant="dark">{c.name}
+                                            <span className="float-right text-center">
+                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>
+                                            </span>
+                                        </Alert>
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
                     </div>
                 </main>
             </div>

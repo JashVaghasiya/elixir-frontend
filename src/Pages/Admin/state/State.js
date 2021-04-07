@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import { createState, deleteState, getStates } from '../../../functions/state'
+import { inputField } from '../../../main'
 
 const State = () => {
     const [name, setName] = useState(null)
@@ -15,6 +16,7 @@ const State = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadStates()
     }, [])
 
@@ -63,33 +65,40 @@ const State = () => {
                 <Header />
                 <AdminSideNav active="state" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>States</h2>
-                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter State Name" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert State</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                                </Col>
-                            </Row>
-                            <hr></hr>
-                            <Row className="mt-2">
-                                {user && states.length > 0 && states.map((c) => (
-                                    <Col key={c._id} md="3">
-                                        <div>
-                                            <Alert variant="dark">{c.name}
-                                                <span className="float-right text-center">
-                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/state/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteStates(c._id)} /></Tooltip>
-                                                </span>
-                                            </Alert>
+                    <div className="main__container">
+                        <h3>States</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter State Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
                                         </div>
-                                    </Col>
-                                ))}
-                            </Row>
-
-                        </Container>
+                                        <input onClick={() => submitHandler()} class="btn-main" value="Create State" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
+                        <div className="white2"></div>
+                        <Row className="mt-3">
+                            {user && states.length > 0 && states.map((c) => (
+                                <Col key={c._id} md="6" xl="4" sm="6">
+                                    <div>
+                                        <Alert variant="dark">{c.name}
+                                            <span className="float-right text-center">
+                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/state/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteStates(c._id)} /></Tooltip>
+                                            </span>
+                                        </Alert>
+                                    </div>
+                                </Col>
+                            ))}
+                        </Row>
                     </div>
                 </main>
             </div>

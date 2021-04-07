@@ -8,6 +8,8 @@ import { CloseOutlined, EditOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { getPackage, updatePackage } from '../../../functions/package'
 import Checkbox from 'antd/lib/checkbox/Checkbox'
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const UpdatePackage = ({ match, history }) => {
 
@@ -23,6 +25,7 @@ const UpdatePackage = ({ match, history }) => {
 
     useEffect(() => {
         getPacks()
+        inputField()
     }, [])
 
     const getPacks = async () => {
@@ -72,23 +75,52 @@ const UpdatePackage = ({ match, history }) => {
                 <Header />
                 <AdminSideNav active="package" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>Package</h2>
-                                    <Input className="mt-2" maxlength="10" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Package Name" />
-                                    <Input className="mt-2" maxlength="3" id="txtDuration" value={duration} onChange={e => setDuration(e.target.value)} placeholder="Enter Package Duration in Days" />
-                                    <Input className="mt-2" maxlength="2" id="txtProduct" value={products} onChange={e => setProducts(e.target.value)} placeholder="Enter Number Products" />
-                                    <Input className="mt-2" maxlength="5" id="txtPrice" value={price} onChange={e => setPrice(e.target.value)} placeholder="Enter Package Price" />
-                                    <Checkbox className="mt-2" checked={ads} onChange={e => setAds(e.target.checked)}>Seller can Make Ads of Product</Checkbox>
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update Package</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                                </Col>
-                            </Row>
-                            <Row className="mt-2">
-                            </Row>
-                        </Container>
+                    <div className="main__container">
+                        <h3>Package</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div className="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Package Name</h5>
+                                                <input type="text" class="input-tag" maxlength="10" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Package Duration in Days</h5>
+                                                <input type="text" class="input-tag" maxlength="3" id="txtDuration" value={duration} onChange={e => setDuration(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Package Product</h5>
+                                                <input type="text" class="input-tag" maxlength="2" id="txtProduct" value={products} onChange={e => setProducts(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Package Price</h5>
+                                                <input type="text" class="input-tag" maxlength="5" id="txtPrice" value={price} onChange={e => setPrice(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div>
+                                                <Checkbox checked={ads} onChange={e => setAds(e.target.checked)}></Checkbox>
+                                                <h5>Seller can Make Ads of Product</h5>
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update Package" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
+                        <Row className="mt-2">
+                        </Row>
+
                     </div>
                 </main>
             </div>

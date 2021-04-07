@@ -6,7 +6,7 @@ import { Badge, Button, Image } from 'antd'
 import Avatar from 'antd/lib/avatar/avatar'
 import { Form } from 'react-bootstrap'
 
-const UploadImage = ({ uploadedFile, setUploadedFile }) => {
+const UploadImage = ({ uploadedFile, setUploadedFile, setSubmit }) => {
 
     const [file, setFile] = useState(uploadedFile)
     const [loading, setLoading] = useState(false)
@@ -18,6 +18,7 @@ const UploadImage = ({ uploadedFile, setUploadedFile }) => {
 
 
     const handelUpload = () => {
+        setSubmit(false)
         for (let i = 0; i < file.length; i++) {
             setLoading(true)
             const imageRef = firebase.storage().ref('product-images/' + file[i].name)

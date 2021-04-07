@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Input } from 'antd'
-import { Alert, Container } from 'react-bootstrap'
+import { Alert, Col, Container, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import { getState, updateState } from '../../../functions/state'
+import { inputField } from '../../../main'
 
 const UpdateState = ({ history, match }) => {
     const [name, setName] = useState(null)
@@ -13,6 +14,7 @@ const UpdateState = ({ history, match }) => {
     const { user } = useSelector(state => ({ ...state }))
 
     useEffect(() => {
+        inputField()
         loadState()
     }, [])
 
@@ -52,13 +54,25 @@ const UpdateState = ({ history, match }) => {
                 <Header />
                 <AdminSideNav active="state" />
                 <main>
-                    <div className="container-fluid">
+                    <div className="main__container">
                         <h3>Update State</h3>
-                        <Container fluid>
-                            <Input className="mt-2" id="txtName" maxlength="25" value={name} onChange={e => setName(e.target.value)} placeholder="Enter State" />
-                            <Button className="mt-2" name="btnLogin" onClick={() => submitHandler(match.params.id)} type="primary">Update State</Button>
-                            {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                        </Container>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter Category Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={() => submitHandler(match.params.id)} class="btn-main" value="Update Category" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
                     </div>
                 </main>
             </div>

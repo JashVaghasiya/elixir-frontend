@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import { createSub, deleteSub, getSubs } from '../../../functions/subCategory'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const Sub = () => {
 
@@ -20,6 +22,7 @@ const Sub = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        inputField()
         loadAll()
     }, [])
 
@@ -44,6 +47,7 @@ const Sub = () => {
         e.preventDefault()
         if (category !== null && name !== null) {
             if (name.length < 25) {
+                console.log(category, name);
                 createSub(category, name, user.token).then(res => {
                     if (res.data.subError) {
                         setError(res.data.subError)
@@ -82,37 +86,51 @@ const Sub = () => {
                 <Header />
                 <AdminSideNav active="sub" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="3">
-                                <Col className="float-left">
-                                    <h2>Sub Category</h2>
-                                    <Select style={{ width: "100%" }} className="mt-2" onChange={(value) => setCategory(value)} defaultValue="Select Category">
-                                        {
-                                            categories.map(c => (
-                                                <Select.Option key={c._id} value={c._id}>{c.name}</Select.Option>
-                                            ))
-                                        }
-                                    </Select>
-                                    <Input className="mt-2" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Sub Category" />
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                    <div className="main__container">
+                        <h3>Sub-Category</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Select Category</h5>
+                                                <select class="input-tag" onChange={(e) => setCategory(e.target.value)} defaultValue="Select Category">
+                                                    {
+                                                        categories.map(c => (
+                                                            <option key={c._id} value={c._id}>{c.name}</option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter SubCategory Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Create Sub-Category" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+
+                            </Col>
+                        </Row>
+                        <div className="white2"></div>
+                        <Row>
+                            {loading ? "Loading..." : subs.map((s) => (
+                                <Col key={s._id} md="6" xl="4" sm="6">
+                                    <Alert variant="dark">{s.name}
+                                        <span className="float-right text-center">
+                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
+                                        </span>
+                                    </Alert>
                                 </Col>
-                            </Row>
-                            <hr></hr>
-                            <Row>
-                                {loading ? "Loading..." : subs.map((s) => (
-                                    <Col key={s._id} md="3">
-                                        <Alert variant="dark">{s.name}
-                                            <span className="float-right text-center">
-                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
-                                            </span>
-                                        </Alert>
-                                    </Col>
-                                ))}
-                            </Row>
-                        </Container>
+                            ))}
+                        </Row>
                     </div>
                 </main>
             </div>

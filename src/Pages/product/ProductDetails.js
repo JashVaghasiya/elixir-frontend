@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux'
 import { Card, Image } from 'antd'
 import { Link } from 'react-router-dom'
 import { HeartOutlined, ShoppingCartOutlined, CheckCircleOutlined } from '@ant-design/icons'
-import { Carousel } from 'react-bootstrap'
+import { Carousel, Alert } from 'react-bootstrap'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
-import noImage from '../../images/non-veg.png'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { getProduct } from '../../functions/product'
-import { addToCart, addToWishlist, listCart, listWishlist } from '../../functions/user'
-import { Toast } from 'react-bootstrap'
+import { addToCart } from '../../functions/cart'
+import { addToWishlist } from '../../functions/wishlist'
+
 
 
 const ProductDetails = ({ match, history }) => {
@@ -18,21 +18,16 @@ const ProductDetails = ({ match, history }) => {
     const [quantity, setQuantity] = useState(1)
     const [product, setProduct] = useState('')
     const [loading, setLoading] = useState(false)
-    const [wishlist, setWishlist] = useState([])
-    const [cart, setCart] = useState([])
-    const [cartProduct, setCartProduct] = useState(null)
-    const [wishlistProduct, setWishlistProduct] = useState(null)
+    const [errorCart, setErrorCart] = useState(null)
+    const [errorWishlist, setErrorWishlist] = useState(null)
 
     useEffect(() => {
-        getWishlist()
-        getCart()
         getProducts()
-    }, [])
+    }, [user])
 
     const getProducts = async () => {
         setLoading(true)
         await getProduct(match.params.id).then(res => {
-            console.log(res.data);
             setProduct(res.data)
             setLoading(false)
         }).catch(err => {
@@ -40,35 +35,30 @@ const ProductDetails = ({ match, history }) => {
         })
     }
 
-    const getWishlist = async () => {
-        await listWishlist(user && user.token).then(res => {
-            setWishlist(res.data.wishlist);
-            console.log("Wishlist: ", res.data.wishlist);
-            const result = wishlist.find(w => w.productId === product._id)
-            setWishlistProduct(result)
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
-    const getCart = async () => {
-        await listCart(user && user._id, user && user.token).then(res => {
-            setCart(res.data);
-            console.log("Cart: ", res.data);
-            setCartProduct(cart.filter(c => c.productId === product._id))
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
     const handleAddToCart = async () => {
-        await addToCart(user._id, product._id, quantity, user.token)
-        history.push('/cart')
+        await addToCart(user && user._id, product._id, quantity, user.token).then(res => {
+            if (res.data.alreadyAdded) {
+                setErrorCart(res.data.alreadyAdded)
+            } else {
+                history.push('/user/cart')
+            }
+
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const handleWishlist = async () => {
-        await addToWishlist(user && user._id, product._id, user && user.token)
-        history.push('/user/wishlist')
+        await addToWishlist(user && user._id, product._id, user && user.token).then(res => {
+            if (res.data.alreadyAdded) {
+
+                setErrorWishlist(res.data.alreadyAdded)
+            } else {
+                history.push('/user/wishlist')
+            }
+        }).catch(error => {
+            console.log(error)
+        })
     }
     const handleBuyNow = () => {
         //
@@ -114,10 +104,11 @@ const ProductDetails = ({ match, history }) => {
                                     <strong>Description</strong><span className="" style={{ float: 'right', marginTop: "10px" }}>{product.description}</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <button disabled={wishlistProduct === null} className="btn btn-info p-2" style={{ width: "100%" }} onClick={handleWishlist}>
+                                    <button className="btn btn-info p-2" style={{ width: "100%" }} onClick={handleWishlist}>
                                         <HeartOutlined className="text-white m-2" />
                     Add to Wishlist
                     </button>
+                                    {errorWishlist !== null ? <Alert className="mt-2" variant="danger">{errorWishlist}</Alert> : ''}
                                 </ListGroup.Item>
                             </ListGroup>
                         </Card>
@@ -136,7 +127,7 @@ const ProductDetails = ({ match, history }) => {
                                     <strong>Quantity</strong>
                                     <select onChange={(e) => setQuantity(e.target.value)} className="form-control mt-2">
                                         {
-                                            [...Array(product.stock).keys()].map(q => (
+                                            [...Array(5).keys()].map(q => (
                                                 <option key={q + 1} value={q + 1}>{q + 1}</option>
                                             ))
                                         }
@@ -145,7 +136,8 @@ const ProductDetails = ({ match, history }) => {
 
                             </ListGroup>
                             <hr />
-                            <button disabled={cartProduct === null} onClick={handleAddToCart} className="btn btn-info p-2" style={{ width: "100%" }}><ShoppingCartOutlined className="text-white m-2" />Add to Cart</button>
+                            <button onClick={handleAddToCart} className="btn btn-info p-2" style={{ width: "100%" }}><ShoppingCartOutlined className="text-white m-2" />Add to Cart</button>
+                            {errorCart !== null ? <Alert className="mt-2" variant="danger">{errorCart}</Alert> : ''}
                             <hr />
                             <button className="btn btn-info p-2" style={{ width: "100%" }} onClick={handleBuyNow}>
                                 <CheckCircleOutlined className="text-white m-2" />

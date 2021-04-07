@@ -66,15 +66,15 @@ const Admin = ({ active }) => {
 
                 <div id="seller" className="sidebar__link">
                     <i class="fas fa-user-tag"></i>
-                    <Link to="/admin/sellers" className="has-arrow waves-effect">Sellers</Link>
+                    <Link to="/admin/sellers/1" className="has-arrow waves-effect">Sellers</Link>
                 </div>
                 <div id="user" className="sidebar__link">
                     <i class="fas fa-user"></i>
-                    <Link to="/admin/users">Users</Link>
+                    <Link to="/admin/users/1">Users</Link>
                 </div>
                 <div id="product" className="sidebar__link">
                     <i class="fas fa-pills"></i>
-                    <Link to="/admin/product">Products</Link>
+                    <Link to="/admin/product/1">Products</Link>
                 </div>
                 <div id="category" className="sidebar__link">
                     <i className="fa fa-list"></i>
@@ -86,11 +86,11 @@ const Admin = ({ active }) => {
                 </div>
                 <div id="order" className="sidebar__link">
                     <i className="fa fa-box-open"></i>
-                    <Link to="/admin/orders">Orders</Link>
+                    <Link to="/admin/orders/1">Orders</Link>
                 </div>
-                <div className="sidebar__link">
+                <div id="ads" className="sidebar__link">
                     <i class="fas fa-ad"></i>
-                    <Link to="/admin/ads">Ads</Link>
+                    <Link to="/admin/ads/1">Ads</Link>
                 </div>
                 <div id="agency" className="sidebar__link">
                     <i className="fa fa-shipping-fast"></i>
@@ -114,11 +114,11 @@ const Admin = ({ active }) => {
                 </div>
                 <div id="password" className="sidebar__link">
                     <i className="fa fa-key"></i>
-                    <Link to="/change/password">Change Password</Link>
+                    <Link to="/admin/change/password">Change Password</Link>
                 </div>
                 <div className="sidebar__logout" style={{ "text-align": "center" }} onClick={() => logout()}>
                     <i className="fa fa-power-off"></i>
-                    <a href="/login">Log out</a>
+                    Log out
                 </div>
             </div>
         </div>

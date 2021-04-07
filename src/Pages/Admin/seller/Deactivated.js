@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ActivationCard from '../../../components/cards/ActivationCard'
-import { Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { getSeller } from '../../../functions/seller'
 import { activateUser } from '../../../functions/user'
 import AdminSideNav from '../../../components/nav/Admin'
@@ -24,7 +24,7 @@ const Deactivate = () => {
 
         if (user && user._id) {
             setLoading(true)
-            getSeller(user && user.token).then(res => {
+            getSeller(null, null, null, null, user && user.token).then(res => {
                 setSellers(res.data)
                 const deactivateSellers = res.data && res.data.filter(seller => seller.activated === false)
                 setSellers(deactivateSellers)
@@ -56,16 +56,17 @@ const Deactivate = () => {
                 <AdminSideNav active="seller" />
                 <main>
                     <div className="main__container">
+                        <SellerHeader activated="deactivate" />
                         <h3 className="mb-3">Deactivate Sellers</h3>
                         <div className="white2"></div>
-                        <SellerHeader active="seller" />
-
                         <Row>
                             {
                                 loading ? "Loading..." : user && sellers && sellers.length > 0 ? sellers.map(p => (
-                                    <div className="mt-22">
-                                        <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                                    </div>
+                                    <Col className="float-left" xm="12" sm="12" md="5" xl="4">
+                                        <div className="mt-2">
+                                            <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                        </div>
+                                    </Col>
                                 )) : <p className="m-3">No Deactivated Sellers</p>
                             }
                         </Row>

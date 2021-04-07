@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Alert, Button, Input } from 'antd'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Alert } from 'antd'
+import { Col, Row } from 'react-bootstrap'
 import { getCity, updateCity } from '../../../functions/city'
-import AdminSideNav from '../../../components/nav/AdminSideNav'
+import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import { getStates } from '../../../functions/state'
+import { inputField } from '../../../main'
 
 
 const UpdateCity = ({ history, match }) => {
@@ -18,6 +19,7 @@ const UpdateCity = ({ history, match }) => {
     const { user } = useSelector(state => ({ ...state }))
 
     useEffect(() => {
+        inputField()
         loadAll()
     }, [])
 
@@ -64,25 +66,37 @@ const UpdateCity = ({ history, match }) => {
                 <Header />
                 <AdminSideNav active="city" />
                 <main>
-                    <div className="container-fluid">
-                        <Container fluid className="mt-2">
-                            <Row md="4">
-                                <Col className="float-left">
-                                    <h2>Update City</h2>
-                                    <select style={{ width: "100%" }} className="form-control" onChange={(e) => setState(e.target.value)}>
-                                        {
-                                            states.map(c => (
-                                                <option key={c._id} selected={c._id === state} value={c._id}>{c.name}</option>
-                                            ))
-                                        }
-                                    </select>
-                                    <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter City" />
-
-                                    <Button className="mt-2" onClick={submitHandler} type="primary" block>Update City</Button>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                                </Col>
-                            </Row>
-                        </Container>
+                    <div className="main__container">
+                        <h3>Update City</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
+                            <Col>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Select State</h5>
+                                                <select className="input-tag" onChange={(e) => setState(e.target.value)}>
+                                                    {
+                                                        states.map(c => (
+                                                            <option key={c._id} selected={c._id === state} value={c._id}>{c.name}</option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-div focus">
+                                            <div>
+                                                <h5>Enter City Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update City" />
+                                    </div>
+                                </div>
+                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+                            </Col>
+                        </Row>
                     </div>
                 </main>
             </div>

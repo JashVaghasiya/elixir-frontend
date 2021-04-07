@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ActivationCard from '../../../components/cards/ActivationCard'
-import { Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { activateUser, getUsers } from '../../../functions/user'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import UserHeader from './UserHeader'
 
 const Deactivate = () => {
 
@@ -22,7 +23,7 @@ const Deactivate = () => {
 
         if (user && user._id) {
             setLoading(true)
-            getUsers(user && user.token).then(res => {
+            getUsers(null, null, null, null, user && user.token).then(res => {
                 setUsers(res.data)
                 const deactivateSellers = res.data && res.data.filter(user => user.activated === false)
                 setUsers(deactivateSellers)
@@ -53,15 +54,18 @@ const Deactivate = () => {
                 <Header />
                 <AdminSideNav active="user" />
                 <main>
-                    <div className="container-fluid">
-                        <h3 className="mb-3">Deactivate Users</h3>
-
+                    <div className="main__container">
+                        <UserHeader activated="deactivate" />
+                        <h3>Deactivate Users</h3>
+                        <div className="white2"></div>
                         <Row>
                             {
                                 loading ? "Loading..." : user && users && users.length > 0 ? users.map(p => (
-                                    <div className="mt-2">
-                                        <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                                    </div>
+                                    <Col className="float-left" xm="12" sm="12" md="4" xl="4">
+                                        <div className="mt-2">
+                                            <ActivationCard p={p} key={p._id} setId={setActiveId} />
+                                        </div>
+                                    </Col>
                                 )) : <p className="m-3">Empty</p>
                             }
                         </Row>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ActivationCard from '../../../components/cards/ActivationCard'
-import { Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { getSeller } from '../../../functions/seller'
 import { activateUser, deactivateUser } from '../../../functions/user'
 import AdminSideNav from '../../../components/nav/Admin'
@@ -26,7 +26,7 @@ const Activated = () => {
     const getProducts = () => {
         if (user && user._id) {
             setLoading(true)
-            getSeller(user && user.token).then(res => {
+            getSeller(null, null, null, null, user && user.token).then(res => {
                 setSellers(res.data)
                 console.log(res.data)
                 console.log(sellers)
@@ -62,16 +62,19 @@ const Activated = () => {
                 <AdminSideNav active="seller" />
                 <main>
                     <div className="main__container">
+                        <SellerHeader activated="activated" />
                         <h3 className="mb-3">Activate Sellers</h3>
                         <div className="white2"></div>
-                        <SellerHeader active="activated" />
+
 
                         <Row>
                             {
                                 loading ? "Loading..." : user && sellers.length > 0 ? sellers.map(p => (
-                                    <div className="m-2">
-                                        <ActivationCard key={p._id} p={p} setId={setActiveId} />
-                                    </div>
+                                    <Col className="float-left" xm="12" sm="12" md="5" xl="4">
+                                        <div className="m-2">
+                                            <ActivationCard key={p._id} p={p} setId={setActiveId} />
+                                        </div>
+                                    </Col>
                                 )) : <div>
                                     <p className="m-3">No Activated Sellers</p>
                                 </div>

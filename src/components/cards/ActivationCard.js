@@ -7,7 +7,7 @@ import './ApprovalCard.css'
 const ActivationCard = ({ p, setId }) => {
 
     return (
-        <Card style={{ width: '25rem', borderRadius: "10px", background: "#4d4d4d" }}>
+        <Card style={{ width: '20.5rem', borderRadius: "10px", background: "#4d4d4d" }}>
             <Card.Body>
                 <Card.Title style={{ fontWeight: "700", fontSize: "16px" }}>
                     <Link to={`/seller/${p.productId}`}> Id:
@@ -22,7 +22,7 @@ const ActivationCard = ({ p, setId }) => {
                     {/* {p.role === 'seller' ? <p>RemainingDays: {p.remainingDays}</p> : ''}
                     {p.role === 'seller' ? <p>RemainingProducts: {p.remainingProducts}</p> : ''} */}
                 </Card.Text>
-                <Button className={p.activated ? 'btn btn-danger' : 'btn btn-primary'} onClick={() => setId(p._id)}>{p.activated ? "Deactivate" : "Activate"}</Button>
+                <Button className={p.activated ? 'btn btn-danger' : 'btn btn-success'} onClick={() => setId(p._id)}>{p.activated ? "Deactivate" : "Activate"}</Button>
             </Card.Body>
         </Card>
     )

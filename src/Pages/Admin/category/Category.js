@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Input, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { createCategory, deleteCategory, getCategories } from '../../../functions/category'
 import { Link } from 'react-router-dom'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
-import Chart from '../Chart/Chart'
+import '../../../main.css'
+import { inputField } from '../../../main'
 
 const Category = () => {
 
@@ -18,6 +19,7 @@ const Category = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        inputField()
         loadCategories()
     }, [])
 
@@ -41,9 +43,8 @@ const Category = () => {
                         setError(res.data.categoryError)
                     } else {
                         categories.push(res.data)
-
+                        loadCategories()
                     }
-                    loadCategories()
                 }).catch(error => {
                     console.log('category has not been created.', error)
                 })
@@ -74,19 +75,29 @@ const Category = () => {
                 <Header />
                 <AdminSideNav active="category" />
                 <main>
-                    <Container fluid className="mt-2">
-                        <Row md="4">
+                    <div className="main__container">
+                        <h3>Category</h3>
+                        <div className="white2"></div>
+                        <Row md="2" xl="3">
                             <Col>
-                                <h2>Category</h2>
-                                <Input className="mt-2" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
-                                <Button className="mt-2" onClick={submitHandler} type="primary" block>Insert</Button>
+                                <div class="content">
+                                    <div class="form">
+                                        <div class="input-div">
+                                            <div>
+                                                <h5>Enter Category Name</h5>
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <input onClick={() => submitHandler()} class="btn-main" value="Create Category" />
+                                    </div>
+                                </div>
                                 {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                             </Col>
                         </Row>
-                        <hr></hr>
-                        <Row className="mt-2">
+                        <div className="white2"></div>
+                        <Row className="mt-4">
                             {loading ? "Loading..." : categories.map((c) => (
-                                <Col key={c._id} md="3">
+                                <Col key={c._id} md="6" xl="4" sm="6">
                                     <div>
                                         <Alert variant="dark">{c.name}
                                             <span className="float-right text-center">
@@ -99,7 +110,7 @@ const Category = () => {
                             ))}
                         </Row>
 
-                    </Container>
+                    </div>
                 </main>
             </div>
         </div>
