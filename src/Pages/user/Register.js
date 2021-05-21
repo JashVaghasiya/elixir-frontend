@@ -1,51 +1,52 @@
 import React, { useState } from 'react'
-import { Input, Button, Spin } from 'antd'
-import Form from 'antd/lib/form/Form'
 import { auth } from '../../firebase/firebase'
 import '../../App.css'
-import { Col, Container, Row, Toast } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
 
 
 const Register = () => {
 
-    const [email, setEmail] = useState('')
-    const [show, setShow] = useState(false)
+    const [email, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [alert, setAlert] = useState(null)
 
-    const submitHandler = async (e) => {
-        setShow(true)
-        setLoading(true)
-        e.preventDefault()
+    window.scrollTo(0, 0)
 
-        const config = {
-            url: "http://localhost:3000/registration/complete",
-            handleCodeInApp: true
+    const submitHandler = async () => {
+        if (email !== null) {
+            setLoading(true)
+
+            const config = {
+                url: "http://localhost:3000/registration/complete",
+                handleCodeInApp: true
+            }
+
+            await auth.sendSignInLinkToEmail(email, config)
+            setLoading(true)
+            window.localStorage.setItem('email', email)
+
+            setEmail('')
+            setAlert("Registration link has been sent!")
+        } else {
+            setAlert("Enter Email in field!")
         }
 
-        await auth.sendSignInLinkToEmail(email, config)
-
-        window.localStorage.setItem('email', email)
-
-        setEmail('')
     }
+    setTimeout(() => {
+        setAlert(null)
+    }, 5000)
 
     return (
-        <div className="container">
-
-            <Form style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
-                <h1 className="mt-5">Register</h1>
-                <hr />
-                <div className="form-group">
+        <div className="login-page-container">
+            <div className=" container shipping-form ">
+                <div style={{ height: "85vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                    <h2 className="mt-5">Register</h2>
                     <label>Email</label>
-                    <Input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
+                    <input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
+                    <button onClick={() => submitHandler()} className="form-button my-3 btn-block" disabled={loading}>{loading ? "Loading..." : 'Sign Up'}</button>
+                    {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
                 </div>
-                <Button type="primary" style={{ marginTop: "10px" }} onClick={submitHandler} block disabled={loading}>{loading ? <Spin /> : 'Sign Up'}</Button>
-                <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
-                    <Toast.Header>
-                        Email has been send to your email address.
-                            </Toast.Header>
-                </Toast>
-            </Form>
+            </div>
         </div>
     )
 }

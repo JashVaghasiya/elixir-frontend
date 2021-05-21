@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import UserProductCard from '../../../components/cards/UserProductCard'
+import HomeProductCard from '../../../components/cards/HomeCard'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import Loader from '../../../components/Loader'
 import { getProducts } from '../../../functions/product'
 
-const Products = ({ history }) => {
+const Products = () => {
 
     const [products, setProducts] = useState([])
     const user = useSelector(state => state.user)
@@ -20,7 +21,6 @@ const Products = ({ history }) => {
     const getProduct = async () => {
         setLoading(true)
         await getProducts().then(res => {
-            console.log(res);
             setProducts(res.data)
             setLoading(false)
         }).catch(err => {
@@ -38,19 +38,19 @@ const Products = ({ history }) => {
                             <div id="all" className="header__link header__active__link"><Link to="/admin/product/1"><p>All Products</p></Link></div>
                             <div id="unapproved" className="header__link "><Link to="/admin/product/unapproved"><p>Unapproved Products</p></Link></div>
                         </div>
-                        <h3>Products</h3>
-                        <Row>
+                        {loading ? <Loader color="white" /> :
+                            <Row>
 
-                            {
-                                loading ? "Loading..." :
+                                {
                                     user && products.length > 0 ? products.map(p => (
-                                        <div className="m-1">
-                                            <UserProductCard product={p} />
-                                        </div>
+                                        <Col sm={12} md={6} lg={4} xl={3}>
+                                            <HomeProductCard product={p} />
+                                        </Col>
                                     )) : ''
-                            }
+                                }
 
-                        </Row>
+                            </Row>
+                        }
                     </div>
                 </main>
             </div>

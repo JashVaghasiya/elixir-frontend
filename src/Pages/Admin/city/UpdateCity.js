@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Alert } from 'antd'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Alert } from 'react-bootstrap'
 import { getCity, updateCity } from '../../../functions/city'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
@@ -19,8 +18,9 @@ const UpdateCity = ({ history, match }) => {
     const { user } = useSelector(state => ({ ...state }))
 
     useEffect(() => {
-        inputField()
+
         loadAll()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loadAll = async () => {
@@ -28,6 +28,7 @@ const UpdateCity = ({ history, match }) => {
             setName(res.data.city)
             setState(res.data.state)
             setOldCity(res.data.city)
+
         }).catch(err => {
             console.log(err);
         })
@@ -36,11 +37,11 @@ const UpdateCity = ({ history, match }) => {
         }).catch(error => {
             console.log(error);
         })
+        inputField()
     }
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-        if (name !== null && state !== null && name.length < 30) {
+    const submitHandler = () => {
+        if (name.length > 0 && state !== null && name.length < 30) {
             if (oldCity === name) {
                 history.push("/admin/cities")
             } else {
@@ -58,6 +59,9 @@ const UpdateCity = ({ history, match }) => {
             setError("Select State or Enter City Name!")
             document.getElementById("txtName").focus()
         }
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     return (
@@ -91,10 +95,11 @@ const UpdateCity = ({ history, match }) => {
                                                 <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
                                             </div>
                                         </div>
-                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update City" />
+                                        <button onClick={() => submitHandler()} class="btn-main">Update City</button>
+                                        {error !== null && <Alert className="mt-2" variant="dark" >{error}</Alert>}
                                     </div>
                                 </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+
                             </Col>
                         </Row>
                     </div>

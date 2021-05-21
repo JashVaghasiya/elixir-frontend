@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Route } from 'react-router-dom';
-import Code404 from '../../Pages/error/404'
+import Code403 from '../../Pages/error/403'
 
 const Seller = ({ ...rest }) => {
-    const seller = useSelector(state => state.seller)
+    const seller = useSelector(state => state.user)
     const [ok, setOk] = useState(false)
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const Seller = ({ ...rest }) => {
         }
     }, [ok, seller])
 
-    return ok ? <Route {...rest} /> : <Code404 />
+    return ok ? <Route {...rest} /> : <Code403 />
 
 }
 

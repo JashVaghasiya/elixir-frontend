@@ -1,9 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 const DisplayCard = ({ data }) => {
-    console.log(data);
     return (
         <Card style={{ width: '22rem', borderRadius: "10px" }}>
             <Card.Body>

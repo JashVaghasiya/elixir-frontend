@@ -1,11 +1,9 @@
-import { Button, Input, Spin } from 'antd'
-import Form from 'antd/lib/form/Form'
 import { auth } from '../../firebase/firebase'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import '../../App.css'
 import { findUser, roleBasedRedirect } from '../../functions/user'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Login = ({ history }) => {
@@ -18,10 +16,11 @@ const Login = ({ history }) => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
-        // if (user && user.token) {
-        //     history.push('/')
-        // }
-    }, [user])
+        window.scrollTo(0, 0)
+        if (user && user.token) {
+            history.push('/')
+        }
+    }, [user, history])
 
     const handleLogin = async e => {
         e.preventDefault()
@@ -52,9 +51,9 @@ const Login = ({ history }) => {
                     const token = await user.getIdTokenResult()
 
                     await findUser(token.token).then(res => {
-                        if (res.data.user[0]) {
-                            console.log(res.data.user[0]);
-                            roleBasedRedirect(history, res.data.user[0])
+                        if (res) {
+                            console.log(res.data);
+                            roleBasedRedirect(history, res.data)
                         }
                         setLoading(false)
                     }).catch(err => console.error('Create or Update User Error :', err))
@@ -73,28 +72,28 @@ const Login = ({ history }) => {
             console.log(err);
         }
     }
-
+    setTimeout(() => {
+        setError(null)
+    }, 5000)
     return (
-        <div className="container">
-            <Form style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
-                <h1 className="mt-5">Login</h1>
-                <hr />
-                <div className="form-group">
-                    <label>Email</label>
-                    <Input placeholder='Enter Email' type='email' required size='large' value={email} onChange={e => setEmail(e.target.value)}></Input>
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <Input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)}></Input>
-                </div>
-                <Button block disabled={loading} size='large' onClick={handleLogin} type="primary" className='mt-2'>{loading ? <Spin /> : 'Login'}</Button>
-                {error !== null ? <Alert className="mt-3" variant="danger">{error}</Alert> : ''}
-                <div className="float-right mt-3" style={{ fontSize: "18px" }}>
-                    <Link to="/change/password">Forgot Password ?</Link>
-                </div>
-            </Form>
-        </div>
+        <div className="login-page-container">
+            <div className="container shipping-form">
+                <div style={{ height: "85vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                    <h2 className="mt-5">Login</h2>
+                    <label className="mt-3">Email</label>
+                    <input placeholder='Enter Email' type='email' required size='large' value={email} onChange={e => setEmail(e.target.value)} />
 
+                    <label className="mt-3">Password</label>
+                    <input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)} />
+
+                    <button className="form-button btn-block my-3" disabled={loading} onClick={handleLogin}>{loading ? "Loading..." : "Login"}</button>
+                    {error !== null ? <Alert variant="dark" className="mt-3 text-white">{error}</Alert> : ''}
+                    <div className="float-right" style={{ fontSize: "14px" }}>
+                        <Link to="/change/password" ><p style={{ color: "#000" }}>Forgot Password ?</p></Link>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

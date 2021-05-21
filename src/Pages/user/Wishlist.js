@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'antd';
-import { getCurrentUser } from '../../functions/user'
 import { listWishlist, removeWishlist } from '../../functions/wishlist'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { EyeOutlined } from '@ant-design/icons'
-import UserProductCard from '../../components/cards/UserProductCard'
-import { Col, Row } from 'react-bootstrap'
-const { Meta } = Card;
-
+import { Image } from 'react-bootstrap'
+import WishlistCard from '../../components/cards/WishlistCard';
+import '../../css/Wishlist.css'
+import EmptyWishlist from '../../images/wishlist.gif'
+import Loader from '../../components/Loader'
 
 const Wishlist = () => {
 
     const user = useSelector(state => state.user)
     const [products, setProducts] = useState([])
+    const [product, setProduct] = useState(false)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        if (user && user.token) {
-            setLoading(true)
+        window.scrollTo(0, 0)
+        if (user && user._id) {
             getWishlist()
         }
-    }, [user])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, product])
 
     const getWishlist = async () => {
-        await listWishlist(user.token).then(res => {
-            setProducts(res.data.wishlist);
-            console.log(res.data.wishlist)
-            console.log(products)
+        setLoading(true)
+        await listWishlist(user && user.token).then(res => {
+            setProducts(res.data);
             setLoading(false)
         }).catch(err => {
             console.log(err);
@@ -35,25 +34,37 @@ const Wishlist = () => {
     }
 
     const removeProduct = async (id) => {
-        console.log(id)
-        await removeWishlist(id, user._id, user.token).then(res => {
-            console.log('removed product', res.data)
-            getWishlist()
+        await removeWishlist(id, user && user._id, user && user.token).then(res => {
+            if (res) {
+                getWishlist()
+                setProduct(true)
+            }
         }).catch(error => {
             console.log(error)
         })
     }
 
     return (
-        <div className="container-fluid">
-            <Row>
-                {loading ? <p style={{ color: "black" }}>Loading...</p> : user && products.map(product => (
-                    <UserProductCard key={product._id} product={product} removeProduct={removeProduct} />
-                ))}
-            </Row>
+        <div className="wishlist-container" style={{ background: "#fafbfc" }}>
+
+            {loading ? <Loader /> : products.wishlist && products.wishlist.length === 0 ?
+                <div className="empty-wishlist">
+                    <Image style={{ width: "400px", height: "300px" }} src={EmptyWishlist} alt="Empty-Cart" />
+                    <h2 className="empty-text">Your Wishlist is Empty!</h2>
+                    <Link to="/" className="form-button my-3">Go Back</Link>
+                </div>
+                :
+                <>
+                    <h1 className="page-heading mt-4">WISHLIST</h1>
+                    <div className="product-wrapper">
+                        {products.wishlist && products.wishlist.length > 0 && products.wishlist.map(p => (
+                            <WishlistCard key={p._id} product={p} remove={removeProduct} />
+                        ))}
+                    </div>
+                </>
+            }
+
         </div>
-
-
     )
 }
 

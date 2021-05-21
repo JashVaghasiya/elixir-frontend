@@ -7,17 +7,18 @@ import { activateUser } from '../../../functions/user'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import SellerHeader from './SellerHeader'
+import Loader from '../../../components/Loader'
 
 const Deactivate = () => {
 
     const [sellers, setSellers] = useState([])
     const user = useSelector(state => state.user)
     const [activeId, setActiveId] = useState("")
-    const [loaded, setLoader] = useState(true)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getSellers()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getSellers = () => {
@@ -57,19 +58,19 @@ const Deactivate = () => {
                 <main>
                     <div className="main__container">
                         <SellerHeader activated="deactivate" />
-                        <h3 className="mb-3">Deactivate Sellers</h3>
-                        <div className="white2"></div>
-                        <Row>
-                            {
-                                loading ? "Loading..." : user && sellers && sellers.length > 0 ? sellers.map(p => (
-                                    <Col className="float-left" xm="12" sm="12" md="5" xl="4">
-                                        <div className="mt-2">
-                                            <ActivationCard p={p} key={p._id} setId={setActiveId} />
-                                        </div>
-                                    </Col>
-                                )) : <p className="m-3">No Deactivated Sellers</p>
-                            }
-                        </Row>
+                        {loading ? <Loader color="white" /> :
+                            <Row>
+                                {
+                                    user && sellers && sellers.length > 0 ? sellers.map(p => (
+                                        <Col className="float-left" sm={12} md={6} lg={4} xl={4}>
+                                            <div className="mt-2">
+                                                <ActivationCard user={user} p={p} key={p._id} setId={setActiveId} />
+                                            </div>
+                                        </Col>
+                                    )) : <p className="m-3 text-white">No Deactivated Sellers</p>
+                                }
+                            </Row>
+                        }
                     </div>
                 </main>
             </div>

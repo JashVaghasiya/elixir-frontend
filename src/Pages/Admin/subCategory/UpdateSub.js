@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Input } from 'antd'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { getCategories } from '../../../functions/category'
 import { getSub, updateSub } from '../../../functions/subCategory'
 import AdminSideNav from '../../../components/nav/Admin'
@@ -21,18 +20,21 @@ const UpdateSub = ({ history, match }) => {
     useEffect(() => {
         inputField()
         loadAll()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loadAll = async () => {
+
         await getCategories().then(res => {
             setCategories(res.data)
         }).catch(error => {
             console.log(error);
         })
-        await getSub(match.params.id, user.token).then(res => {
+        await getSub(match.params.id, user && user.token).then(res => {
             setName(res.data.name)
             setCategory(res.data.category)
             setOldSub(res.data.name)
+
         }).catch(err => {
             console.log(err);
         })
@@ -41,7 +43,7 @@ const UpdateSub = ({ history, match }) => {
     const submitHandler = (e) => {
 
         e.preventDefault()
-        if (category !== null && name !== null) {
+        if (category.length < 0 && name.length < 0) {
             if (oldSub === name) {
                 history.push("/admin/sub")
             } else {
@@ -57,6 +59,9 @@ const UpdateSub = ({ history, match }) => {
             setError("Select Category or Enter Sub Name!")
             document.getElementById('txtName').focus()
         }
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     return (
@@ -91,9 +96,9 @@ const UpdateSub = ({ history, match }) => {
                                             </div>
                                         </div>
                                         <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update Sub-Category" />
+                                        {error !== null && <Alert className="mt-2" variant="dark">{error}</Alert>}
                                     </div>
                                 </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                             </Col>
                         </Row>
                     </div>

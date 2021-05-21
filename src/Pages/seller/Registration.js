@@ -1,51 +1,48 @@
 import React, { useState } from 'react'
-import { Input, Button, Spin } from 'antd'
-import Form from 'antd/lib/form/Form'
 import { auth } from '../../firebase/firebase'
 import '../../App.css'
-import { Col, Container, Row, Toast } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
 
 
 const Registration = () => {
 
-    const [email, setEmail] = useState('')
-    const [show, setShow] = useState(false)
+    const [email, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const submitHandler = async (e) => {
-        setShow(true)
-        setLoading(true)
-        e.preventDefault()
+        if (email === null) {
+            setError("Enter Email in field!")
+        } else {
+            window.localStorage.setItem('email', email)
+            setLoading(true)
+            e.preventDefault()
 
-        const config = {
-            url: "http://localhost:3000/seller/registration/complete",
-            handleCodeInApp: true
+            const config = {
+                url: "http://localhost:3000/seller/registration/complete",
+                handleCodeInApp: true
+            }
+            await auth.sendSignInLinkToEmail(email, config)
         }
 
-        await auth.sendSignInLinkToEmail(email, config)
-
-        window.localStorage.setItem('email', email)
-
-        setEmail('')
     }
 
+    setTimeout(() => {
+        setError(null)
+    }, 5000)
+
     return (
-        <Container fluid>
-            <Row className="mt-5">
-                <Col sm="6" md="6" lg="4" className='mt-5'>
-                    <Form className='mt-5'>
-                        <h1>Seller Register</h1>
-                        <Input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
-                        <Button type="primary" style={{ marginTop: "10px" }} onClick={submitHandler} block disabled={loading}>{loading ? <Spin /> : 'Sign Up'}</Button>
-                        <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
-                            <Toast.Header>
-                                Email has been send to your email address.
-                            </Toast.Header>
-                        </Toast>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
+        <div className="login-page-container pt-5">
+            <div className="container shipping-form">
+                <div style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                    <h2 className="mb-2">Seller Register</h2>
+                    <label>Email</label>
+                    <input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
+                    <button className="form-button btn-block my-3" onClick={submitHandler} disabled={loading}>{loading ? "Loading..." : 'Sign Up'}</button>
+                    {error !== null ? <Alert variant="dark" className="mt-3 text-white">{error}</Alert> : ''}
+                </div>
+            </div>
+        </div>
     )
 }
 

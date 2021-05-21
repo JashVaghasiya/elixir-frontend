@@ -9,6 +9,7 @@ import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
 import '../../../main.css'
 import { inputField } from '../../../main'
+import Loader from '../../../components/Loader'
 
 const Category = () => {
 
@@ -19,7 +20,7 @@ const Category = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
-        inputField()
+
         loadCategories()
     }, [])
 
@@ -31,6 +32,7 @@ const Category = () => {
         }).catch(error => {
             console.log(error);
         })
+        inputField()
     }
 
     const submitHandler = (e) => {
@@ -56,7 +58,9 @@ const Category = () => {
             setError("Fill the Category")
             document.getElementById("txtName").focus()
         }
-
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     const deleteCategories = async (id) => {
@@ -78,38 +82,41 @@ const Category = () => {
                     <div className="main__container">
                         <h3>Category</h3>
                         <div className="white2"></div>
-                        <Row md="2" xl="3">
-                            <Col>
-                                <div class="content">
-                                    <div class="form">
-                                        <div class="input-div">
-                                            <div>
-                                                <h5>Enter Category Name</h5>
-                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                        {loading ? <Loader color="white" /> :
+                            <>
+                                <Row md={2} xl={3}>
+                                    <Col>
+                                        <div class="content">
+                                            <div class="form">
+                                                <div class="input-div">
+                                                    <div>
+                                                        <h5>Enter Category Name</h5>
+                                                        <input type="text" className="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <button onClick={(e) => submitHandler(e)} class="btn-main" >Create Category</button>
+                                                {error !== null && <Alert variant="dark" className="mt-2 text-white">{error}!</Alert>}
                                             </div>
                                         </div>
-                                        <input onClick={() => submitHandler()} class="btn-main" value="Create Category" />
-                                    </div>
-                                </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
-                            </Col>
-                        </Row>
-                        <div className="white2"></div>
-                        <Row className="mt-4">
-                            {loading ? "Loading..." : categories.map((c) => (
-                                <Col key={c._id} md="6" xl="4" sm="6">
-                                    <div>
-                                        <Alert variant="dark">{c.name}
-                                            <span className="float-right text-center">
-                                                <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/category/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                                <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCategories(c._id)} /></Tooltip>
-                                            </span>
-                                        </Alert>
-                                    </div>
-                                </Col>
-                            ))}
-                        </Row>
-
+                                    </Col>
+                                </Row>
+                                <div className="white2"></div>
+                                <Row className="mt-4">
+                                    {categories && categories.length > 0 && categories.map((c) => (
+                                        <Col key={c._id} md="6" xl="4" sm="6">
+                                            <div>
+                                                <Alert variant="dark" className="text-white">{c.name}
+                                                    <span className="float-right text-center">
+                                                        <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/category/${c._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                        <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteCategories(c._id)} /></Tooltip>
+                                                    </span>
+                                                </Alert>
+                                            </div>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </>
+                        }
                     </div>
                 </main>
             </div>

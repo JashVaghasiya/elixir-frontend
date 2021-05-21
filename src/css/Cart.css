@@ -1,0 +1,32 @@
+.cart-section-1 {
+    border-bottom: 2px solid #acacac !important;
+    margin-bottom: 10px;
+}
+
+.cart-section-2 {
+    background: rgb(255, 255, 255);
+}
+
+.cart-container {
+    height: 90vh;
+    padding: 0 50px;
+    overflow: scroll;
+}
+
+.cart-image {
+    height: 75px;
+    width: 75px;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+.empty-text {
+    text-transform: capitalize;
+    font-weight: 700;
+}

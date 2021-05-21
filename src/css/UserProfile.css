@@ -1,0 +1,7 @@
+.user-profile>.content {
+    margin-bottom: 40px;
+}
+
+.user-profile>.content:last-child {
+    margin-bottom: 0px;
+}

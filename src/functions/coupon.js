@@ -22,8 +22,8 @@ export const deleteCoupon = async (id, authtoken) => {
     })
 }
 
-export const getCoupon = async (id, authtoken) => {
-    return await axios.get(`http://localhost:8000/api/coupon/${id}`, {
+export const getCoupon = async (name, authtoken) => {
+    return await axios.get(`http://localhost:8000/api/coupon/${name}`, {
         headers: {
             authtoken: authtoken
         }
@@ -32,6 +32,14 @@ export const getCoupon = async (id, authtoken) => {
 
 export const updateCoupon = async (id, name, discount, expiresAt, authtoken) => {
     return await axios.put(`http://localhost:8000/api/coupon/${id}`, { name, discount, expiresAt }, {
+        headers: {
+            authtoken: authtoken
+        }
+    })
+}
+
+export const applyCoupon = async (couponId, userId, authtoken) => {
+    return await axios.post('http://localhost:8000/api/coupon/apply', { couponId, userId }, {
         headers: {
             authtoken: authtoken
         }

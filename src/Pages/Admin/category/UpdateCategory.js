@@ -10,13 +10,14 @@ import { inputField } from '../../../main'
 
 const UpdateCategory = ({ history, match }) => {
 
-    const [name, setName] = useState(null)
+    const [name, setName] = useState()
     const user = useSelector(state => state.user)
     const [error, setError] = useState(null)
 
     useEffect(() => {
         inputField()
         loadCategory()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loadCategory = async () => {
@@ -28,7 +29,7 @@ const UpdateCategory = ({ history, match }) => {
     }
 
     const submitHandler = async (id) => {
-        if (name !== null) {
+        if (name.length > 0) {
             if (name.length < 25) {
                 await updateCategory(id, name, user.token).then(res => {
                     if (res.data.categoryError) {
@@ -48,6 +49,9 @@ const UpdateCategory = ({ history, match }) => {
             setError("Fill the Category")
             document.getElementById('txtName').focus()
         }
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
     return (
         <div id="body">
@@ -70,12 +74,9 @@ const UpdateCategory = ({ history, match }) => {
                                             </div>
                                         </div>
                                         <input onClick={() => submitHandler(match.params.id)} class="btn-main" value="Update Category" />
+                                        {error !== null && <Alert variant="dark" className="mt-2">{error}</Alert>}
                                     </div>
                                 </div>
-
-                                {/* <Input id="txtName" maxlength="25" value={name} onChange={e => setName(e.target.value)} placeholder="Enter Category" />
-                                <Button name="btnLogin" onClick={() => submitHandler(match.params.id)} type="primary">Update</Button> */}
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
                             </Col>
                         </Row>
                     </div>

@@ -16,25 +16,26 @@ const UpdateCoupon = ({ history, match }) => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
-        inputField()
+        const loadAll = async () => {
+            await getCoupon(match.params.id, user && user.token).then(res => {
+                console.log(res.data)
+                setName(res.data.name)
+                setDiscount(res.data.discount)
+                setTime(res.data.expiresAt)
+            }).catch(err => {
+                console.log(err);
+            })
+            inputField()
+        }
         loadAll()
-    }, [])
+    }, [match.params.id, user])
 
-    const loadAll = async () => {
-        await getCoupon(match.params.id, user && user.token).then(res => {
-            console.log(res.data)
-            setName(res.data.name)
-            setDiscount(res.data.discount)
-            setTime(res.data.expiresAt)
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+
 
     const submitHandler = () => {
 
 
-        if (name !== null && discount !== null && time !== null) {
+        if (name.length > 0 || discount.length > 0 || time.length > 0) {
             if (name.length < 10) {
                 if (discount < 80) {
                     if (time < 366) {
@@ -67,6 +68,9 @@ const UpdateCoupon = ({ history, match }) => {
             }
             setError("Enter name, discount or expiry time!")
         }
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     return (
@@ -101,8 +105,9 @@ const UpdateCoupon = ({ history, match }) => {
                                             </div>
                                         </div>
                                         <input onClick={(e) => submitHandler(e)} class="btn-main" value="Update Coupon" />
+                                        {error !== null && <Alert className="mt-2" variant="dark">{error}</Alert>}
                                     </div>
-                                    {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+
                                 </Col>
                             </Row>
                         </div>

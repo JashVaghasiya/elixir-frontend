@@ -16,6 +16,31 @@ export const createSeller = async (packageData, authtoken) => {
     })
 }
 
+export const updateUser = async (userName, userMobile, userId, authtoken) => {
+    return await axios.post('http://localhost:8000/api/user/update', { userName, userMobile, userId }, {
+        headers: {
+            authtoken: authtoken
+        }
+    })
+}
+
+export const getAddress = async (authtoken, id) => {
+    return await axios.get(`http://localhost:8000/api/user/address/${id}`, {
+        headers: {
+            authtoken: authtoken
+        }
+    })
+}
+
+export const getUserProfile = async (id, authtoken) => {
+    return await axios.get(`http://localhost:8000/api/user/get/profile/${id}`, {
+        headers: {
+            authtoken: authtoken
+        }
+    })
+}
+
+
 export const findUser = async (authtoken) => {
     return await axios.post('http://localhost:8000/api/user/login', {}, {
         headers: {
@@ -25,7 +50,7 @@ export const findUser = async (authtoken) => {
 }
 
 export const getCurrentUser = async (authtoken) => {
-    return await axios.post('http://localhost:8000/api/current-user', {}, {
+    return await axios.get('http://localhost:8000/api/current/user', {
         headers: {
             authtoken: authtoken
         }
@@ -58,11 +83,18 @@ export const activateUser = async (id, authtoken) => {
 
 export const roleBasedRedirect = (history, user) => {
     const role = user.role
+    console.log(role)
     if (role === 'admin') {
         history.push('/admin/dashboard')
     } else if (role === 'seller') {
         history.push('/seller/dashboard')
-    } else {
+    } else if (role === 'agency') {
+        history.push('/agency/1')
+    } else if (role === 'user') {
         history.push('/user/profile')
+    } else if (role === 'doctor') {
+        history.push('/chat')
+    } else {
+        history.push('/')
     }
 }

@@ -1,0 +1,77 @@
+.text-order {
+    font-size: 14px;
+    color: black;
+}
+
+.order-heading {
+    font-size: 20px;
+}
+
+.order-list-container {
+    height: 90vh;
+    margin: 0 40px;
+    overflow-y: scroll;
+}
+
+.progress-bar {
+    background: #f1f2f3 !important;
+    margin-bottom: 25px;
+}
+
+/* .progress-bar .ant-steps-item .ant-steps-icon {
+    color: #acacac !important;
+}
+
+.progress-bar .ant-steps-item .ant-steps-item-title {
+    color: #acacac !important;
+} */
+
+/* .progress-bar .ant-steps-item {
+    border-bottom: 2px solid #000 !important;
+} */
+
+/* 
+.progress-bar .ant-steps-item-active .ant-steps-icon {
+    color: #000 !important;
+}
+
+.progress-bar .ant-steps-item-active .ant-steps-item-title {
+    color: #000 !important;
+}
+*/
+
+/* 
+.order-progress-bar .ant-steps-item .ant-steps-icon {
+    color: #acacac !important;
+}
+
+
+.order-progress-bar .ant-steps-navigation .ant-steps-item.ant-steps-item-active::before {
+    display: none !important;
+}
+ */
+
+.order-progress-bar .ant-steps-item-active .ant-steps-icon {
+    color: black !important;
+}
+
+.order-progress-bar .ant-steps-item-active .ant-steps-item-title {
+    color: black !important;
+}
+
+.progress-bar .active-step .ant-steps-icon {
+    color: black !important;
+}
+
+.progress-bar .ant-steps-navigation .ant-steps-item.ant-steps-item-active::before {
+    display: none !important;
+}
+
+
+.active-step>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
+    color: black !important;
+}
+
+.active-step .ant-steps-navigation .ant-steps-item .ant-steps-item-active .ant-steps-icon {
+    color: black !important;
+}

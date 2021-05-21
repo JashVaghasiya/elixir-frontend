@@ -1,0 +1,31 @@
+.wishlist-container {
+    height: 90vh;
+    padding: 0 50px;
+    overflow-y: scroll;
+}
+
+.ads-container {
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+.empty-wishlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh
+}
+
+.no-complain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh
+}
+
+.empty-text {
+    text-transform: capitalize;
+    font-weight: 700;
+}

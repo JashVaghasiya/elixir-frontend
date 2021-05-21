@@ -2,16 +2,29 @@
     box-sizing: border-box;
     margin: auto;
     padding: 0;
+}
 
+.login-page-container {
+    background-image: -webkit-linear-gradient(65deg, #acacac 40%, #f7f7f7 30%);
+}
+
+.doctor-login-container {
+    background-image: -webkit-linear-gradient(60deg, #acacac 30%, #f7f7f7 30%);
+}
+
+/* product-wrpper */
+#root {
+    background: #fff;
 }
 
 a {
     text-decoration: none !important;
-    color: black !important;
+    color: white !important;
 }
 
 a:hover {
     text-decoration: none !important;
+    color: white !important;
 }
 
 .side-nav {
@@ -32,4 +45,29 @@ a:hover {
 
 .text-decoration {
     text-decoration: none;
+}
+
+.ant-menu-submenu-title>span {
+    color: black !important;
+}
+
+.ant-menu-submenu-title>a:hover {
+    color: black !important;
+}
+
+.alert-dark {
+    color: #f7f7f9 !important;
+}
+
+.form-button-small {
+    background: #333333;
+    color: #fff;
+}
+
+.red-link {
+    color: red !important;
+}
+
+.red-link:hover {
+    color: red !important;
 }

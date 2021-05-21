@@ -6,6 +6,7 @@ import { getUsers } from '../../../functions/user'
 import { deactivateUser } from '../../../functions/user'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
+import Loader from '../../../components/Loader'
 import UserHeader from './UserHeader'
 
 const Activated = () => {
@@ -16,22 +17,23 @@ const Activated = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        getUser()
-    }, [])
-
-    const getUser = () => {
-        if (user && user._id) {
-            setLoading(true)
-            getUsers(null, null, null, null, user && user.token).then(res => {
-                setUsers(res.data)
-                const deactivateUsers = res.data && res.data.filter(user => user.activated === true)
-                setUsers(deactivateUsers)
-                setLoading(false)
-            }).catch(err => {
-                console.log(err)
-            })
+        const getUser = () => {
+            if (user && user._id) {
+                setLoading(true)
+                getUsers(null, null, null, null, user && user.token).then(res => {
+                    setLoading(false)
+                    setUsers(res.data)
+                    const deactivateUsers = res.data && res.data.filter(user => user.activated === true)
+                    setUsers(deactivateUsers)
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
         }
-    }
+        getUser()
+    }, [user])
+
+
 
     const activate = async () => {
         await deactivateUser(activeId, user.token).then(res => {
@@ -55,25 +57,22 @@ const Activated = () => {
                 <main>
                     <div className="main__container">
                         <UserHeader activated="activated" />
-                        <h3>Activate Users</h3>
-                        <div className="white2"></div>
-                        <Row>
+                        {loading ? <Loader color="white" /> :
+                            <Row>
 
-                            {
+                                {
 
-                                loading ? "Loading..." : user && users.length > 0 ? users.map(p => (
-                                    <Col className="float-left" xm="12" sm="12" md="5" xl="4">
-                                        <div className="mt-2">
-                                            <ActivationCard key={p._id} p={p} setId={setActiveId} />
-                                        </div>
-                                    </Col>
-                                )) : <div>
-                                    <p className="m-3">No Active Sellers</p></div>
+                                    user && users.length > 0 ? users.map(p => (
+                                        <Col key={p._id} className="float-left mb-2" sm={12} md={6} lg={4} xl={4}>
+                                            <ActivationCard user={user} p={p} setId={setActiveId} />
+                                        </Col>
+                                    )) : <div>
+                                        <p className="m-3 text-white">No Activated Users</p></div>
 
-                            }
+                                }
 
-                        </Row>
-
+                            </Row>
+                        }
                     </div>
                 </main>
             </div>

@@ -4,53 +4,52 @@ import AdminSideNav from '../../../components/nav/Admin'
 import { Row, Col, Alert } from 'react-bootstrap'
 import { inputField } from '../../../main'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { createAgency } from '../../../functions/agency'
 import { auth } from '../../../firebase/firebase'
 
-const CreateAgency = ({ history }) => {
+const CreateAgency = () => {
     const [name, setName] = useState(null)
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [address, setAddress] = useState(null)
     const [mobile, setMobile] = useState(null)
     const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const user = useSelector(state => state.user)
 
     useEffect(() => {
         inputField()
-        loadCategories()
     }, [])
-
-    const loadCategories = async () => {
-        setLoading(true)
-    }
 
     const url = window.location.href
     const submitHandler = async e => {
-        e.preventDefault()
-        setLoading(true)
-        try {
-            const result = await auth.signInWithEmailLink(email, url)
-            console.log(result);
-            if (result.user.emailVerified) {
-                let user = auth.currentUser
-                await user.updatePassword(password)
-                const idToken = await user.getIdTokenResult()
-                await createAgency({ name, email, address, mobile }, idToken.token).then(res => {
-                    setLoading(false)
+        if (name == null || email == null || password == null || address == null) {
+            setError("Fill the empty fields!")
+        } else if (mobile.length < 0 && mobile.length > 10) {
+            setError("Enter Valid Mobile No.!")
+        } else {
+            e.preventDefault()
+
+            try {
+                const result = await auth.signInWithEmailLink(email, url)
+                console.log(result);
+                if (result.user.emailVerified) {
+                    let user = auth.currentUser
+                    await user.updatePassword(password)
+                    const idToken = await user.getIdTokenResult()
+                    await createAgency({ name, email, address, mobile }, idToken.token).then(res => {
+
+                    }
+                    ).catch(error => {
+                        console.log("error in after signUp", error);
+                    })
                 }
-                ).catch(error => {
-                    console.log("error in after signUp", error);
-                })
+            } catch (error) {
+                console.log('error in signUp');
+                console.log(error);
             }
-        } catch (error) {
-            console.log('error in signUp');
-            console.log(error);
-            setLoading(false)
+
         }
+        inputField()
     }
     return (
         <div id="body">
@@ -74,31 +73,32 @@ const CreateAgency = ({ history }) => {
                                         <div class="input-div">
                                             <div>
                                                 <h5>Enter Agency Email</h5>
-                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={email} onChange={e => setEmail(e.target.value)} />
                                             </div>
                                         </div>
                                         <div class="input-div">
                                             <div>
                                                 <h5>Enter Address</h5>
-                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={address} onChange={e => setAddress(e.target.value)} />
                                             </div>
                                         </div>
                                         <div class="input-div">
                                             <div>
                                                 <h5>Enter Mobile No.</h5>
-                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={mobile} onChange={e => setMobile(e.target.value)} />
                                             </div>
                                         </div>
                                         <div class="input-div">
                                             <div>
                                                 <h5>Enter Password</h5>
-                                                <input type="password" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                <input type="password" class="input-tag" maxlength="25" id="txtName" value={password} onChange={e => setPassword(e.target.value)} />
                                             </div>
                                         </div>
                                         <input onClick={() => submitHandler()} class="btn-main" value="Create Agency" />
+                                        {error !== null && <Alert className="mt-2" variant="dark">{error}</Alert>}
                                     </div>
                                 </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+
                             </Col>
                         </Row>
                     </div>

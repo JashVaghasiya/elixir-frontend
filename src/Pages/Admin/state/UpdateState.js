@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Input } from 'antd'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
@@ -16,6 +15,7 @@ const UpdateState = ({ history, match }) => {
     useEffect(() => {
         inputField()
         loadState()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const loadState = async () => {
@@ -31,7 +31,7 @@ const UpdateState = ({ history, match }) => {
         if (name === oldName) {
             history.push("/admin/states")
         } else {
-            if (name !== null) {
+            if (name.length < 0) {
                 await updateState(id, name, user.token).then(res => {
                     if (res.data.stateError) {
                         setError(res.data.stateError)
@@ -46,6 +46,9 @@ const UpdateState = ({ history, match }) => {
                 document.getElementById("txtName").focus()
             }
         }
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     return (
@@ -67,10 +70,11 @@ const UpdateState = ({ history, match }) => {
                                                 <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
                                             </div>
                                         </div>
-                                        <input onClick={() => submitHandler(match.params.id)} class="btn-main" value="Update Category" />
+                                        <button onClick={() => submitHandler(match.params.id)} class="btn-main">Update Category</button>
+                                        {error !== null && <Alert className="mt-2" variant="danger">{error}</Alert>}
                                     </div>
                                 </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
+
                             </Col>
                         </Row>
                     </div>

@@ -30,9 +30,14 @@ export const deletePackage = async (id, authtoken) => {
 }
 
 export const getPackage = async (id, authtoken) => {
+    console.log(id, authtoken)
     return await axios.get(`http://localhost:8000/api/admin/package/${id}`, {
         headers: {
             authtoken: authtoken
         }
     })
+}
+
+export const getPack = async (id) => {
+    return await axios.get(`http://localhost:8000/api/seller/package/${id}`)
 }

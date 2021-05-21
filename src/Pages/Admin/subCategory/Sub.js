@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Input, Select, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { CloseOutlined, EditOutlined } from '@ant-design/icons'
-import { Alert, Col, Container, Row } from 'react-bootstrap'
+import { Alert, Col, Row } from 'react-bootstrap'
 import { getCategories } from '../../../functions/category'
 import { Link } from 'react-router-dom'
 import { createSub, deleteSub, getSubs } from '../../../functions/subCategory'
 import AdminSideNav from '../../../components/nav/Admin'
+import Loader from '../../../components/Loader'
 import Header from '../../../components/nav/HeaderMain'
 import '../../../main.css'
 import { inputField } from '../../../main'
@@ -22,7 +23,6 @@ const Sub = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        inputField()
         loadAll()
     }, [])
 
@@ -40,6 +40,7 @@ const Sub = () => {
         }).catch(err => {
             console.log(err);
         })
+        inputField()
     }
 
     const submitHandler = (e) => {
@@ -67,7 +68,9 @@ const Sub = () => {
             setError("Select Category or Enter Sub Name!")
             document.getElementById('txtName').focus()
         }
-
+        setTimeout(() => {
+            setError(null)
+        }, 5000)
     }
 
     const deleteSubs = async (id) => {
@@ -89,48 +92,54 @@ const Sub = () => {
                     <div className="main__container">
                         <h3>Sub-Category</h3>
                         <div className="white2"></div>
-                        <Row md="2" xl="3">
-                            <Col>
-                                <div class="content">
-                                    <div class="form">
-                                        <div class="input-div focus">
-                                            <div>
-                                                <h5>Select Category</h5>
-                                                <select class="input-tag" onChange={(e) => setCategory(e.target.value)} defaultValue="Select Category">
-                                                    {
-                                                        categories.map(c => (
-                                                            <option key={c._id} value={c._id}>{c.name}</option>
-                                                        ))
-                                                    }
-                                                </select>
+                        {loading ? <Loader color="white" /> :
+                            <>
+                                <Row md={2} xl={3}>
+                                    <Col>
+                                        <div class="content">
+                                            <div class="form">
+                                                <div class="input-div focus">
+                                                    <div>
+                                                        <h5>Select Category</h5>
+                                                        <select class="input-tag" onChange={(e) => setCategory(e.target.value)} defaultValue="Select Category">
+                                                            <option>Select Category</option>
+                                                            {
+                                                                categories.map(c => (
+                                                                    <option key={c._id} value={c._id}>{c.name}</option>
+                                                                ))
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="input-div">
+                                                    <div>
+                                                        <h5>Enter SubCategory Name</h5>
+                                                        <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <input onClick={(e) => submitHandler(e)} class="btn-main" value="Create Sub-Category" />
+                                                {error !== null && <Alert className="mt-2" variant="dark">{error}</Alert>}
                                             </div>
                                         </div>
-                                        <div class="input-div">
-                                            <div>
-                                                <h5>Enter SubCategory Name</h5>
-                                                <input type="text" class="input-tag" maxlength="25" id="txtName" value={name} onChange={e => setName(e.target.value)} />
-                                            </div>
-                                        </div>
-                                        <input onClick={(e) => submitHandler(e)} class="btn-main" value="Create Sub-Category" />
-                                    </div>
-                                </div>
-                                {error !== null ? <Alert className="mt-2" variant="danger">{error}</Alert> : ''}
 
-                            </Col>
-                        </Row>
-                        <div className="white2"></div>
-                        <Row>
-                            {loading ? "Loading..." : subs.map((s) => (
-                                <Col key={s._id} md="6" xl="4" sm="6">
-                                    <Alert variant="dark">{s.name}
-                                        <span className="float-right text-center">
-                                            <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
-                                            <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
-                                        </span>
-                                    </Alert>
-                                </Col>
-                            ))}
-                        </Row>
+
+                                    </Col>
+                                </Row>
+                                <div className="white2 mb-2"></div>
+                                <Row>
+                                    {subs && subs.length > 0 && subs.map((s) => (
+                                        <Col key={s._id} md="6" xl="4" sm="6">
+                                            <Alert variant="dark" style={{ color: "white" }}>{s.name}
+                                                <span className="float-right text-center">
+                                                    <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/sub/${s._id}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
+                                                    <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteSubs(s._id)} /></Tooltip>
+                                                </span>
+                                            </Alert>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </>
+                        }
                     </div>
                 </main>
             </div>

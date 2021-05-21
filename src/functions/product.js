@@ -11,17 +11,30 @@ export const getProduct = async (id) => {
     return await axios.get(`http://localhost:8000/api/product/${id}`)
 }
 
+
+//get specific seller products
 export const getSellerProducts = (id, authtoken) => {
     return axios.get(`http://localhost:8000/api/seller/product/${id}`, {
         headers: { authtoken: authtoken }
     })
 }
 
+//particular product for ads
+export const getAdsProduct = (id, authtoken) => {
+    return axios.get(`http://localhost:8000/api/ads/product/${id}`, {
+        headers: { authtoken: authtoken }
+    })
+}
+
+
+//get activated products fro seller
 export const getActiveProducts = (id, authtoken) => {
     return axios.get(`http://localhost:8000/api/seller/product/${id}/active`, {
         headers: { authtoken: authtoken }
     })
 }
+
+//get deactivate products for seller
 export const getDeactivatedProducts = (id, authtoken) => {
     console.log(authtoken);
     return axios.get(`http://localhost:8000/api/seller/product/${id}/deactivated`, {
@@ -29,12 +42,13 @@ export const getDeactivatedProducts = (id, authtoken) => {
     })
 }
 
-export const getSellerRejectedProduct = (id, authtoken) => {
-    console.log(id, authtoken)
+//get rejected products fro seller
+export const getRejectedProduct = (id, authtoken) => {
     return axios.get(`http://localhost:8000/api/seller/product/rejected/${id}`, {
         headers: { authtoken: authtoken }
     })
 }
+
 
 export const createProduct = (product, authtoken) => {
     return axios.post('http://localhost:8000/api/seller/product', { product }, {
@@ -55,6 +69,8 @@ export const deleteProduct = async (id, authtoken) => {
         }
     })
 }
+
+//activate product for seller
 export const activateProduct = async (id, authtoken) => {
     return axios.put(`http://localhost:8000/api/seller/product/activate/${id}`, {}, {
         headers: {
@@ -63,6 +79,7 @@ export const activateProduct = async (id, authtoken) => {
     })
 }
 
+//deactivate products for seller
 export const deactivateProduct = async (id, authtoken) => {
     return axios.put(`http://localhost:8000/api/seller/product/deactivate/${id}`, {}, {
         headers: {
@@ -80,6 +97,7 @@ export const getUnapprovedProduct = async (authtoken) => {
     })
 }
 
+//approve product
 export const approveProduct = async (id, authtoken) => {
     return axios.put(`http://localhost:8000/api/admin/product/approve/${id}`, {}, {
         headers: {
@@ -88,6 +106,7 @@ export const approveProduct = async (id, authtoken) => {
     })
 }
 
+//reject product
 export const rejectProduct = async (id, authtoken) => {
     return axios.put(`http://localhost:8000/api/admin/product/reject/${id}`, {}, {
         headers: {
@@ -97,9 +116,35 @@ export const rejectProduct = async (id, authtoken) => {
 }
 
 
+//home page calling
+export const getHomePageProducts = async () => {
+    return axios.get(`http://localhost:8000/api/home/products`)
+}
 
+export const getFilteredProducts = async (filters) => {
+    return axios.post(`http://localhost:8000/api/products/filter`, { filters })
+}
 
+export const getSearchedProducts = async (text) => {
+    return axios.post(`http://localhost:8000/api/products/search`, { text })
+}
 
+export const getTopRated = async () => {
+    return axios.get(`http://localhost:8000/api/products/top/rated`)
+}
 
+export const getTopGrossing = async () => {
+    return axios.get(`http://localhost:8000/api/products/top/grossing`)
+}
 
+export const getTopFeatured = async () => {
+    return axios.get(`http://localhost:8000/api/products/top/ads`)
+}
 
+export const getCategoryViseProduct = async (category) => {
+    return axios.get(`http://localhost:8000/api/product/category/${category}`)
+}
+
+export const getSubCategoryViseProduct = async (sub) => {
+    return axios.get(`http://localhost:8000/api/product/subcategory/${sub}`)
+}

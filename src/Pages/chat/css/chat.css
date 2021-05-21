@@ -1,0 +1,419 @@
+ol,
+ul {
+    list-style: none
+}
+
+#frame {
+    width: 100%;
+    height: 88vh;
+    background: #E6EAEA;
+}
+
+@media screen and (max-width: 360px) {
+    #frame {
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+#frame #sidepanel {
+    float: left;
+    min-width: 280px;
+    max-width: 340px;
+    width: 40%;
+    height: 88vh;
+    background: #333;
+    color: #f5f5f5;
+    overflow: hidden;
+    position: relative;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel {
+        width: 58px;
+        min-width: 58px;
+    }
+}
+
+#frame #sidepanel #search {
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    font-weight: 300;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #search {
+        display: none;
+    }
+}
+
+#frame #sidepanel #search label {
+    position: absolute;
+    margin: 10px 0 0 20px;
+}
+
+#frame #sidepanel #search input {
+    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+    padding: 10px 0 10px 46px;
+    width: 100%;
+    border: none;
+    background: #4a4a4a;
+    color: #f5f5f5;
+}
+
+#frame #sidepanel #search input:focus {
+    outline: none;
+    background: #333;
+}
+
+#frame #sidepanel #search input::-webkit-input-placeholder {
+    color: #f5f5f5;
+}
+
+#frame #sidepanel #search input::-moz-placeholder {
+    color: #f5f5f5;
+}
+
+#frame #sidepanel #search input:-ms-input-placeholder {
+    color: #f5f5f5;
+}
+
+#frame #sidepanel #search input:-moz-placeholder {
+    color: #f5f5f5;
+}
+
+#frame #sidepanel #contacts {
+    height: calc(100% - 177px);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts {
+        height: calc(100% - 149px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    #frame #sidepanel #contacts::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+#frame #sidepanel #contacts::-webkit-scrollbar {
+    width: 8px;
+    background: #444;
+}
+
+#frame #sidepanel #contacts::-webkit-scrollbar-thumb {
+    background-color: #444;
+}
+
+#frame #sidepanel #contacts ul li.contact {
+    position: relative;
+    padding: 10px 0 15px 0;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact {
+        padding: 6px 0 46px 8px;
+    }
+}
+
+#frame #sidepanel #contacts ul li.contact:hover {
+    background: #4a4a4a;
+}
+
+#frame #sidepanel #contacts ul li.contact.active {
+    background: #4a4a4a;
+    border-right: 5px solid #4a4a4a;
+}
+
+#frame #sidepanel #contacts ul li.contact.active span.contact-status {
+    border: 2px solid #4a4a4a !important;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap {
+    width: 88%;
+    margin: 0 auto;
+    position: relative;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap {
+        width: 100%;
+    }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap img {
+    width: 40px;
+    border-radius: 50%;
+    float: left;
+    margin: 10px 10px 0 0;
+
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap img {
+        margin: 0px 0px;
+    }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta {
+    padding: 5px 0 0 0;
+}
+
+@media screen and (max-width: 735px) {
+    #frame #sidepanel #contacts ul li.contact .wrap .meta {
+        display: none;
+    }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .name {
+    font-weight: 600;
+    margin: 0;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .preview {
+    margin: 5px 0 0 0;
+    padding: 0 0 1px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -moz-transition: 1s all ease;
+    -o-transition: 1s all ease;
+    -webkit-transition: 1s all ease;
+    transition: 1s all ease;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .preview span {
+    position: initial;
+    border-radius: initial;
+    background: none;
+    border: none;
+    padding: 0 2px 0 0;
+    margin: 0 0 0 1px;
+    opacity: .5;
+}
+
+#frame .content {
+    width: 55%;
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+    margin: 0px;
+    display: block;
+}
+
+@media screen and (max-width: 735px) {
+    #frame .content {
+        width: calc(100% - 58px);
+        min-width: 300px !important;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    #frame .content {
+        width: calc(100% - 340px);
+    }
+}
+
+#frame .content .contact-profile {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background: #f5f5f5;
+}
+
+#frame .content .contact-profile img {
+    width: 40px;
+    border-radius: 50%;
+    float: left;
+    margin: 10px 12px 0 9px;
+}
+
+#frame .content .contact-profile p {
+    float: left;
+    color: #4a4a4a;
+}
+
+#frame .content .messages {
+    height: auto;
+    width: 100%;
+    min-height: calc(100% - 125px);
+    max-height: calc(100% - 125px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 735px) {
+    #frame .content .messages {
+        max-height: calc(100% - 105px);
+    }
+}
+
+#frame .content .messages::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+#frame .content .messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#frame .content .contact-profile input {
+    color: #fff;
+    text-indent: 20px;
+    padding-right: 20px;
+    float: right;
+    margin: 10px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: #333;
+    font-weight: 400;
+}
+
+#frame .content .contact-profile input::placeholder {
+    color: white;
+}
+
+#frame .content .contact-profile input:focus {
+    outline: none;
+}
+
+#frame .content .messages ul li {
+    display: inline-block;
+    clear: both;
+    /* float: left; */
+    margin: 10px 10px 5px 10px;
+    width: calc(100% - 25px);
+    font-size: 0.9em;
+}
+
+/* #frame .content .messages ul li:nth-last-child(1) {
+    margin-bottom: 10px;
+} */
+
+#frame .content .messages ul li.sent p,
+#frame .content .messages ul li.sent img {
+    background: #f5f5f5;
+    color: #333;
+    float: right;
+    text-align: left;
+}
+
+#frame .content .messages ul li.replies p,
+#frame .content .messages ul li.replies img {
+
+    background: #333;
+    color: #f5f5f5;
+    text-align: left;
+    float: left;
+}
+
+li.replies .ant-image {
+    float: left;
+}
+
+li.sent .ant-image {
+    float: right;
+}
+
+#frame .content .messages ul li p,
+#frame .content .messages ul li img {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 300px;
+    line-height: 130%;
+}
+
+@media screen and (min-width: 735px) {
+
+    #frame .content .messages ul li p,
+    #frame .content .messages ul li img {
+        max-width: 300px;
+    }
+}
+
+#frame .content .message-input {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+#frame .content .message-input .wrap {
+    position: relative;
+}
+
+#frame .content .message-input .wrap input {
+    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+    float: left;
+    border: none;
+    height: 50px;
+    width: calc(100% - 50px);
+    padding: 11px 32px 10px 8px;
+    font-size: 0.8em;
+    color: #333;
+}
+
+@media screen and (max-width: 735px) {
+    #frame .content .message-input .wrap input {
+        padding: 15px 32px 16px 8px;
+    }
+}
+
+#frame .content .message-input .wrap input:focus {
+    outline: none;
+}
+
+#frame .content .message-input .wrap .attachment {
+    position: absolute;
+    right: 60px;
+    z-index: 4;
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #333;
+    opacity: .5;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 735px) {
+    #frame .content .message-input .wrap .attachment {
+        margin-top: 17px;
+        right: 65px;
+    }
+}
+
+#frame .content .message-input .wrap .attachment:hover {
+    opacity: 1;
+}
+
+#frame .content .message-input .wrap button {
+    float: right;
+    border: none;
+    width: 50px;
+    padding: 12px 0;
+    cursor: pointer;
+    background: #333;
+    color: #f5f5f5;
+}
+
+@media screen and (max-width: 735px) {
+    #frame .content .message-input .wrap button {
+        padding: 16px 0;
+    }
+}
+
+#frame .content .message-input .wrap button:hover {
+    background: #333;
+}
+
+#frame .content .message-input .wrap button:focus {
+    outline: none;
+}

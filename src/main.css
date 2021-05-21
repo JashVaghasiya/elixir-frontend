@@ -7,10 +7,23 @@
     text-align: center;
 }
 
+.content-product {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
 .form {
     width: 360px;
 }
 
+.content-product .input-div {
+    position: relative;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
 
 .content .input-div {
     position: relative;
@@ -32,6 +45,14 @@
     color: rgb(124, 118, 118);
     font-size: 18px;
     transition: 0.3s;
+}
+
+.input-div>div>h4 {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    color: rgb(124, 118, 118);
+    font-size: 18px;
 }
 
 .input-div:before,
@@ -63,6 +84,7 @@
     font-size: 15px;
 }
 
+
 .input-div.focus>.i>i {
     color: #a48cb4;
 }
@@ -76,13 +98,106 @@
     border: none;
     outline: none;
     background: none;
-    padding: 0.5rem 0.7rem;
     font-size: 1.2rem;
     color: #fff;
     font-family: 'poppins', sans-serif;
 }
 
 .input-div>div>select {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: rgb(41, 41, 41);
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+    color: #fff;
+    font-family: 'poppins', sans-serif;
+}
+
+.content .user-input-div {
+    position: relative;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.user-input-div>div {
+    position: relative;
+    height: 45px;
+}
+
+.user-input-div>div>h6 {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.user-input-div>div>h4 {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    color: black;
+    font-size: 18px;
+    text-transform: none;
+}
+
+.user-input-div:before,
+.user-input-div:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 0%;
+    height: 2px;
+    background-color: #a48cb4;
+    transition: 0.4s;
+}
+
+.user-input-div:before {
+    right: 50%;
+}
+
+.user-input-div:after {
+    left: 50%;
+}
+
+.user-input-div.focus:before,
+.user-input-div.focus:after {
+    width: 50%;
+}
+
+.user-input-div.focus>div>h6 {
+    top: -5px;
+    font-size: 15px;
+}
+
+
+.user-input-div.focus>.i>i {
+    color: #a48cb4;
+}
+
+.user-input-div>div>input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #fff;
+    font-family: 'poppins', sans-serif;
+}
+
+.user-input-div>div>select {
     position: absolute;
     left: 0;
     top: 0;
@@ -119,4 +234,100 @@
 
 .btn-main:hover {
     background-position: right;
+}
+
+/* cart */
+
+.card p {
+    color: #333;
+}
+
+.apply-coupon {
+    display: flex;
+}
+
+.apply-coupon input {
+    outline: none;
+    color: #55595c;
+    background-color: #f7f7f9;
+    background-clip: padding-box;
+    border: 2px solid #ced4da;
+    height: 40px;
+    width: 60%;
+    text-indent: 10px;
+    margin: 0px 10px 10px 0px;
+}
+
+.apply-coupon button {
+    height: 40px;
+    width: 40%;
+}
+
+
+/* shipping page */
+.shipping-form input,
+
+select {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.5rem + 0px);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #f7f7f9;
+    background-clip: padding-box;
+    border: 2px solid #ced4da;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.shipping-form textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #f7f7f9;
+    background-clip: padding-box;
+    border: 2px solid #ced4da;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    outline: none;
+}
+
+.form-button {
+    display: inline-block;
+    padding: 0.7rem 1.3rem;
+    color: #fff;
+    background-color: #333;
+    /* border-color: #1a1a1a; */
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+
+.form-button:hover {
+    transition: all 1s ease;
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #000;
+}
+
+.update-user-profile {
+    height: 85vh;
+}
+
+.profile-avatar {
+    border-radius: 50%;
+    height: 125px;
+    width: 125px;
+}
+
+.img-title {
+    text-align: center;
 }

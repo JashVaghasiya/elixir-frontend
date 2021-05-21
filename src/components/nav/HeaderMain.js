@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import "../../Pages/Admin/dashboard/css/styles.css"
 
 const HeaderMain = () => {
@@ -11,16 +11,14 @@ const HeaderMain = () => {
     const [user, setUser] = useState({})
     const users = useSelector(state => state.user)
     const sellers = useSelector(state => state.seller)
-    const history = useHistory()
 
     useEffect(() => {
         setSeller(sellers)
         setUser(users)
         setSidebarOpen(false)
         setSidebar(document.getElementById("sidebar"))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sidebar, sidebarOpen, user, seller])
-
-    var sidebarCloseIcon = document.getElementById("sidebarIcon");
 
     const toggleSidebar = () => {
         if (!sidebarOpen) {
@@ -41,7 +39,7 @@ const HeaderMain = () => {
                 <a className="active_link" href="#">Admin</a> */}
             </div>
             <div className="navbar__right">
-                {user || seller ?
+                {user ?
 
                     <>
                         <div className="admin-profile">
@@ -64,9 +62,31 @@ const HeaderMain = () => {
                                 </ui>
                             </Link>
                             : ''}
-                        {seller && seller.role === "seller" ? <Link to="/seller/dashboard" class="white1">
-                            {user && user.name}
-                        </Link> : ''}
+                        {user && user.role === "agency" ?
+                            <Link to="/agency/1" class="white1">
+                                <ui>
+                                    <li>
+                                        Hello,
+                                    </li>
+                                    <li>
+                                        {user && user.name}
+                                    </li>
+                                </ui>
+                            </Link>
+                            : ''}
+                        {user && user.role === "seller" ?
+                            <Link to={`/seller/profile`} class="white1">
+                                <ui>
+                                    <li>
+                                        Hello,
+                                    </li>
+                                    <li>
+                                        {user && user.name}
+                                    </li>
+                                </ui>
+                            </Link>
+                            : ''}
+
 
 
                     </>
