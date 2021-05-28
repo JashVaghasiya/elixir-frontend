@@ -13,7 +13,6 @@ const PackageFinal = () => {
 
             <Elements stripe={promise}>
                 <div className="col-md-8 offset-md-2">
-
                     <StripeCheckOut />
                 </div>
             </Elements>

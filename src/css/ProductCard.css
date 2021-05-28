@@ -53,6 +53,7 @@
 
 .product:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border: 3px solid #fff;
 }
 
 .seller-product a .seller-product-img img {

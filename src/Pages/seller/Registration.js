@@ -14,22 +14,21 @@ const Registration = () => {
         if (email === null) {
             setError("Enter Email in field!")
         } else {
-            window.localStorage.setItem('email', email)
             setLoading(true)
+            window.localStorage.setItem('email', email)
             e.preventDefault()
 
             const config = {
                 url: "http://localhost:3000/seller/registration/complete",
                 handleCodeInApp: true
             }
-            await auth.sendSignInLinkToEmail(email, config)
+            await auth.sendSignInLinkToEmail(email, config).then(res => {
+                setLoading(false)
+            })
+            setError("Registration link is sent to your Email")
         }
 
     }
-
-    setTimeout(() => {
-        setError(null)
-    }, 5000)
 
     return (
         <div className="login-page-container pt-5">

@@ -13,7 +13,6 @@ const Dashboard = () => {
     const [orderData, setOrderData] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [productData, setProductData] = useState('')
-    const [userData, setUserData] = useState('')
     const [amountData, setAmountData] = useState({})
     const [adsData, setAdsData] = useState('')
     const [unscheduleData, setUnscheduleData] = useState('')
@@ -23,8 +22,8 @@ const Dashboard = () => {
             getData()
 
         }
-        renderSellerChart(user && user._id)
-        renderOrderChart(user && user._id)
+        // renderSellerChart(user && user._id)
+        // renderOrderChart(user && user._id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
@@ -34,7 +33,6 @@ const Dashboard = () => {
                 setOrderData(res.data[0].count)
                 setAmountData(res.data[1].amount)
                 setProductData(res.data[2].count)
-                setUserData(res.data[3].count)
                 setAdsData(res.data[4].count)
                 setUnscheduleData(res.data[5].count)
             }
@@ -86,7 +84,7 @@ const Dashboard = () => {
                                     <h5>Days Left</h5>
                                 </div>
                                 <div class="seller-card-chart">
-                                    <Progress type="circle" strokeColor="#e9c46a" style={{ color: "black" }} percent={userData && userData.remainingDays} format={percent => `${percent}`} width={80} strokeWidth={8} />
+                                    <Progress type="circle" strokeColor="#e9c46a" style={{ color: "black" }} percent={user && user.remainingDays} format={percent => `${user && user.remainingDays}`} width={80} strokeWidth={8} />
                                 </div>
                             </div>
 
@@ -97,7 +95,7 @@ const Dashboard = () => {
                                         <h5>Products Left</h5>
                                     </div>
                                     <div class="seller-card-chart">
-                                        <Progress type="circle" strokeColor="#f4a261" style={{ color: "black" }} percent={userData && userData.remainingProducts} format={percent => `${percent}`} width={80} strokeWidth={8} />
+                                        <Progress type="circle" strokeColor="#f4a261" style={{ color: "black" }} percent={user && user.remainingProducts} format={percent => `${user && user.remainingProducts}`} width={80} strokeWidth={8} />
                                     </div>
                                 </div>
                             </Link>
@@ -124,12 +122,12 @@ const Dashboard = () => {
                                 <div class="charts__right__cards">
                                     <div class="card1">
                                         <h2>Income</h2>
-                                        <h5>₹ {amountData && amountData.income}</h5>
+                                        <h5>₹ {amountData ? amountData.income : 0}</h5>
                                     </div>
 
                                     <div class="card2">
                                         <h2>Sales</h2>
-                                        <h5>₹ {amountData && amountData.sales}</h5>
+                                        <h5>₹ {amountData ? amountData.sales : 0}</h5>
                                     </div>
 
                                     <Link to={`/seller/ads/1`}>
@@ -142,7 +140,7 @@ const Dashboard = () => {
                                     <Link to={`/seller/orders/pickup/1`}>
                                         <div class="card4">
                                             <h2>UnSchedule</h2>
-                                            <h5>{unscheduleData && unscheduleData}</h5>
+                                            <h5>{unscheduleData ? unscheduleData : 0}</h5>
                                         </div>
                                     </Link>
                                 </div>

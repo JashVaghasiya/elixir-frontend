@@ -15,20 +15,19 @@ const StripeCheckOut = () => {
     const [processing, setProcessing] = useState('')
     const [disabled, setDisabled] = useState(true)
     const [clientSecret, setClientSecret] = useState('')
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState(null)
     const [pack, setPack] = useState([])
     const history = useHistory()
 
     const user = useSelector(state => state.user)
     const data = useSelector(state => state.seller)
     const dispatch = useDispatch()
-    const addressSplit = user && user.address.split(",")
 
     useEffect(() => {
         getPackage()
         load()
         setEmail(window.localStorage.getItem('email'))
-    }, [])
+    }, [email, history])
 
     const getPackage = async () => {
         const packageId = window.localStorage.getItem("Package Id")
@@ -46,8 +45,6 @@ const StripeCheckOut = () => {
             setClientSecret(res.data.clientSecret)
         })
     }
-
-
 
     const stripe = useStripe()
     const elements = useElements()
@@ -88,11 +85,11 @@ const StripeCheckOut = () => {
                 setProcessing(false)
             } else {
                 setError(null)
-                setProcessing(false)
-                setSucceeded(true)
+
                 if (res.paymentIntent.status === "succeeded") {
 
                     if (user && user._id && user.token && user.role === "seller") {
+                        console.log("Update Seller")
                         await updateSellerPackage(user && user._id, pack && pack, user && user.token).then(res => {
                             dispatch({
                                 type: 'LOGIN_USER',
@@ -104,16 +101,14 @@ const StripeCheckOut = () => {
                             }
                         })
                     } else {
+                        console.log("New Seller")
                         const result = await auth.signInWithEmailLink(email, data && data.url)
                         if (result.user.emailVerified) {
                             window.localStorage.removeItem('email')
-
                             let user = auth.currentUser
                             await user.updatePassword(data.password)
                             const idToken = await user.getIdTokenResult()
-                            console.log('calling create seller')
                             await createSeller(data && data, pack && pack, idToken.token).then(res => {
-                                console.log(res)
                                 dispatch({
                                     type: 'LOGIN_USER',
                                     payload: {
@@ -127,6 +122,8 @@ const StripeCheckOut = () => {
                                         totalProducts: res.data.totalProducts,
                                     }
                                 })
+                                setProcessing(false)
+                                setSucceeded(true)
                                 history.push('/seller/dashboard')
                                 window.localStorage.removeItem("Package Id")
                             }).catch(error => console.log(error))
@@ -159,25 +156,14 @@ const StripeCheckOut = () => {
                         <ListGroup variant='flush'>
                             <ListGroup.Item className="mt-5 mr-5 order-address" style={{ padding: 0, border: "none" }}>
                                 <h4>
-                                    USER DETAILS
+                                    SELLER DETAILS
                                 </h4>
                                 <hr />
                                 {user && user.role === "seller" ?
                                     <>
                                         <h6><strong>Name: </strong>{user && user.email}</h6>
                                         <h6><strong>Price: </strong>{user && user.name}</h6>
-                                        <h6><strong>Duration: </strong>{user && user.address}</h6>
-                                        <div className="checkout-address">
-                                            <div>
-                                                <h6><strong>Address: </strong></h6>
-                                            </div>
-                                            <div>
-                                                <h6>{addressSplit && addressSplit[0]},</h6>
-                                                <h6>{addressSplit && addressSplit[1]},</h6>
-                                                <h6>{addressSplit && addressSplit[2]},</h6>
-                                                <h6>{addressSplit && addressSplit[3]}</h6>
-                                            </div>
-                                        </div>
+                                        <h6><strong>Address: </strong>{user && user.address}</h6>
                                     </>
                                     :
                                     <h6><strong>Email: </strong>{data && data.email}</h6>
@@ -211,7 +197,7 @@ const StripeCheckOut = () => {
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
-                                        <Col><h5>Item (1)</h5></Col>
+                                        <Col><h5>ITEM (1)</h5></Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>

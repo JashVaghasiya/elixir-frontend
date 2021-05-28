@@ -12,6 +12,7 @@ const Package = ({ history }) => {
     const seller = useSelector(state => state.user)
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         getPacks()
     }, [])
 
@@ -84,7 +85,6 @@ const Package = ({ history }) => {
                     </div>
                     <div class="seller-pricing-card-title">
                         <h3>{pack3.name}</h3>
-                        {/* <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4> */}
                     </div>
                     <div class="seller-pricing-card-price">
                         <h1>
@@ -105,7 +105,6 @@ const Package = ({ history }) => {
                 <div class="seller-pricing-card">
                     <div class="seller-pricing-card-title">
                         <h3>{pack2.name}</h3>
-                        {/* <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4> */}
                     </div>
                     <div class="seller-pricing-card-price">
                         <h1>

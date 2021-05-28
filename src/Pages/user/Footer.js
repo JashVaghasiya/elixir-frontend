@@ -76,7 +76,7 @@ const Footer = () => {
                         <h2> Our Community</h2>
                         <hr />
                         <p>You can also join our seller community to sell products on elixir we are having several packages to for sellers and many other benefits.</p>
-                        <a href="/seller/registration" class="btn-footer btn-footer-dark">Join Now</a>
+                        <Link to="/package" class="btn-footer btn-footer-dark">Join Now</Link>
                     </div>
                     <div id="copy">
                         <div>Copyright &copy; {new Date().getFullYear()}</div>
