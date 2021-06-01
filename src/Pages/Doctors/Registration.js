@@ -9,6 +9,8 @@ const Registration = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    window.scrollTo(0, 0)
+
     const submitHandler = async (e) => {
         if (email !== null) {
             setLoading(true)

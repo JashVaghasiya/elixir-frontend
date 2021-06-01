@@ -25,20 +25,19 @@ const Header = () => {
             payload: null
         })
         history.push('/login')
-        window.location.reload()
-
     }
 
     return (
+
         <nav id="navbar">
 
-            <div className="logo"><img src={Logo} alt="logo" />
+            <div className="doctor-header"><img src={Logo} alt="logo" />
                 <h1>elixir</h1>
             </div>
 
             <ul>
                 {user !== null ? <>
-                    <li className="float-left"><Tooltip title="Chat" color="black"><Link to="/chat"><i className="fas fa-comment-medical"></i></Link></Tooltip></li>
+                    <li><Tooltip title="Chat" color="black"><Link to="/chat"><i className="fas fa-comment-medical"></i></Link></Tooltip></li>
                     <div className="btn-group">
                         <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {user && user.name}
@@ -58,6 +57,7 @@ const Header = () => {
 
             </ul>
         </nav>
+
     )
 }
 

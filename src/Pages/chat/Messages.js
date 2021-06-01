@@ -21,6 +21,7 @@ const Messages = ({ socket }) => {
     }, [socket])
 
     useEffect(() => {
+
         setMessages([])
         getMessages(room && room.roomId).then(res => {
             return setMessages(res.data)
@@ -56,11 +57,11 @@ const Messages = ({ socket }) => {
                 <ul>
                     {(messages && messages.length > 0 && messages.map((m, index) => (
                         m.message.startsWith('https://firebasestorage.googleapis.com') ?
-                            <li key={index} className={m.senderName === user.name ? "sent" : "replies"}>
+                            <li key={index} className={m.senderName === user && user.name ? "sent" : "replies"}>
                                 <Image style={{ height: "250px" }} src={m.message} alt={m.message} />
                             </li>
                             :
-                            <li key={index} className={m.senderName === user.name ? "sent" : "replies"}>
+                            <li key={index} className={m.senderName === user && user.name ? "sent" : "replies"}>
                                 <p>{m.message}</p>
                             </li>
                     )))}

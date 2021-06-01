@@ -31,7 +31,7 @@ const UpdateState = ({ history, match }) => {
         if (name === oldName) {
             history.push("/admin/states")
         } else {
-            if (name.length < 0) {
+            if (name !== null) {
                 await updateState(id, name, user.token).then(res => {
                     if (res.data.stateError) {
                         setError(res.data.stateError)
@@ -71,7 +71,7 @@ const UpdateState = ({ history, match }) => {
                                             </div>
                                         </div>
                                         <button onClick={() => submitHandler(match.params.id)} class="btn-main">Update Category</button>
-                                        {error !== null && <Alert className="mt-2" variant="danger">{error}</Alert>}
+                                        {error !== null && <Alert className="mt-2 text-white" variant="dark">{error}</Alert>}
                                     </div>
                                 </div>
 

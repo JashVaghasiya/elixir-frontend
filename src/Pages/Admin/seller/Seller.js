@@ -15,8 +15,8 @@ const Seller = ({ match }) => {
     const user = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
     const [pageData, setPageData] = useState()
-    const [sortName, setSortName] = useState("_id")
-    const [manner, setManner] = useState(1)
+    const [sortName, setSortName] = useState("createdAt")
+    const [manner, setManner] = useState(-1)
     const [limit, setLimit] = useState(10)
 
     const pageNumber = match.params.pageNumber || 0
@@ -62,7 +62,7 @@ const Seller = ({ match }) => {
                                     <tr>
                                         <th >Seller Id<i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>
                                         <th>Email<i className="fas fa-sort" onClick={() => setSort("email")}></i></th>
-                                        <th>Package<i className="fas fa-sort" onClick={() => setSort("package")}></i></th>
+                                        <th>Package<i className="fas fa-sort" onClick={() => setSort("packageName")}></i></th>
                                         <th>Expire After<i className="fas fa-sort" onClick={() => setSort("remainingDays")}></i></th>
                                         <th>Products<i className="fas fa-sort" onClick={() => setSort("totalProducts")}></i></th>
                                         <th>Active/Deactivated<i className="fas fa-sort" onClick={() => setSort("activated")}></i></th>
@@ -72,9 +72,8 @@ const Seller = ({ match }) => {
                                     {sellers && sellers.length > 0 && sellers.map(u => (
                                         <tr key={u._id}>
                                             <td>{u._id}</td>
-
                                             <td>{u.email}</td>
-                                            <td>{u.package}</td>
+                                            <td>{u.packageName}</td>
                                             <td>{u.remainingDays}</td>
                                             <td>{u.totalProducts}</td>
                                             <td>{u.activated ? "Active" : "Deactivated"}</td>

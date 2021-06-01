@@ -61,11 +61,12 @@ const Orders = ({ match, history }) => {
                                 </thead>
                                 <tbody>
                                     {orders && orders.length > 0 && orders.map(o => (
+                                        o.productId &&
                                         <tr onClick={() => goToProduct(o.productId._id)}>
-                                            {/* <td>{o.productId._id}</td>
+                                            <td>{o.productId._id}</td>
                                             <td>{o.productId.name}</td>
                                             <td><img src={o.productId.images[0].url} alt={o.productId.images[0].name} style={{ height: "75px", width: "75px" }} /></td>
-                                            <td>{o.productId.price}</td> */}
+                                            <td>{o.productId.price}</td>
                                             <td>{o.totalQty}</td>
                                             <td>{o.totalAmount}</td>
                                             <td>{o.picked ? <i class="far fa-check-circle text-success"></i> : <i class="far fa-times-circle text-danger"></i>}</td>

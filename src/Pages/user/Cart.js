@@ -28,9 +28,11 @@ const Cart = ({ history }) => {
     let qty = 0
     let discountedAmount = 0
 
-
     useEffect(() => {
         window.scrollTo(0, 0)
+        if (user === null) {
+            history.push('/login')
+        }
         if (user && user.token) {
             getCart()
         }
@@ -70,12 +72,14 @@ const Cart = ({ history }) => {
             if (res.data.notFound) {
                 setError(res.data.notFound)
             } else {
-                setError(null)
-                setDiscount(res.data.discount)
-                setCouponId(res.data._id)
-                applyCoupon(res.data._id, user && user._id, user && user.token).then(res => {
-                    if (res.data.used) {
-                        setError(res.data.used)
+
+                applyCoupon(res.data._id, user && user._id, user && user.token).then(response => {
+                    if (response.data.used === null) {
+                        setError(null)
+                        setDiscount(res.data.discount)
+                        setCouponId(res.data._id)
+                    } else {
+                        setError(response.data.used)
                     }
                 }).catch(err => {
                     console.log(err);
@@ -144,20 +148,20 @@ const Cart = ({ history }) => {
                         <ListGroup variant='flush' style={{ "margin-top": "30px" }}>
                             {cart && cart.length > 0 && cart.map(item => (
                                 <>
-                                    <ListGroup.Item key={item._id} className="shipping-form cart-section-1">
+                                    <ListGroup.Item key={item && item._id} className="shipping-form cart-section-1">
                                         <Row>
                                             <Col md={2}>
-                                                <Image className="cart-image" src={item.productId.images[0].url} alt={item.productId.images[0].name} fluid rounded />
+                                                <Image className="cart-image" src={item && item.productId.images[0].url} alt={item.productId.images[0].name} fluid rounded />
                                             </Col>
                                             <Col md={3}>
-                                                <Link to={`/product/${item.productId._id}`}><p className="text-dark">{item.productId.name.length > 30 ? item.productId.name.substr(0, 50).concat("...") : item.productId.name}</p></Link>
+                                                <Link to={`/product/${item.productId._id}`}><p className="text-dark">{item && item.productId.name.length > 30 ? item.productId.name.substr(0, 50).concat("...") : item.productId.name}</p></Link>
                                             </Col>
-                                            <Col md={2} style={{ "fontSize": "18px" }}>&#8377;{item.productId.price}</Col>
+                                            <Col md={2} style={{ "fontSize": "18px" }}>&#8377;{item && item.productId.price}</Col>
                                             <Col md={2}>
                                                 {
                                                     item.productId.stock <= 0 ? "Out of Stock" : item.productId.activated === false ? "Unavailable" :
 
-                                                        <select value={item.qty} onChange={(e) => setCartQty(e, item._id)}>
+                                                        <select value={item && item.qty} onChange={(e) => setCartQty(e, item._id)}>
                                                             {
                                                                 item.productId.stock > 5 ? [...Array(5).keys()].map(q => (
                                                                     <option selected={q + 1 === item.qty} key={q + 1} value={q + 1} >{q + 1}</option>

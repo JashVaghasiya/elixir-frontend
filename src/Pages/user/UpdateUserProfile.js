@@ -132,7 +132,7 @@ const UpdateUserProfile = ({ history }) => {
                         <Form.Label>Mobile</Form.Label>
                         <br />
 
-                        <input type='text' value={userMobile ? userMobile : 'Mobile Number is not Provided'} onChange={e => setUserMobile(e.target.value)} ></input>
+                        <input type='text' value={userMobile} onChange={e => setUserMobile(e.target.value)} ></input>
 
                     </Form.Group>
                 </Col>

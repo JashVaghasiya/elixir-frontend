@@ -15,15 +15,15 @@ const ActivationCard = ({ user, p, setId }) => {
                     <p style={{ marginBottom: "0px", marginTop: "4px", display: "flex", color: "#fff" }}>
                         Name: {p.name.length > 50 ? <p style={{ color: "#fff", marginLeft: "5px" }}>{p.name.substr(0, 40).concat("...")}</p> : <p style={{ color: "#fff", marginLeft: "5px" }}>{p.name}</p>}
                     </p>
-                    {p.role === 'user' && <p style={{ display: "flex", color: "#fff" }}>
+                    {user.role === 'user' && <p style={{ display: "flex", color: "#fff" }}>
                         Email: <p style={{ color: "#fff", marginLeft: "5px" }}>{p.email.length > 20 ? p.email.substr(0, 20).concat('...') : p.email}</p>
                     </p>}
-                    {p.role === 'seller' && p.stock && <p style={{ display: "flex", color: "#fff" }}>
+                    {user.role === 'seller' && p.stock && <p style={{ display: "flex", color: "#fff" }}>
                         Stock: <p style={{ color: "#fff", marginLeft: "5px" }}>{p.stock}</p>
                     </p>}
-                    {p.role === 'seller' && <p style={{ display: "flex", color: "#fff" }}>Package Name: {p.package && (p.package).toUpperCase()}</p>}
-                    {p.role === 'seller' && <p style={{ display: "flex", color: "#fff" }}>Remaining Days: {p.remainingDays && p.remainingDays}</p>}
-                    {p.role === 'seller' && <p style={{ display: "flex", color: "#fff" }}>Remaining Products: {p.remainingProducts && p.remainingProducts}</p>}
+                    {user.role === 'admin' && <p style={{ display: "flex", color: "#fff" }}>Package Name: {p.packageName && (p.packageName).toUpperCase()}</p>}
+                    {user.role === 'admin' && <p style={{ display: "flex", color: "#fff" }}>Remaining Days: {p.remainingDays && p.remainingDays}</p>}
+                    {user.role === 'admin' && <p style={{ display: "flex", color: "#fff" }}>Remaining Products: {p.remainingProducts && p.remainingProducts}</p>}
                 </Card.Text>
                 <Button className={p.activated ? 'btn btn-danger mt-2' : 'btn btn-success mt-2'} onClick={() => setId(p._id)}>{p.activated ? "Deactivate" : "Activate"}</Button>
             </Card.Body>

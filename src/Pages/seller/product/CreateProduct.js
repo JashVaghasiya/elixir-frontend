@@ -117,23 +117,26 @@ const CreateProduct = ({ history }) => {
                                 </div>
                                 <div class="content-product" style={{ display: "block", width: "50%" }}>
                                     <label className="text-white float-left mt-2">Name</label>
-                                    <input className="create-input" placeholder="Enter Product Name" type="text" value={name} onChange={e => setName(e.target.value)} />
+                                    <input className="create-input" placeholder="Enter Product Name" maxlength="80" type="text" value={name} onChange={e => setName(e.target.value)} />
                                     <label className="text-white float-left mt-2">Description</label>
                                     <textarea className="create-text-area" rows='4' value={description} onChange={e => setDescription(e.target.value)} placeholder="Enter Description"></textarea>
                                     <div style={{ display: "flex" }} className="mt-2 text-white">
                                         <label className='mr-3'>Type:</label>
                                         <input className="create-radio" checked type="radio" name="type" value='Veg' onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={Veg} className="mr-2" /> Vegetarian
-                                <input className="create-radio" type="radio" name="type" value='Non-Veg' onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={NonVeg} className="mr-2" /> Non-Vegetarian
-                            </div>
+                                        <input className="create-radio" type="radio" name="type" value='Non-Veg' onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={NonVeg} className="mr-2" /> Non-Vegetarian
+                                    </div>
                                     <div style={{ display: "flex" }} className="mt-2 text-white">
                                         <label className="mr-3">Form:</label>
                                         <input className="create-radio" checked type="radio" name="form" value='Syrup' onClick={e => setForm(e.target.value)} />Syrup
-                                    <input className="create-radio" type="radio" name="form" value='Tablet' onClick={e => setForm(e.target.value)} />Tablets
-                                    <input className="create-radio" type="radio" name="form" value='Capsules' onClick={e => setForm(e.target.value)} />Capsules
-                                    <input className="create-radio" type="radio" name="form" value='Drops' onClick={e => setForm(e.target.value)} />Drops
-                                </div>
+                                        <input className="create-radio" type="radio" name="form" value='Tablet' onClick={e => setForm(e.target.value)} />Tablets
+                                        <input className="create-radio" type="radio" name="form" value='Capsules' onClick={e => setForm(e.target.value)} />Capsules
+                                        <input className="create-radio" type="radio" name="form" value='Drops' onClick={e => setForm(e.target.value)} />Drops
+                                        <input className="create-radio" type="radio" name="form" value='Liquid' onClick={e => setForm(e.target.value)} />Liquid
+                                        <input className="create-radio" type="radio" name="form" value='Cream' onClick={e => setForm(e.target.value)} />Cream
+                                        <input className="create-radio" type="radio" name="form" value='Other' onClick={e => setForm(e.target.value)} />Other
+                                    </div>
                                     <label className="text-white float-left mt-2">Quantity Per Pack</label>
-                                    <input className="create-input" placeholder="Enter Qty Per Pack  Eg. 50 ml/50 tablets/50 capsules" type="text" value={qtyPerPack} onChange={e => setQty(e.target.value)} />
+                                    <input className="create-input" placeholder="Enter Qty Per Pack  Eg. 50 ml/50 tablets/50 capsules/10 gm" type="text" value={qtyPerPack} onChange={e => setQty(e.target.value)} />
                                     <label className="text-white float-left mt-2">Brand Name</label>
                                     <input className="create-input" type="text" placeholder="Enter Brand Name" value={brand} onChange={e => setBrand(e.target.value)} />
                                     <label className="text-white float-left mt-2">Category</label>

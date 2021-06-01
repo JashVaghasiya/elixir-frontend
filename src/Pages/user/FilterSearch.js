@@ -1,10 +1,13 @@
 
 import { Slider } from 'antd'
+import Avatar from 'antd/lib/avatar/avatar'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import HomeProductCard from '../../components/cards/HomeCard'
 import Loader from '../../components/Loader'
 import '../../css/FilterPage.css'
+import Veg from '../../images/veg.png'
+import NonVeg from '../../images/non-veg.png'
 import { getCategories } from '../../functions/category'
 import { getCategoryViseProduct, getFilteredProducts, getSearchedProducts, getSubCategoryViseProduct } from '../../functions/product'
 
@@ -12,7 +15,7 @@ const FilterSearch = () => {
 
     const [category, setCategory] = useState([])
     const [priceRange, setPriceRange] = useState([0, 5000])
-    const [form, setForm] = useState('syrup')
+    const [form, setForm] = useState('Syrup')
     const [selectedCat, setSelectedCat] = useState([])
     const [rating, setRating] = useState(0)
     const [type, setType] = useState('Veg')
@@ -82,6 +85,7 @@ const FilterSearch = () => {
 
     return (
         <div className="filter-page" style={{ background: "#e7e7e7" }}>
+
             <div className="side-nav">
                 <h4 style={{ "color": "#fff" }}>Price</h4>
                 <Slider range max={5000} min={0} defaultValue={[0, 2000]} onChange={value => setPriceRange(value)} />
@@ -93,13 +97,17 @@ const FilterSearch = () => {
                     </div>
                 ))}
                 <h4 className="filter-heading">TYPE</h4>
-                <span><input name="rdType" type="radio" value="Veg" onClick={e => setType(e.target.value)} />Veg</span>
-                <span><input name="rdType" type="radio" value="Non-Veg" onClick={e => setType(e.target.value)} />Non-Veg</span>
+                <span><input name="rdType" type="radio" value="Veg" checked onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={Veg} className="mr-2" /></span>
+                <span><input name="rdType" type="radio" value="Non-Veg" onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={NonVeg} className="mr-2" /></span>
                 <h4 className="filter-heading">Form</h4>
-                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Syrup" onClick={e => setForm(e.target.value)} />Syrup</span>
+                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Syrup" checked onClick={e => setForm(e.target.value)} />Syrup</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Tablet" onClick={e => setForm(e.target.value)} />Tablet</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Capsule" onClick={e => setForm(e.target.value)} />Capsule</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Drops" onClick={e => setForm(e.target.value)} />Drops</span>
+                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Cream" onClick={e => setForm(e.target.value)} />Cream</span>
+                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Liquid" onClick={e => setForm(e.target.value)} />Liquid</span>
+                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Other" onClick={e => setForm(e.target.value)} />Other</span>
+
                 <h4 className="filter-heading">Rating</h4>
                 <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(5)} />
                     <span>
@@ -160,21 +168,22 @@ const FilterSearch = () => {
                     <button className="form-button mt-3" style={{ "background": "#fff", "color": "#000", "margin-top": "10px" }} onClick={() => applyFilter()}>Apply Filters</button>
                 </span>
             </div>
-            <div className="content container">
+            <div div className="filter-content container" >
                 {search && location.search.startsWith("?search") ? <h3 className="m-3">Results for "{location.search.split('=')[1]}"</h3> : ''}
-                {loading ? <Loader /> :
-                    <div className="row center">
-                        {
-                            products && products.map(product => (
-                                <div key={product._id} className="mr-2 ml-2">
-                                    <HomeProductCard product={product} />
-                                </div>
-                            ))
-                        }
-                    </div>
+                {
+                    loading ? <Loader /> :
+                        <div className="row center">
+                            {
+                                products && products.map(product => (
+                                    <div key={product._id} className="mr-2 ml-2">
+                                        <HomeProductCard product={product} />
+                                    </div>
+                                ))
+                            }
+                        </div>
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -29,6 +29,7 @@ const UpdateProduct = ({ match, history }) => {
     const [form, setForm] = useState('')
     const [qtyPerPack, setQty] = useState('')
     const [error, setError] = useState(null)
+    const [submit, setSubmit] = useState(true)
 
     // eslint-disable-next-line no-unused-vars
     const [uploadedFile, setUploadedFile] = useState([])
@@ -105,7 +106,7 @@ const UpdateProduct = ({ match, history }) => {
                     <div className="main__container">
                         <Link className="create-button" to="/seller/product">Go Back</Link>
                         <div style={{ marginTop: "20px" }}>
-                            <UploadImage update="update" uploadedFile={images} setUploadedFile={setImages} />
+                            <UploadImage update="update" uploadedFile={images} setUploadedFile={setImages} setSubmit={setSubmit} />
                         </div>
                         <div class="content-product " style={{ display: "block", width: "50%" }}>
                             <label className="text-white float-left mt-2">Name</label>
@@ -125,6 +126,9 @@ const UpdateProduct = ({ match, history }) => {
                                     <input className="create-radio" type="radio" name="form" checked={form === "Tablet"} value='Tablet' onClick={e => setForm(e.target.value)} />Tablets
                                     <input className="create-radio" type="radio" name="form" checked={form === "Capsules"} value='Capsules' onClick={e => setForm(e.target.value)} />Capsules
                                     <input className="create-radio" type="radio" name="form" checked={form === "Drops"} value='Drops' onClick={e => setForm(e.target.value)} />Drops
+                                    <input className="create-radio" type="radio" name="form" checked={form === "Liquid"} value='Liquid' onClick={e => setForm(e.target.value)} />Liquid
+                                    <input className="create-radio" type="radio" name="form" checked={form === "Cream"} value='Cream' onClick={e => setForm(e.target.value)} />Cream
+                                    <input className="create-radio" type="radio" name="form" checked={form === "Other"} value='Other' onClick={e => setForm(e.target.value)} />Other
                                 </div>
 
                             <label className="text-white float-left mt-2">Quantity Per Pack</label>
@@ -136,7 +140,7 @@ const UpdateProduct = ({ match, history }) => {
                             <label className="text-white float-left mt-2">Stock</label>
                             <input className="create-input" value={stock} onChange={e => setStock(e.target.value)} placeholder="Enter Quantity" />
                             {error !== null && <Alert className="mt-3 mb-3 text-white" variant="dark">{error}</Alert>}
-                            <button className='create-button my-3 float-left' onClick={submitHandler}>Update</button>
+                            <button className='create-button my-3 float-left' onClick={submitHandler} disabled={submit}>Update</button>
                         </div>
                     </div>
                 </main>

@@ -76,6 +76,7 @@ export const renderSellerChart = async (id) => {
   const chart = sdk.createChart({
     chartId: "09ab0ec5-8e15-467b-900a-360aa5f2e78e",
   })
+  console.log(id);
   await chart.render(document.querySelector("#apex1"))
   await chart.setFilter({ "sellerId": mongoose.Types.ObjectId(id) })
 
@@ -92,9 +93,8 @@ export const renderOrderChart = async (id) => {
   const chart = sdk.createChart({
     chartId: "1d21a2d1-fee7-4b00-8cae-f7e339820598",
   })
-  const date = new Date()
   await chart.render(document.querySelector("#orderChart"))
-  await chart.setFilter({ "sellerId": mongoose.Types.ObjectId(id), "createdAt": { $gte: date } })
+  await chart.setFilter({ "sellerId": mongoose.Types.ObjectId(id) })
 
 }
 
@@ -122,4 +122,12 @@ export const donutUserChart = async () => {
     chartId: "7cc22d03-fba8-4e45-9059-d4992a2a0453",
   })
   await chart.render(document.querySelector("#donutUserChart"))
+}
+
+export const w3_open = async () => {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+export const w3_close = async () => {
+  document.getElementById("mySidebar").style.display = "none";
 }

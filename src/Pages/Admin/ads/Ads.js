@@ -17,8 +17,8 @@ const Ads = ({ match }) => {
     const user = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
     const [pageData, setPageData] = useState()
-    const [sortName, setSortName] = useState("_id")
-    const [manner, setManner] = useState(1)
+    const [sortName, setSortName] = useState("createdAt")
+    const [manner, setManner] = useState(-1)
     const [limit, setLimit] = useState(10)
 
     const pageNumber = match.params.pageNumber || 0

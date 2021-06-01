@@ -14,6 +14,5 @@ export const sendOrderInvoice = async (receiverName, receiver, invoiceLink) => {
 }
 
 export const sendRejectedProduct = async (sellerName, receiver, productId, reason) => {
-    console.log(sellerName, receiver, productId, reason);
     emailjs.send("service_l175bog", "reject", { sellerName, receiver, productId, reason }, "user_HAO26UuW5lrGzsj9Fjl8l");
 }

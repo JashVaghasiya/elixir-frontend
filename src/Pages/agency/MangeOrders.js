@@ -84,7 +84,7 @@ const MangeOrders = ({ match }) => {
                                         <tr>
                                             <th>OrderId <i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>
                                             <th>Customer Email</th>
-                                            <th>Qty <i className="fas fa-sort" onClick={() => setSort("qty")}></i></th>
+                                            <th>Qty <i className="fas fa-sort" onClick={() => setSort("totalQty")}></i></th>
                                             <th>Amount <i className="fas fa-sort" onClick={() => setSort("grandTotal")}></i></th>
                                             <th>OrderedAt <i className="fas fa-sort" onClick={() => setSort("createdAt")}></i></th>
                                             <th>Set To Picked</th>
@@ -95,7 +95,7 @@ const MangeOrders = ({ match }) => {
                                             <tr key={o._id}>
                                                 <td>{o._id}</td>
                                                 <td>{o.userId.email}</td>
-                                                <td>{o.qty}</td>
+                                                <td>{o.totalQty}</td>
                                                 <td>{o.grandTotal}</td>
                                                 <td>{o.createdAt.substr(0, 10)}</td>
                                                 <td>

@@ -91,7 +91,7 @@ export const roleBasedRedirect = (history, user) => {
     } else if (role === 'agency') {
         history.push('/agency/1')
     } else if (role === 'user') {
-        history.push('/user/profile')
+        history.push('/')
     } else if (role === 'doctor') {
         history.push('/chat')
     } else {

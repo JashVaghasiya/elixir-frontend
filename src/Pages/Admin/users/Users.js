@@ -13,8 +13,8 @@ const Users = ({ match }) => {
   const [users, setUsers] = useState([])
   const user = useSelector(state => state.user)
   const [loading, setLoading] = useState(false)
-  const [sortName, setSortName] = useState('_id')
-  const [manner, setManner] = useState(1)
+  const [sortName, setSortName] = useState('createdAt')
+  const [manner, setManner] = useState(-1)
   const [pageData, setPageData] = useState()
   const [limit, setLimit] = useState(10)
 

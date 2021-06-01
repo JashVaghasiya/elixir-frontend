@@ -37,7 +37,7 @@ const Registration = () => {
                     <h2 className="mb-2">Seller Register</h2>
                     <label>Email</label>
                     <input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
-                    <button className="form-button btn-block my-3" onClick={submitHandler} disabled={loading}>{loading ? "Loading..." : 'Sign Up'}</button>
+                    <button className="form-button btn-block my-3" onClick={submitHandler} disabled={loading}>{loading ? "Loading..." : 'Send Link'}</button>
                     {error !== null ? <Alert variant="dark" className="mt-3 text-white">{error}</Alert> : ''}
                 </div>
             </div>

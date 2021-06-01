@@ -106,6 +106,7 @@ import OrderDetail from './Pages/user/OrderDetail'
 import SearchFilter from './Pages/user/FilterSearch'
 import PaymentSuccess from './Pages/user/PaymentSuccess'
 import Loader from './components/Loader'
+import Code404 from './Pages/error/404'
 
 const App = ({ history }) => {
 
@@ -161,6 +162,30 @@ const App = ({ history }) => {
                 }
               })
               history.push('/admin/dashboard')
+            } else if (res.data.role === 'agency') {
+              dispatch({
+                type: 'LOGIN_USER',
+                payload: {
+                  email: res.data.email,
+                  name: res.data.name,
+                  role: res.data.role,
+                  token: idToken,
+                  _id: res.data._id
+                }
+              })
+              history.push('/admin/dashboard')
+            } else if (res.data.role === 'doctor') {
+              dispatch({
+                role: "doctor",
+                email: res.data.email,
+                name: res.data.name,
+                degree: res.data.degree,
+                experience: res.data.experience,
+                token: idToken,
+                specialization: res.data.specialization,
+                _id: res.data._id
+              })
+              history.push('/chat')
             } else {
               dispatch({
                 type: 'LOGIN_USER',
@@ -196,6 +221,7 @@ const App = ({ history }) => {
         <Switch>
           {/* others */}
           <Route exact path='/' component={Home}></Route>
+          <Route exact path='/page/:pageNumber' component={Home}></Route>
           <Route exact path='/aboutUs' component={AboutUs}></Route>
           <Route exact path='/contactUs' component={ContactUs}></Route>
           <Route exact path='/privacyPolicy' component={PrivacyPolicy}></Route>
@@ -209,10 +235,10 @@ const App = ({ history }) => {
           {/*user routes*/}
           <Route exact path='/register' component={Register}></Route>
           <Route exact path='/registration/complete' component={RegisterComplete}></Route>
-          <UserRoute exact path='/user/wishlist' component={Wishlist}></UserRoute>
+          <Route exact path='/user/wishlist' component={Wishlist}></Route>
           <UserRoute exact path='/user/profile' component={UserProfile}></UserRoute>
           <UserRoute exact path='/update/user/profile' component={UpdateUserProfile}></UserRoute>
-          <UserRoute exact path='/user/cart' component={Cart}></UserRoute>
+          <Route exact path='/user/cart' component={Cart}></Route>
           <UserRoute exact path='/user/shipping' component={Shipping}></UserRoute>
           <UserRoute exact path='/user/make/complain' component={Complain}></UserRoute>
           <UserRoute exact path='/user/list/complain' component={ListComplain}></UserRoute>
@@ -284,7 +310,7 @@ const App = ({ history }) => {
           <AgencyRoute exact path='/agency/change/password' component={AgencyForgotPassword} />
 
           <Route exact path='/loader' component={Loader}></Route>
-
+          <Route component={Code404} />
         </Switch>
         {((user && user.role === "admin") || (user && user.role === "seller") || (user && user.role === "agency") || (user && user.role === "doctor")) ? '' : <Footer />}
       </Router>

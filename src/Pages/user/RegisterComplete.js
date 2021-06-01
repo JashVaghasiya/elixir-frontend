@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Alert } from 'react-bootstrap'
 import { auth } from '../../firebase/firebase'
 import { createUser } from '../../functions/user'
-import { useDispatch } from 'react-redux'
 
 const RegisterComplete = ({ history }) => {
 
@@ -10,7 +9,6 @@ const RegisterComplete = ({ history }) => {
     const [email, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    const dispatch = useDispatch()
 
     const url = window.location.href
 
@@ -38,33 +36,15 @@ const RegisterComplete = ({ history }) => {
                     await user.updatePassword(password)
                     const idToken = await user.getIdTokenResult()
                     await createUser(idToken.token).then(res => {
-                        console.log(res);
-                        if (res.data.alreadyUser) {
-                            setError(res.data.alreadyUser)
+                        if (res) {
+                            console.log(res.data)
+                            history.push('/login')
                         } else {
-                            dispatch({
-                                type: 'LOGIN_USER',
-                                payload: {
-                                    name: res.data.name,
-                                    email: res.data.email,
-                                    token: idToken.token,
-                                    role: res.data.role,
-                                    _id: res.data._id
-                                }
-                            })
-                            setLoading(false)
-                            if (res.data.role === 'admin') {
-                                history.push('/admin/dashboard')
-                            } else if (res.data.role === 'seller') {
-                                history.push('/seller/dashboard')
-                            } else if (res.data.role === 'agency') {
-                                history.push('/agency/1')
-                            } else if (res.data.role === 'doctor') {
-                                history.push('/doctor/profile')
-                            } else {
-                                history.push('/')
+                            if (res.data.alreadyUser) {
+                                setError(res.data.alreadyUser)
                             }
                         }
+
                     }).catch(error => {
                         console.log("error in after signUp", error);
                     })
@@ -76,9 +56,6 @@ const RegisterComplete = ({ history }) => {
             }
         }
     }
-    setTimeout(() => {
-        setError(null)
-    }, 5000)
 
     return (
         <div className="doctor-login-container">
@@ -91,7 +68,7 @@ const RegisterComplete = ({ history }) => {
                     <label className="mt-3">Password</label>
                     <input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)} />
 
-                    <button className="form-button btn-block my-3" disabled={loading} onClick={() => submitHandler()}>{loading ? "Loading..." : "Login"}</button>
+                    <button className="form-button btn-block my-3" disabled={loading} onClick={() => submitHandler()}>{loading ? "Loading..." : "Register"}</button>
                     {error !== null ? <Alert variant="dark" className="mt-3 text-white">{error}</Alert> : ''}
                 </div>
             </div>

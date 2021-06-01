@@ -58,7 +58,7 @@ const UpdateDoctorProfile = ({ history }) => {
 
     const updateProfilePicture = (file) => {
         if (profileUrl !== null) {
-            const image = firebase.storage.ref('doctor-images/').child(profileUrl)
+            const image = firebase.storage().ref('doctor-images/').child(profileUrl)
             image.delete().then(() => {
             }).catch(err => {
                 console.log("Image Delete:", err)
@@ -75,7 +75,7 @@ const UpdateDoctorProfile = ({ history }) => {
                 console.error(err)
             }, () => {
                 uploadTask.snapshot.ref.getDownloadURL().then(async (downloadURL) => {
-                    profileUrl(downloadURL)
+                    setProfileUrl(downloadURL)
                     await updateDoctorProfilePicture(downloadURL, user._id, user.token)
 
                 });
@@ -111,7 +111,7 @@ const UpdateDoctorProfile = ({ history }) => {
                     <label className="float-left mt-2">Experience</label>
                     <input type='text' value={doctorExperience && doctorExperience} onChange={e => setDoctorExperience(e.target.value)} />
                     {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
-                    <button className="form-button" onClick={() => updateProfile()}>Save Profile</button>
+                    <button className="form-button my-3" onClick={() => updateProfile()}>Save Profile</button>
                 </Col>
             </Row>
         </div>

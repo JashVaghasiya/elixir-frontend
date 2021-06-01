@@ -14,14 +14,22 @@ const StatusBar = ({ status }) => {
 
     if ((status && status) && (active && active)) {
         active.classList.add("active-step")
+        if (status === 'Pending') {
+            document.getElementById('Pending').classList.add("active-step")
+        }
         if (status === 'Packed') {
             document.getElementById('Pending').classList.add("active-step")
+            document.getElementById('Packed').classList.add("active-step")
         }
         if (status === 'Shipped') {
             document.getElementById('Packed').classList.add("active-step")
+            document.getElementById('Packed').classList.add("active-step")
+            document.getElementById('Pending').classList.add("active-step")
         }
         if (status === 'Delivered') {
             document.getElementById('Shipped').classList.add("active-step")
+            document.getElementById('Packed').classList.add("active-step")
+            document.getElementById('Pending').classList.add("active-step")
         }
     }
 

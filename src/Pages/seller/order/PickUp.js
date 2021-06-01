@@ -18,7 +18,7 @@ const PickUp = ({ match }) => {
     const [date, setDate] = useState()
     const [pageData, setPageData] = useState()
     const [sortName, setSortName] = useState("createdAt")
-    const [manner, setManner] = useState(1)
+    const [manner, setManner] = useState(-1)
     const [limit, setLimit] = useState(10)
     const pageNumber = match.params.pageNumber || 1
 

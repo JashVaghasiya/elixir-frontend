@@ -50,7 +50,10 @@ const RegisterComplete = ({ history }) => {
                                 email: res.data.email,
                                 token: idToken.token,
                                 role: res.data.role,
-                                _id: res.data._id
+                                _id: res.data._id,
+                                degree: res.data.degree,
+                                experience: res.data.experience,
+                                specialization: res.data.specialization,
                             }
                         })
                         setLoading(false)
@@ -84,9 +87,9 @@ const RegisterComplete = ({ history }) => {
                     <label className="float-left mt-2">Experience</label>
                     <input size='large' className='mt-2' onChange={e => setExperience(e.target.value)} placeholder="Enter your Experience" />
                     <label className="float-left mt-2">Mobile No.</label>
-                    <input size='large' className='mt-2' onChange={e => setMobileNo(e.target.value)} placeholder="Enter your Mobile No" />
+                    <input size='large' className='mt-2' maxLength={10} onChange={e => setMobileNo(e.target.value)} placeholder="Enter your Mobile No" />
                     <label className="float-left mt-2">Password</label>
-                    <input size='large' className='mt-2' onChange={e => setPassword(e.target.value)} placeholder="Enter your password" />
+                    <input size='large' type="password" className='mt-2' onChange={e => setPassword(e.target.value)} placeholder="Enter your password" />
                     <button onClick={() => submitHandler()} className='form-button btn-block my-4' block disabled={loading}>{loading ? "Loading..." : "Register"}</button>
                     {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
                 </div>

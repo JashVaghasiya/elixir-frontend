@@ -17,7 +17,7 @@ const Orders = ({ match }) => {
     const [pageData, setPageData] = useState()
     const [limit, setLimit] = useState(10)
     const [sortName, setSortName] = useState("createdAt")
-    const [manner, setManner] = useState(1)
+    const [manner, setManner] = useState(-1)
     const pageNumber = match.params.pageNumber || 1
     useEffect(() => {
         loadOrders()

@@ -7,9 +7,16 @@ import './css/chat.css'
 const ENDPOINT = "http://localhost:5001";
 
 let socket
-const Chat = () => {
+const Chat = ({ history }) => {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
     const room = useSelector(state => state.room)
+    useEffect(() => {
+        if (user == null) {
+            history.push('/login')
+        }
+    }, [user, history])
+
     useEffect(() => {
         const connect = () => {
             socket = socketIOClient(ENDPOINT, {

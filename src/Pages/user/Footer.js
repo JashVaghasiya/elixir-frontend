@@ -48,8 +48,8 @@ const Footer = () => {
                         <p>+ 0261 2566788</p>
 
                         <div class="social">
-                            <p>Want daily dose of health?</p>
-                            <Link to="/register" class="btn-footer btn-footer-dark">Sign Up</Link>
+                            <p>Want to become health advisor?</p>
+                            <Link to="/doctor/registration" class="btn-footer btn-footer-dark">Sign Up</Link>
                         </div>
                     </div>
                     <div class="p-1 third-section">

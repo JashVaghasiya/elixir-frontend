@@ -9,6 +9,7 @@ const PaymentSuccess = ({ match }) => {
     const [order, setOrder] = useState()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         if (user && match.params.id) {
             getOrder(match.params.id, user && user.token).then(res => {
                 setOrder(res.data.order)

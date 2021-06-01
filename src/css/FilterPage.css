@@ -21,13 +21,17 @@
     height: 15px;
 }
 
+
 .side-nav input[type="radio"] {
-    width: 30px;
+    width: 15px;
     height: 15px;
+    margin: 7px;
 }
 
-.content {
+.filter-content {
     width: 80vw;
+    height: 1150px;
+    overflow-y: scroll;
     display: block;
     margin-top: 10px;
 }

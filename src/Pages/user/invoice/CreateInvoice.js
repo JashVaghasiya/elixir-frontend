@@ -6,7 +6,7 @@ import { createOrder } from '../../../functions/order';
 import { sendOrderInvoice } from '../../../functions/email';
 // import logo from '../../../images/elixirLogo.png'
 
-const CreateInvoice = ({ transactionId, history, setProcessingOrder }) => {
+const CreateInvoice = ({ transactionId, history, setProcessingOrder, setCreated }) => {
 
 
     const user = useSelector(state => state.user)
@@ -80,6 +80,7 @@ const CreateInvoice = ({ transactionId, history, setProcessingOrder }) => {
 
     !upload && transactionId && easyinvoice.createInvoice(data, function (result) {
         setUpload(true)
+        setCreated(true)
         setProcessingOrder(true)
         const pdf = storage.child(`invoices/${transactionId}.pdf`)
         const uploadPaf = pdf.putString(result.pdf, 'base64')
@@ -92,6 +93,7 @@ const CreateInvoice = ({ transactionId, history, setProcessingOrder }) => {
         }, () => {
             uploadPaf.snapshot.ref.getDownloadURL().then((downloadURL) => {
                 createOrder(cart, qty, discountedAmount, taxAmount, shippingCharges, payableAmount, couponId, address, user._id, user.token, transactionId, downloadURL).then(res => {
+                    console.log("Order created")
                     setProcessingOrder(false)
                     if (res) {
                         sendOrderInvoice(user && user.name, user && user.email, downloadURL)

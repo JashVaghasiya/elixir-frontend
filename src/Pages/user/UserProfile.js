@@ -41,7 +41,7 @@ const UserProfile = ({ history }) => {
             </div>
             <div class="counters">
                 <Link to={`/user/order`}>
-                    <div class="user-master-card">
+                    <div class="user-master-card" style={{ background: "#707070" }}>
                         <i className="fas fa-box-open fa-3x"></i>
                         <div class="card_inner">
                             <p class="text-primary-p">Orders</p>
@@ -50,7 +50,7 @@ const UserProfile = ({ history }) => {
                     </div>
                 </Link>
                 <Link to={`/user/wishlist`}>
-                    <div class="user-master-card">
+                    <div class="user-master-card" style={{ background: "#808080" }}>
                         <i className="fas fa-heart fa-3x"></i>
                         <div class="card_inner">
                             <p class="text-primary-p">Wishlist</p>
@@ -59,7 +59,7 @@ const UserProfile = ({ history }) => {
                     </div>
                 </Link>
                 <Link to={`/user/cart`}>
-                    <div class="user-master-card">
+                    <div class="user-master-card" style={{ background: "#909090" }}>
                         <i className="fas fa-shopping-cart fa-3x"></i>
                         <div class="card_inner">
                             <p class="text-primary-p">Cart</p>
@@ -68,7 +68,7 @@ const UserProfile = ({ history }) => {
                     </div>
                 </Link>
                 <Link to={`/user/list/complain`}>
-                    <div class="user-master-card">
+                    <div class="user-master-card" style={{ background: "#A0A0A0" }}>
                         <i class="fas fa-align-left fa-3x"></i>
                         <div class="card_inner">
                             <p class="text-primary-p">Complain</p>

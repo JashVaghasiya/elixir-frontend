@@ -32,9 +32,6 @@ const Register = () => {
         }
 
     }
-    setTimeout(() => {
-        setAlert(null)
-    }, 5000)
 
     return (
         <div className="login-page-container">
@@ -43,7 +40,7 @@ const Register = () => {
                     <h2 className="mt-5">Register</h2>
                     <label>Email</label>
                     <input placeholder='Enter Email' name='txtEmail' size='large' onChange={e => setEmail(e.target.value)} disabled={loading} />
-                    <button onClick={() => submitHandler()} className="form-button my-3 btn-block" disabled={loading}>{loading ? "Loading..." : 'Sign Up'}</button>
+                    <button onClick={() => submitHandler()} className="form-button my-3 btn-block" disabled={loading}>{loading ? "Loading..." : 'Send Link'}</button>
                     {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
                 </div>
             </div>

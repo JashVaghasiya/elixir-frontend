@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import AgencySideNav from '../../components/nav/AgencySideNav'
+import AgencySideNav from '../../components/nav/Agency'
 import AgencyHeader from '../../components/nav/HeaderMain'
 import Loader from '../../components/Loader'
 import { getDetailOfOrder } from '../../functions/order'
@@ -40,11 +40,11 @@ const OrderDetails = ({ match }) => {
                             <Table className="mt-3" striped bordered hover variant="dark" size="xm">
                                 <thead>
                                     <tr>
-                                        <th>OrderId</th>
-                                        <th>Customer Email</th>
-                                        <th>Product Id</th>
+
+                                        <th>Seller Email</th>
+                                        <th>PickUp Address</th>
+                                        <th>Delivery Address</th>
                                         <th>Image</th>
-                                        <th>ProductName</th>
                                         <th>Qty</th>
                                         <th>OrderedAt</th>
                                         <th>Picked</th>
@@ -52,12 +52,12 @@ const OrderDetails = ({ match }) => {
                                 </thead>
                                 <tbody>
                                     {orders && orders.length > 0 && orders.map(o => (
+
                                         <tr key={o._id}>
-                                            <td>{o._id}</td>
-                                            <td>{o.userId.email}</td>
-                                            <td><Link to={`/product/${o.productId._id}`}><p>{o.productId._id}</p></Link></td>
-                                            <td><img src={o.productId.images[0].url} alt={o.productId.images[0].name} height="75" width="75" /></td>
-                                            <td>{o.productId.name}</td>
+                                            <td>{o.sellerId.email}</td>
+                                            <td>{o.sellerId.address}</td>
+                                            <td>{o.orderId.address}</td>
+                                            <td> <Link to={`/product/${o.productId._id}`}><img src={o.productId.images[0].url} alt={o.productId.images[0].name} height="75" width="25" /></Link></td>
                                             <td>{o.totalQty}</td>
                                             <td>{o.createdAt.substr(0, 10)}</td>
                                             <td>{o.picked ? <i class="far fa-check-circle text-success"></i> : <i class="far fa-times-circle text-danger"></i>}</td>

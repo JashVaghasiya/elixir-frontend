@@ -61,6 +61,17 @@ const ProductPage = ({ match, history }) => {
     
 
     const handleWishlist = async () => {
+        if(user === null){
+            history.push('/login')
+        }else if (user !== null && user.role === "seller") {
+            history.push('/seller/dashboard')
+        } else if (user !== null && user.role === "admin") {
+            history.push('/admin/dashboard')
+        } else if (user !== null && user.role === "agency") {
+            history.push('/agency/1')
+        } else if (user !== null && user.role === "doctor") {
+            history.push('/chat')
+        }else{
         await addToWishlist(user && user._id, product._id, user && user.token).then(res => {
             if (res.data.alreadyAdded) {
                 setErrorWishlist(res.data.alreadyAdded)
@@ -74,8 +85,20 @@ const ProductPage = ({ match, history }) => {
             console.log(error)
         })
     }
+    }
 
     const handleAddToCart = async () => {
+        if(user === null){
+            history.push('/login')
+        }else if (user !== null && user.role === "seller") {
+            history.push('/seller/dashboard')
+        } else if (user !== null && user.role === "admin") {
+            history.push('/admin/dashboard')
+        } else if (user !== null && user.role === "agency") {
+            history.push('/agency/1')
+        } else if (user !== null && user.role === "doctor") {
+            history.push('/chat')
+        }else{
         await addToCart(user && user._id, product._id, quantity, user&&user.token).then(res => {
             console.log(res)
             if (res.data.alreadyAdded) {
@@ -89,6 +112,7 @@ const ProductPage = ({ match, history }) => {
         }).catch(error => {
             console.log(error)
         })
+        }   
     }
 
     const submitReview = async () => {
@@ -156,7 +180,7 @@ const ProductPage = ({ match, history }) => {
                                     <strong> Brand</strong><span className="" style={{ float: 'right' }}>{product&&product.brand}</span>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <strong> Description</strong>: <br/>{product&&product.description}
+                                    <strong> Description</strong>: <br/>{product&&product.description.length>300?product.description.substr(0,300).concat("..."):product.description}
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <strong> Category</strong><span style={{ float: 'right' }}><Link to={`/product/find?category=${product && product.category._id}`}><h5>{product && product.category.name}</h5></Link></span>

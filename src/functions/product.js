@@ -117,8 +117,8 @@ export const rejectProduct = async (id, authtoken) => {
 
 
 //home page calling
-export const getHomePageProducts = async () => {
-    return axios.get(`http://localhost:8000/api/home/products`)
+export const getHomePageProducts = async (pageNumber) => {
+    return axios.get(`http://localhost:8000/api/home/products?pageNumber=${pageNumber}`)
 }
 
 export const getFilteredProducts = async (filters) => {

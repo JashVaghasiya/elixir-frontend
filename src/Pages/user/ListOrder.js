@@ -41,9 +41,9 @@ const ListOrder = ({ history }) => {
     }
     return (
 
-        <Container className="order-list-container" style={{ margin: "auto" }}>
+        <Container className="order-list-container mb-5" style={{ margin: "auto" }}>
 
-            <h3 style={{ marginTop: 25 }}>Order History <i style={{ marginLeft: 10 }} class="fas fa-history"></i></h3>
+            <h3 style={{ marginTop: 25 }}>Previous Order <i style={{ marginLeft: 10 }} class="fas fa-history"></i></h3>
             {loading ? <Loader /> :
                 <ListGroup variant='flush' style={{ marginTop: "30px", textAlign: "center" }}>
                     <ListGroup.Item className="shipping-form text-center" style={{ border: "none", background: "#f7f7f9" }}>

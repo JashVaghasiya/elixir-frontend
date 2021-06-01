@@ -5,8 +5,7 @@ import { createAdsPayment } from '../../../../functions/stripe'
 import { createAd } from '../../../../functions/ads'
 import { getAdsProduct } from '../../../../functions/product'
 import { useHistory } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Card } from 'react-bootstrap'
 
 const StripeCheckOut = ({ id }) => {
 
@@ -15,6 +14,7 @@ const StripeCheckOut = ({ id }) => {
     const [processing, setProcessing] = useState('')
     const [disabled, setDisabled] = useState(true)
     const [clientSecret, setClientSecret] = useState('')
+    // eslint-disable-next-line no-unused-vars
     const [product, setProduct] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [email, setEmail] = useState('')
@@ -115,78 +115,47 @@ const StripeCheckOut = ({ id }) => {
 
     return (
         <>
-            <div className="payment-screen">
+            <div className="order-summary mt-5 mb-5">
+                <Card>
+                    <ListGroup variant='flush'>
+                        <ListGroup.Item>
+                            <h3>PAYMENT SUMMERY</h3>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Days</Col>
+                                <Col>{ads && ads.days}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Ads Charge:</Col>
+                                <Col>{ads && ads.adsAmount}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Amount To Pay:</Col>
+                                <Col>{ads && ads.amountPaid}</Col>
+                            </Row>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
+                                <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
+                                <button className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{ads && ads.amountPaid}</div>}</span></button>
+                                <br />
+                                {error && <div className="card-error" role="alert">{error}</div>}
+                                {succeeded && <div className="card-error" role="alert">Payment Successed</div>}
 
-                <div className="order-payment" style={{ marginTop: 25 }}>
-                    <div className="order-list">
-
-                        <ListGroup variant='flush'>
-                            <h2 className="mt-5">Ads Payment <i class="ml-3 fas fa-ad"></i></h2>
-                            <ListGroup.Item className="mt-4 mr-5" style={{ padding: 0 }}>
-                                <h4>ITEMS</h4>
-                                <hr />
-                                {product &&
-                                    <>
-                                        <ListGroup.Item key={product._id} className="shipping-form cart-section-1">
-                                            <Row>
-                                                <Col md={2}>
-                                                    <Image className="cart-image" src={product.images[0].url} alt={product.images[0].name} fluid rounded />
-                                                </Col>
-                                                <Col md={6}>
-                                                    <Link to={`/product/${product._id}`}><p className="text-dark">{product.name.length > 30 ? product.name.substr(0, 50).concat("...") : product.name}</p></Link>
-                                                </Col>
-                                                <Col md={2} style={{ "fontSize": "18px" }}>&#8377;{product.price}</Col>
-
-                                            </Row>
-                                        </ListGroup.Item>
-                                    </>
-                                }
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </div>
-                    <div className="order-summary mt-5 mb-5">
-                        <Card>
-                            <ListGroup variant='flush'>
-                                <ListGroup.Item>
-                                    <h3>PAYMENT SUMMERY</h3>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>Days</Col>
-                                        <Col>{ads && ads.days}</Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>Ads Charge:</Col>
-                                        <Col>{ads && ads.adsAmount}</Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <Row>
-                                        <Col>Amount To Pay:</Col>
-                                        <Col>{ads && ads.amountPaid}</Col>
-                                    </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
-                                    <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
-                                        <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
-                                        <button className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{ads && ads.amountPaid}</div>}</span></button>
-                                        <br />
-                                        {error && <div className="card-error" role="alert">{error}</div>}
-                                        {succeeded && <div className="card-error" role="alert">Payment Successed</div>}
-
-                                    </form>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
-                    </div>
-                </div>
-
-            </div >
+                            </form>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </div>
         </>
     )
 }
+
 
 
 

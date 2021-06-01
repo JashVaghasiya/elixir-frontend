@@ -17,7 +17,7 @@ const Login = ({ history }) => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        if (user && user.token) {
+        if (user && user._id) {
             history.push('/')
         }
     }, [user, history])
@@ -72,9 +72,7 @@ const Login = ({ history }) => {
             console.log(err);
         }
     }
-    setTimeout(() => {
-        setError(null)
-    }, 5000)
+
     return (
         <div className="login-page-container">
             <div className="container shipping-form">

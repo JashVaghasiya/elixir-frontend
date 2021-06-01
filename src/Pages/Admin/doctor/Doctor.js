@@ -11,7 +11,7 @@ const Doctor = () => {
     const user = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
     const [sortName, setSortName] = useState("createdAt")
-    const [manner, setManner] = useState(1)
+    const [manner, setManner] = useState(-1)
     const [doctors, setDoctors] = useState()
 
     useEffect(() => {

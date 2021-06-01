@@ -24,9 +24,11 @@ const StripeCheckOut = () => {
     const user = useSelector(state => state.user)
     let order = null
     order = useSelector(state => state.order)
+    const [created, setCreated] = useState(false)
     const orderSplit = order && order.address.split(",")
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         if (order === null) {
             history.push('/user/cart')
         }
@@ -186,7 +188,7 @@ const StripeCheckOut = () => {
                                             <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
                                             <button className="stripe-button form-button" disabled={processingOrder || processing || disabled || succeed}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{order && order.payableAmount}</div>}</span></button>
                                         </form>
-                                        {transactionId && <CreateInvoice history={history} setProcessingOrder={setProcessingOrder} transactionId={transactionId} />}
+                                        {transactionId && !created && <CreateInvoice history={history} setCreated={setCreated} setProcessingOrder={setProcessingOrder} transactionId={transactionId} />}
                                     </ListGroup.Item>
                                     <ListGroup.Item>
                                         {error && <Alert variant='danger'>{error}</Alert>}

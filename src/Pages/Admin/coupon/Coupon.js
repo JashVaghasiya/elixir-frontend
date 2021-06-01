@@ -127,7 +127,7 @@ const Coupon = () => {
                                                 <div class="input-div">
                                                     <div>
                                                         <h5>Enter Coupon Name</h5>
-                                                        <input class="input-tag" maxlength="15" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} />
+                                                        <input class="input-tag" maxlength="10" type="text" id="txtName" value={name} onChange={e => setName(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div class="input-div">
@@ -154,7 +154,7 @@ const Coupon = () => {
                                     {coupon.map((c) => (
                                         <Col key={c._id} md="6" xl="4" sm="6">
                                             <div>
-                                                <Alert variant="dark" style={{ color: "#fff" }}>{c.name}
+                                                <Alert variant="dark" style={{ color: "#fff" }}>{c.name + " - " + c.discount + "%" + " - " + c.expiresAt + " days"}
                                                     <span className="float-right text-center">
                                                         <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c.name}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
                                                         <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>

@@ -13,6 +13,7 @@ const SidePanel = ({ socket }) => {
     const [users, setUsers] = useState([])
     const [sender, setSender] = useState(null)
     const [previous, setPrevious] = useState()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setSender(user && user._id)
@@ -26,10 +27,11 @@ const SidePanel = ({ socket }) => {
 
 
     useEffect(() => {
-
+        setLoading(true)
         if (user && user.role === "user") {
             getDoctors().then(res => {
                 setContacts(res.data)
+                setLoading(false)
             }).catch(err => {
                 console.log(err);
             })
@@ -37,7 +39,7 @@ const SidePanel = ({ socket }) => {
         if (user && user.role === "doctor") {
             getAllContacts(user._id).then(res => {
                 setUsers(res.data)
-                console.log(res.data)
+                setLoading(false)
             }).catch(err => {
                 console.log(err)
             })
@@ -105,23 +107,23 @@ const SidePanel = ({ socket }) => {
                 <ul>
                     {/* For Users */}
                     {searchDoctors && searchDoctors.length > 0 ? (
-                        searchDoctors && searchDoctors.length > 0 && searchDoctors.map(contact => (
+                        loading ? "Loading..." : searchDoctors && searchDoctors.length > 0 && searchDoctors.map(contact => (
                             <li id={contact._id} class="contact" key={contact._id} onClick={() => setActiveDoctor(contact._id, contact.name)}>
                                 <div class="wrap">
-                                    <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                                    <img src={contact.profileUrl === null ? "http://emilcarlsson.se/assets/louislitt.png" : contact.profileUrl} alt="" />
                                     <div class="meta">
-                                        <p class="name">{contact.name}</p>
+                                        <p class="name">Dr. {contact.name}</p>
                                         <p class="preview">{contact.degree} ({contact.specialization})</p>
                                     </div>
                                 </div>
                             </li>
 
-                        ))) : (contacts && contacts.length > 0 && contacts.map(contact => (
+                        ))) : (loading ? "Loading..." : contacts && contacts.length > 0 && contacts.map(contact => (
                             <li id={contact._id} class="contact" key={contact._id} onClick={() => setActiveDoctor(contact._id, contact.name)}>
                                 <div class="wrap">
-                                    <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+                                    <img src={contact.profileUrl === null ? "http://emilcarlsson.se/assets/louislitt.png" : contact.profileUrl} alt="" />
                                     <div class="meta">
-                                        <p class="name">{contact.name}</p>
+                                        <p class="name">Dr. {contact.name}</p>
                                         <p class="preview">{contact.degree} ({contact.specialization})</p>
                                     </div>
                                 </div>

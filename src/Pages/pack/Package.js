@@ -56,7 +56,7 @@ const Package = ({ history }) => {
 
     return (
         <>
-            <div class="wrapper-seller-pricing-card">
+            <div class="wrapper-seller-pricing-card" style={{ paddingTop: "50px" }}>
                 <div class="seller-pricing-card">
                     <div class="seller-pricing-card-title">
                         <h3>{pack1.name}</h3>

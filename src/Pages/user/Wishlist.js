@@ -8,7 +8,7 @@ import '../../css/Wishlist.css'
 import EmptyWishlist from '../../images/wishlist.gif'
 import Loader from '../../components/Loader'
 
-const Wishlist = () => {
+const Wishlist = ({ history }) => {
 
     const user = useSelector(state => state.user)
     const [products, setProducts] = useState([])
@@ -17,6 +17,9 @@ const Wishlist = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
+        if (user === null) {
+            history.push('/login')
+        }
         if (user && user._id) {
             getWishlist()
         }

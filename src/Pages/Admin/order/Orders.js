@@ -15,7 +15,7 @@ const Orders = ({ match, history }) => {
     const [loading, setLoading] = useState(false)
     const [pageData, setPageData] = useState()
     const [sortName, setSortName] = useState("createdAt")
-    const [manner, setManner] = useState(1)
+    const [manner, setManner] = useState(-1)
     const [limit, setLimit] = useState(10)
 
     const pageNumber = match.params.pageNumber || 0
@@ -78,8 +78,8 @@ const Orders = ({ match, history }) => {
                                 <tbody>
                                     {orders && orders.length > 0 && orders.map(o => (
                                         <tr key={o._id} onClick={() => goToDetail(o._id)}>
-                                            {/* <td onClick={() => goToDetail(o._id)}>{o._id}</td>
-                                            <td onClick={() => goToDetail(o._id)}>{o.userId.name}</td> */}
+                                            <td onClick={() => goToDetail(o._id)}>{o._id}</td>
+                                            <td onClick={() => goToDetail(o._id)}>{o.userId.name}</td>
                                             <td onClick={() => goToDetail(o._id)}>{o.totalQty}</td>
                                             <td onClick={() => goToDetail(o._id)}>{o.grandTotal}</td>
                                             <td onClick={() => goToDetail(o._id)}>{o.createdAt.substr(0, 10)}</td>

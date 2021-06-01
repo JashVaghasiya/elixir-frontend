@@ -18,6 +18,7 @@ const State = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        inputField()
         loadStates()
     }, [])
 

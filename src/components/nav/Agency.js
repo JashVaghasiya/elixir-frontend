@@ -58,7 +58,7 @@ const Admin = ({ active }) => {
             <li className="grey"></li>
             <div className="sidebar__menu">
                 <div id="orders" className="sidebar__link">
-                    <i className="fa fa-box-open"></i>
+                    <i className="fas fa-box-open"></i>
                     <Link to="/agency/1">Orders</Link>
                 </div>
                 <div id="pickUps" className="sidebar__link">

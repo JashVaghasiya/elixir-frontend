@@ -16,14 +16,13 @@ const Dashboard = () => {
     const [amountData, setAmountData] = useState({})
     const [adsData, setAdsData] = useState('')
     const [unscheduleData, setUnscheduleData] = useState('')
-
     useEffect(() => {
         if (user && user.token) {
             getData()
 
         }
-        // renderSellerChart(user && user._id)
-        // renderOrderChart(user && user._id)
+        renderSellerChart(user && user._id)
+        renderOrderChart(user && user._id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 

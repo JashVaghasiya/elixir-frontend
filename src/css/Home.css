@@ -1,6 +1,28 @@
-.home-poster img {
-    padding: 10px;
-    border-radius: 20px;
+.home-poster {
+    display: flex;
+}
+
+.home-main-poster {
+    width: 70%;
+}
+
+.home-side-poster {
+    width: 30%;
+}
+
+.poster-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#client .images {
+    display: flex;
+}
+
+#client .images img {
+    margin: auto;
+    width: 75%;
 }
 
 .doctor-section {
@@ -9,7 +31,6 @@
     align-content: center;
     background-color: white;
     height: 600px;
-    margin-top: 50px;
 }
 
 .doctor-text {
@@ -180,4 +201,15 @@
         margin: 0;
         font-size: 15px;
     }
+}
+
+.home-title {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.home-subtitle {
+    font-weight: 500;
+    font-size: 16px;
+    color: grey;
 }

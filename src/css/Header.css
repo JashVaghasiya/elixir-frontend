@@ -11,8 +11,16 @@ body {
     font-family: 'Roboto', Sans-Serif;
 }
 
+
+
 .logo {
     display: flex;
+    margin: auto;
+}
+
+.doctor-header {
+    display: flex;
+    margin-right: auto;
 }
 
 .btn {
@@ -26,7 +34,7 @@ body {
 }
 
 .dropdown-toggle {
-    height: 100px;
+    height: 68px;
     width: 100px;
 }
 
@@ -77,13 +85,26 @@ body {
     color: #fff;
 }
 
+.doctor-header h1 {
+    margin: auto;
+    font-family: "Megrim";
+    font-size: 35px;
+    color: #fff;
+}
+
 #navbar ul {
     margin: 0 !important;
 }
 
 .logo img {
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+}
+
+.doctor-header img {
+    height: 50px;
+    width: 50px;
     margin: auto;
 }
 
@@ -101,15 +122,22 @@ a {
     color: #93cb52;
 }
 
+.nav-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
 #navbar {
-    height: 100px;
+    height: 75px;
     display: flex;
     position: sticky;
     background: #333;
     color: #fff;
     top: 0;
     justify-content: space-between;
-    z-index: 1;
+    z-index: 500;
     padding: 1rem;
 }
 
@@ -150,4 +178,8 @@ a {
     .dropdown-item {
         padding: 10px 24px !important;
     }
+}
+
+.header-wrapper {
+    margin-bottom: 125px;
 }
