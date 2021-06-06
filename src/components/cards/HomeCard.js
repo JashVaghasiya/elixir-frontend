@@ -11,9 +11,9 @@ const HomeProductCard = ({ product }) => {
                 </div>
                 <h6 className="product-heading">{product.name.length > 50 ? product.name.substring(0, 50).concat("...") : product.name}</h6>
                 <div className="rating-review">
-                    <div className="rating">
-                        <span><i className="fas fa-star"></i></span>
-                        <p className="float-right">{product.rating}</p>
+                    <div className="rating px-2">
+                        <span><i className="fas fa-star"></i> </span>
+                        <p className="float-right pl-1">{product.rating}</p>
                     </div>
                     <div>
                         <p className="text-dark">{product.numReviews} reviews</p>

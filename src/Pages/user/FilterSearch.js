@@ -15,7 +15,7 @@ const FilterSearch = () => {
 
     const [category, setCategory] = useState([])
     const [priceRange, setPriceRange] = useState([0, 5000])
-    const [form, setForm] = useState('Syrup')
+    const [form, setForm] = useState("All")
     const [selectedCat, setSelectedCat] = useState([])
     const [rating, setRating] = useState(0)
     const [type, setType] = useState('Veg')
@@ -75,6 +75,7 @@ const FilterSearch = () => {
     const applyFilter = () => {
         setSearch(false)
         setLoading(true)
+        window.scrollTo(0, 0)
         getFilteredProducts({ priceRange, selectedCat, rating, form, type }).then(res => {
             setProducts(res.data)
             setLoading(false)
@@ -100,7 +101,7 @@ const FilterSearch = () => {
                 <span><input name="rdType" type="radio" value="Veg" checked onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={Veg} className="mr-2" /></span>
                 <span><input name="rdType" type="radio" value="Non-Veg" onClick={e => setType(e.target.value)} /><Avatar shape="square" size={25} src={NonVeg} className="mr-2" /></span>
                 <h4 className="filter-heading">Form</h4>
-                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Syrup" checked onClick={e => setForm(e.target.value)} />Syrup</span>
+                <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Syrup" onClick={e => setForm(e.target.value)} />Syrup</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Tablet" onClick={e => setForm(e.target.value)} />Tablet</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Capsule" onClick={e => setForm(e.target.value)} />Capsule</span>
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Drops" onClick={e => setForm(e.target.value)} />Drops</span>
@@ -109,6 +110,44 @@ const FilterSearch = () => {
                 <span style={{ display: "block" }}> <input name="rdForm" type="radio" value="Other" onClick={e => setForm(e.target.value)} />Other</span>
 
                 <h4 className="filter-heading">Rating</h4>
+                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(1)} />
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i> & up
+                    </span>
+                </span>
+                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(2)} />
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i> & up
+                    </span>
+                </span>
+                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(3)} />
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i> & up
+                    </span>
+                </span>
+                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(4)} />
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
+                    </span>
+                    <span>
+                        <i style={{ "color": "orange" }} className='fas fa-star'></i> & up
+                    </span>
+                </span>
                 <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(5)} />
                     <span>
                         <i style={{ "color": "orange" }} className='fas fa-star'></i>
@@ -126,46 +165,8 @@ const FilterSearch = () => {
                         <i style={{ "color": "orange" }} className='fas fa-star'></i>
                     </span>
                 </span>
-                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(4)} />
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                </span>
-                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(3)} />
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                </span>
-                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(2)} />
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                </span>
-                <span style={{ display: "block" }}> <input name="rdRating" type="radio" onClick={() => setRating(1)} />
-                    <span>
-                        <i style={{ "color": "orange" }} className='fas fa-star'></i>
-                    </span>
-                </span>
                 <span>
-                    <button className="form-button mt-3" style={{ "background": "#fff", "color": "#000", "margin-top": "10px" }} onClick={() => applyFilter()}>Apply Filters</button>
+                    <button className="form-button mt-3 btn-block" style={{ "background": "#fff", "color": "#000", "margin-top": "10px" }} onClick={() => applyFilter()}>Apply Filters</button>
                 </span>
             </div>
             <div div className="filter-content container" >

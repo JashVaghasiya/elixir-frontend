@@ -13,6 +13,11 @@ h6 {
     padding: 0;
 }
 
+.ads-payment-card .list-group-item {
+    background: #222222 !important;
+    color: #acacac;
+}
+
 .login-page-container {
     background-image: -webkit-linear-gradient(65deg, #acacac 40%, #f7f7f7 30%);
 }

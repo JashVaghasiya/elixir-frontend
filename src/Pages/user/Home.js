@@ -43,6 +43,55 @@ const Home = ({ match, history }) => {
         }
     }, [user, history])
 
+    const adsSettings = {
+        infinite: true,
+        speed: 3000,
+        autoplaySpeed: 6000,
+        autoplay: true,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        initialSlide: 0,
+        rows: 2,
+        responsive: [
+            {
+                breakpoint: 1500,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 1300,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 950,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 670,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            }
+        ]
+    };
+
     let settings = {
         // dots: true,
         infinite: true,
@@ -166,12 +215,15 @@ const Home = ({ match, history }) => {
                     </div>
                     <HomePaginator pages={pages} pageNumber={pageNumber} />
 
-                    {topFeatured && topFeatured.length > 0 && <><hr className="mt-3" /> <h5 className="home-title mt-2">Featured Products</h5><h6 className="home-subtitle">Recommended by consultants</h6></>}
-                    <div className="product-wrapper mt-3" id="responsive">
+                    {topFeatured && topFeatured.length > 0 && <>
+                        <hr className="mt-3" />
+                        <h5 className="home-title mt-2">Featured Products</h5>
+                        <h6 className="home-subtitle">Recommended by consultants</h6></>}
+                    <Slider arrows={false} {...adsSettings}>
                         {topFeatured && topFeatured.map(product => (
                             <HomeProductCard key={product._id} product={product.productId} />
                         ))}
-                    </div>
+                    </Slider>
                     <hr className="mt-3" />
                     <h5 className="home-title mt-2">Best Seller Products</h5>
                     <h6 className="home-subtitle">Our most popular products based on sales</h6>

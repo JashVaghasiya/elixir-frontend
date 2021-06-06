@@ -53,7 +53,7 @@ const Deactivate = () => {
         <div id="body">
             <div className="container-main">
                 <SellerHeader />
-                <SellerSideNav />
+                <SellerSideNav active="product" />
                 <main>
                     <div className="main__container">
                         <ProductHeader activated="deactivate" />

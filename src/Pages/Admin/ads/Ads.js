@@ -9,6 +9,7 @@ import Paginator from '../../../components/paginator/AdminPaginator'
 import { getAds, updateAdsRate } from '../../../functions/ads'
 import { getPackages } from '../../../functions/package'
 import Loader from '../../../components/Loader'
+import { Link } from 'react-router-dom'
 
 const Ads = ({ match }) => {
 
@@ -91,12 +92,10 @@ const Ads = ({ match }) => {
                                     <Table className="mt-3" striped bordered hover variant="dark" size="xm">
                                         <thead>
                                             <tr>
-                                                <th>Ad Id <i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>
                                                 <th>Seller Id <i className="fas fa-sort" onClick={() => setSort("sellerId")}></i></th>
                                                 <th>Seller Name</th>
-                                                <th>Product Id</th>
                                                 <th>Product Name</th>
-                                                <th>Days Remaining <i className="fas fa-sort" onClick={() => setSort("remainingDays")}></i></th>
+                                                <th>Days<i className="fas fa-sort" onClick={() => setSort("remainingDays")}></i></th>
                                                 <th>Paid <i className="fas fa-sort" onClick={() => setSort("paid")}></i></th>
                                                 <th>Amount <i className="fas fa-sort" onClick={() => setSort("amount")}></i></th>
                                             </tr>
@@ -104,14 +103,12 @@ const Ads = ({ match }) => {
                                         <tbody>
                                             {ads && ads.length > 0 && ads.map(u => (
                                                 <tr key={u._id}>
-                                                    <td>{u._id}</td>
                                                     <td>{u.seller._id}</td>
                                                     <td>{u.seller.email}</td>
-                                                    <td>{u.productId._id}</td>
-                                                    <td>{u.productId.name}</td>
+                                                    <td><Link to={`/product/${u.productId._id}`}><p>{u.productId.name}</p></Link></td>
                                                     <td>{u.expireAfter}</td>
                                                     <td>{u.paidAt.substr(0, 10)}</td>
-                                                    <td>{u.amount}</td>
+                                                    <td>{u.amountPaid}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

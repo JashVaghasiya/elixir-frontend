@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import SingleImage from '../../components/SingleImage'
 import { createMessage, getMessages } from '../../functions/chat'
 import { Image } from 'antd'
 import './css/chat.css'
+import Loader from '../../components/Loader'
 
 const Messages = ({ socket }) => {
 
@@ -13,6 +14,8 @@ const Messages = ({ socket }) => {
     const [file, setFile] = useState()
     const [text, setText] = useState("")
     const [uploaded, setUploaded] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const messRef = useRef(null)
 
     useEffect(() => {
         socket && socket.on('updateChat', data => {
@@ -21,23 +24,34 @@ const Messages = ({ socket }) => {
     }, [socket])
 
     useEffect(() => {
-
         setMessages([])
+        setLoading(true)
         getMessages(room && room.roomId).then(res => {
-            return setMessages(res.data)
+            setLoading(false)
+            setMessages(res.data)
+
         }).catch(err => {
             console.log(err)
         })
     }, [room, room.roomId])
+
+    messRef.current && messRef.current.scrollIntoView({ behavior: "smooth" })
 
     const createChat = async () => {
         try {
             const message = { message: text, sender: user._id, senderName: user.name, receiver: room.receiver, receiverName: room.receiverName }
             room && await socket.emit("sendChat", message, room.roomId)
             await createMessage(message, room.roomId)
-            setText("")
+
         } catch (err) {
             console.log(err)
+        }
+        setText("")
+    }
+
+    const sendMessage = e => {
+        if (e.key === 'Enter') {
+            createChat()
         }
     }
 
@@ -54,22 +68,26 @@ const Messages = ({ socket }) => {
                 <p style={{ margin: "0px", fontWeight: "600" }} className="ml-3">{room && (room.receiverName).toUpperCase()}</p>
             </div>
             <div id="mess" class="messages">
-                <ul>
-                    {(messages && messages.length > 0 && messages.map((m, index) => (
-                        m.message.startsWith('https://firebasestorage.googleapis.com') ?
-                            <li key={index} className={m.senderName === user && user.name ? "sent" : "replies"}>
-                                <Image style={{ height: "250px" }} src={m.message} alt={m.message} />
-                            </li>
-                            :
-                            <li key={index} className={m.senderName === user && user.name ? "sent" : "replies"}>
-                                <p>{m.message}</p>
-                            </li>
-                    )))}
-                </ul>
+                {loading ? <Loader variant="white" /> :
+                    <ul>
+                        {(messages && messages.length > 0 && messages.map((m, index) => (
+                            m.message.startsWith('https://firebasestorage.googleapis.com') ?
+                                <li key={index} className={m.sender === user._id ? "sent" : "replies"}>
+                                    <Image style={{ height: "250px" }} src={m.message} alt={m.message} />
+                                </li>
+                                :
+                                <li key={index} className={m.sender === user._id ? "sent" : "replies"}>
+                                    <p>{m.message}</p>
+                                </li>
+                        )))}
+
+                    </ul>
+                }
+                <li ref={messRef}></li>
             </div>
             <div class="message-input">
                 <div class="wrap">
-                    <input type="text" value={text} onChange={e => setText(e.target.value)} placeholder="Write your message..." />
+                    <input type="text" value={text} onChange={e => setText(e.target.value)} placeholder="Write your message..." onKeyDown={e => sendMessage(e)} />
                     <label>
                         <input type="file" id="upload" hidden onChange={(e) => sendFile(e.target.files)} />
                         <label class="fa fa-paperclip attachment" for="upload" aria-hidden="true">

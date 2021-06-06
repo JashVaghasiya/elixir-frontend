@@ -1,0 +1,133 @@
+.chatbot {
+    width: 300px;
+    height: 450px;
+    border-radius: 15px;
+    background: #333;
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 100000;
+}
+
+.chatbot .messages {
+    flex: 500px;
+    overflow-y: scroll;
+}
+
+
+.chatbot .text input {
+    width: 80%;
+    height: 50px;
+    padding: 15px;
+    font-size: 13px;
+    color: #fff;
+    background-color: #55595c;
+    border-radius: 0px 0px 0px 10px;
+    outline: none;
+    border: 0px;
+}
+
+.chatbot .text input::placeholder {
+    color: #fafafa;
+}
+
+
+.chatbot .text button {
+    width: 20%;
+    height: 50px;
+    border: 0px;
+    outline: none;
+    border-radius: 0px 0px 10px 0px;
+    color: #fff;
+    background-color: #1a1a1a;
+    cursor: pointer;
+}
+
+.sent {
+    background: #f5f5f5;
+    color: #333;
+    float: right;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.replies {
+    background: #000;
+    padding: 10px;
+    border-radius: 10px;
+    color: #f5f5f5;
+    text-align: left;
+    float: left;
+    font-size: 13px;
+}
+
+.messages ul li {
+    display: inline-block;
+    clear: both;
+    margin: 0px 10px 0px 10px;
+    width: calc(100% - 25px);
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.title-text {
+    color: #f5f5f5;
+    margin-top: 10px;
+}
+
+.title-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+
+.divider {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+
+.divider div {
+    background-color: #f5f5f5;
+    height: 2px;
+    width: 90%;
+}
+
+.message-card {
+    color: #f5f5f5;
+    background-color: #000;
+    border-radius: 5px;
+    border: 0px;
+    padding: 10px;
+    margin: 0px 0px 10px 15px;
+    font-size: 13px;
+}
+
+
+.chatbot {
+    animation-name: cssAnimation;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

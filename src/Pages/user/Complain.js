@@ -1,17 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { createComplain } from '../../functions/complain'
 import { sendComplain } from '../../functions/email'
 import { Alert, Container } from 'react-bootstrap'
 
-const Complain = ({ history }) => {
+const Complain = ({ history, match }) => {
 
     const user = useSelector(state => state.user)
-    const [orderId, setOrderId] = useState('')
     const [productName, setProductName] = useState('')
+    const [orderId, setOrderId] = useState('')
     const [complain, setComplain] = useState('')
     const [alert, setAlert] = useState(null)
     window.scrollTo(0, 0)
+
+    useEffect(() => {
+        setOrderId(match.params.id)
+    }, [match.params.id])
+
+
     const submitHandler = async () => {
         if (orderId.length > 24 || orderId.length < 24) {
             setAlert("Enter Valid Order Id")
@@ -39,7 +45,7 @@ const Complain = ({ history }) => {
             <hr />
             <div className="justify-content-md-center shipping-form">
                 <label className="float-left mt-2">Order ID</label>
-                <input type="text" value={orderId} onChange={e => setOrderId(e.target.value)} maxLength={24} placeholder="Copy Order ID from Order History" />
+                <input type="text" value={orderId} />
                 <label className="float-left mt-2">Product Name</label>
                 <input type="text" value={productName} onChange={e => setProductName(e.target.value)} placeholder="Enter Product Name" />
                 <label className="float-left mt-2">Complain</label>

@@ -101,7 +101,7 @@ const UpdateProduct = ({ match, history }) => {
     return (
         <div id="body">
             <div className="container-main">
-                <SideNav />
+                <SideNav active="product" />
                 <main>
                     <div className="main__container">
                         <Link className="create-button" to="/seller/product">Go Back</Link>

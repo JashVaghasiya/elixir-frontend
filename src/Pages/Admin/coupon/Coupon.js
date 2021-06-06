@@ -154,7 +154,7 @@ const Coupon = () => {
                                     {coupon.map((c) => (
                                         <Col key={c._id} md="6" xl="4" sm="6">
                                             <div>
-                                                <Alert variant="dark" style={{ color: "#fff" }}>{c.name + " - " + c.discount + "%" + " - " + c.expiresAt + " days"}
+                                                <Alert variant="dark" style={{ color: "#fff" }}>{c.name + " - " + c.discount + "% - " + c.expiresAt + " days"}
                                                     <span className="float-right text-center">
                                                         <Tooltip className="mr-3" title="Edit" color="green"><Link to={`/admin/coupon/${c.name}`}><EditOutlined className="text-success" tooltip="Edit" /></Link></Tooltip>
                                                         <Tooltip title="Delete" color="red"><CloseOutlined className="text-danger" onClick={() => deleteHandler(c._id)} /></Tooltip>

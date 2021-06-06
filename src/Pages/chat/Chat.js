@@ -15,7 +15,7 @@ const Chat = ({ history }) => {
         if (user == null) {
             history.push('/login')
         }
-    }, [user, history])
+    }, [user, history, room])
 
     useEffect(() => {
         const connect = () => {

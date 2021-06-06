@@ -32,6 +32,7 @@ const StripeCheckOut = () => {
         if (order === null) {
             history.push('/user/cart')
         }
+        console.log(order)
         load()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, order, history])
@@ -151,12 +152,15 @@ const StripeCheckOut = () => {
 
                             <Card>
                                 <ListGroup variant='flush'>
+
                                     <ListGroup.Item>
-                                        <h3>ORDER SUMMERY</h3>
+                                        <h3>Order Summary ({order && order.cart.length > 0 && order.cart.reduce((acc, item) => acc + item.qty, 0)})</h3>
+
                                     </ListGroup.Item>
                                     <ListGroup.Item>
                                         <Row>
-                                            <Col><h5>Items ({order && order.cart.length > 0 && order.cart.reduce((acc, item) => acc + item.qty, 0)})</h5></Col>
+                                            <Col>Total Amount:</Col>
+                                            <Col>{order && order.totalAmount}</Col>
                                         </Row>
                                     </ListGroup.Item>
                                     <ListGroup.Item>
@@ -186,7 +190,7 @@ const StripeCheckOut = () => {
                                     <ListGroup.Item>
                                         <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
                                             <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
-                                            <button className="stripe-button form-button" disabled={processingOrder || processing || disabled || succeed}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{order && order.payableAmount}</div>}</span></button>
+                                            <button style={{ background: "#333333" }} className="stripe-button form-button" disabled={processingOrder || processing || disabled || succeed}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{order && order.payableAmount}</div>}</span></button>
                                         </form>
                                         {transactionId && !created && <CreateInvoice history={history} setCreated={setCreated} setProcessingOrder={setProcessingOrder} transactionId={transactionId} />}
                                     </ListGroup.Item>

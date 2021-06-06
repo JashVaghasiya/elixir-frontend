@@ -75,10 +75,10 @@ const CreateProduct = ({ history }) => {
                 return setError("Select Category!")
             } else if (subs.length <= 0) {
                 return setError("Select Sub-Categories!")
-            } else if (price <= 0) {
-                return setError("Enter Valid Price it should be greater than ZERO!")
-            } else if (stock <= 0) {
-                return setError("Enter Valid Stock value, it should be greater than ZERO!")
+            } else if (price <= 10) {
+                return setError("Enter Valid Price it should be greater than Ten!")
+            } else if (stock <= 1) {
+                return setError("Enter Valid Stock value, it should be greater than One!")
             } else {
                 await createProduct(data, seller.token).then(res => {
                     setCategory(null)

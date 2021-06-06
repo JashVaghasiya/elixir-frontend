@@ -81,6 +81,10 @@ export const activateUser = async (id, authtoken) => {
     })
 }
 
+export const getCount = async () => {
+    return await axios.get(`http://localhost:8000/api/user/footer/count`)
+}
+
 export const roleBasedRedirect = (history, user) => {
     const role = user.role
     console.log(role)

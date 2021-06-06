@@ -42,6 +42,26 @@
     text-align: left;
 }
 
+.ant-slider-track {
+    background-color: #7460e2a1;
+}
+
+.ant-slider-handle {
+    border: solid 3px #7460e2a1;
+}
+
+.ant-slider-handle:focus {
+    border: #7460e2a1;
+}
+
+.ant-slider-track:hover {
+    background-color: #7460e2a1;
+}
+
+.ant-slider:hover .ant-slider-track {
+    background-color: #7460e2a1 !important;
+}
+
 @media only screen and (max-width: 600px) {
     .side-nav {
         width: 15vw;

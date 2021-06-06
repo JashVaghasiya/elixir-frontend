@@ -53,7 +53,7 @@ const Ads = ({ match }) => {
                         <h3 className="mb-3">Advertisement</h3>
                         <div className="white2"></div>
                         {loading ? <Loader color="white" /> :
-                            <Table height={limit === 10 ? "500" : limit * 10} className="mt-3" striped bordered hover variant="dark" size="xm">
+                            <Table className="mt-3" striped bordered hover variant="dark" size="xm">
                                 <thead>
                                     <tr>
                                         <th>Ads Id <i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>

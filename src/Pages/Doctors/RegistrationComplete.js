@@ -27,8 +27,10 @@ const RegisterComplete = ({ history }) => {
 
         if (degree.length == null || name == null || specialization === null || experience === null) {
             setAlert("Fill Empty Fields!")
-        } else if (mobileNo.length < 0 || mobileNo.length > 10) {
+        } if (mobileNo.length < 0 || mobileNo.length > 10) {
             setAlert("Enter Valid MObile No.")
+        } if (password == null || password.length <= 8) {
+            setAlert("Password must be of 8 character!")
         } else {
             setLoading(true)
             try {

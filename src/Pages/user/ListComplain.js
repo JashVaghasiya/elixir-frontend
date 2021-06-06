@@ -29,7 +29,7 @@ const ListComplain = () => {
     }
 
     return (
-        <Container style={{ height: "90vh" }}>
+        <Container className="complain-container" style={{ height: "90vh" }}>
             {loading ? <Loader /> : complain && complain.length === 0 ?
                 <div className="no-complain">
                     {/* <Image style={{ width: "250px", height: "200px" }} src={EmptyComplain} alt="noComplain" /> */}

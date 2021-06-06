@@ -42,23 +42,22 @@ const ProductPage = ({ match, history }) => {
                 console.log(err)
                 
             })
+           
         }
         return getProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, match ,match.params.id])
-
     useEffect(()=>{
+        const getAllReviews =async () =>{
+            getReviews(match && match.params.id).then(res=>{
+                setReviews(res.data)
+            }).catch(error=>{
+                console.log(error)
+            })
+        } 
+        getAllReviews()
+    },[match])
 
-    const getReview=async()=>{
-        await getReviews(match && match.params.id).then(res=>{
-            setReviews(res.data)
-        }).catch(error=>{
-            console.log(error)
-        })
-    }
-        return getReview()
-    },[match, match.params.id])
-
-    
 
     const handleWishlist = async () => {
         if(user === null){
@@ -100,7 +99,6 @@ const ProductPage = ({ match, history }) => {
             history.push('/chat')
         }else{
         await addToCart(user && user._id, product._id, quantity, user&&user.token).then(res => {
-            console.log(res)
             if (res.data.alreadyAdded) {
                 setErrorCart(res.data.alreadyAdded)
                 setTimeout(() => {
@@ -131,12 +129,13 @@ const ProductPage = ({ match, history }) => {
                 if (res.data.notPurchased) {
                     setErrorReview(res.data.notPurchased)
                 }
-                if (res.data) {
-                    console.log(res.data)
+                if(res.data.success){
+                    window.location.reload()
                 }
             }).catch(err => {
                 console.log(err);
             })
+           
         }
     }
 
@@ -263,7 +262,7 @@ const ProductPage = ({ match, history }) => {
                         <h2>WRITE A REVIEW</h2>
                             <ListGroup variant="flush">
                                 <ListGroup.Item style={{padding:"0px"}}>
-                                    {errorReview && <Alert variant="danger">{errorReview}</Alert>}
+                                    {errorReview && <Alert style={{color:"white"}} variant="danger">{errorReview}</Alert>}
                                     {user && user.token ? (
                                         <>
                                             <Form.Group controlId="rating">
@@ -280,7 +279,7 @@ const ProductPage = ({ match, history }) => {
                                                     />
                                             </Form.Group>
                                             <Form.Group controlId="comment">
-                                                <Form.Label>Comment</Form.Label>
+                                                {/* <Form.Label>Comment</Form.Label> */}
                                                 <Form.Control className="text-area" as='textarea' row='3' placeholder='Enter Comment. . .' value={comment} onChange={e => setComment(e.target.value)}></Form.Control>
                                             </Form.Group>
                                             <button className="form-button" onClick={() => submitReview()}>Add Review</button>

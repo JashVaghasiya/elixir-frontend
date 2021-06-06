@@ -43,7 +43,7 @@ const ListOrder = ({ history }) => {
 
         <Container className="order-list-container mb-5" style={{ margin: "auto" }}>
 
-            <h3 style={{ marginTop: 25 }}>Previous Order <i style={{ marginLeft: 10 }} class="fas fa-history"></i></h3>
+            <h3 style={{ marginTop: 25 }}>Order History<i style={{ marginLeft: 10 }} class="fas fa-history"></i></h3>
             {loading ? <Loader /> :
                 <ListGroup variant='flush' style={{ marginTop: "30px", textAlign: "center" }}>
                     <ListGroup.Item className="shipping-form text-center" style={{ border: "none", background: "#f7f7f9" }}>
@@ -55,9 +55,9 @@ const ListOrder = ({ history }) => {
                             <Col md={2} xs={12}>
                                 <h6 style={{ margin: 0, padding: 5 }} className="order-heading">Total</h6>
                             </Col>
-                            <Col md={1} xs={12} style={{ "fontSize": "18px" }}><h6 style={{ margin: 0, padding: 5 }} className="order-heading">Quantity</h6></Col>
                             <Col md={3} xs={12} style={{ "fontSize": "18px" }}><h6 style={{ margin: 0, padding: 5 }} className="order-heading">Ordered At</h6></Col>
                             <Col md={2} xs={12} style={{ "fontSize": "18px" }}><h6 style={{ margin: 0, padding: 5 }} className="order-heading">Invoice</h6></Col>
+                            <Col md={1} xs={12} style={{ "fontSize": "18px" }}><h6 style={{ margin: 0, padding: 5 }} className="order-heading">Make Complain</h6></Col>
                             <Col md={1} xs={12}><h6 style={{ margin: 0, padding: 5 }} className="order-heading">Copy</h6></Col>
                         </Row>
 
@@ -73,9 +73,9 @@ const ListOrder = ({ history }) => {
                                 <Col md={2} xs={12}>
                                     <p className="text-order">₹{o.grandTotal}</p>
                                 </Col>
-                                <Col md={1} xs={12} style={{ "fontSize": "18px" }}><p className="text-order">{o.totalQty}</p></Col>
                                 <Col md={3} xs={12} style={{ "fontSize": "18px" }}><p className="text-order">{o.createdAt.substr(0, 10).concat(" ").concat(o.createdAt.substr(11, 8))}</p></Col>
                                 <Col md={2} xs={12} style={{ "fontSize": "18px" }}><div className="btn btn-dark text-center"><a href={o.invoiceURL} alt={o.invoiceURL}>Download</a></div></Col>
+                                <Col md={1} xs={12} style={{ "fontSize": "18px" }}><p className="text-order"><div className="btn btn-dark text-center"><a href={`/user/make/complain/${o._id}`}> Complain</a></div></p></Col>
                                 <Col md={1} xs={12} style={{ "fontSize": "18px" }} onClick={() => copyID(o._id)}><i class="far fa-copy"></i></Col>
                             </Row>
                         </ListGroup.Item>

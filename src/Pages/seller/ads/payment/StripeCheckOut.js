@@ -116,10 +116,10 @@ const StripeCheckOut = ({ id }) => {
     return (
         <>
             <div className="order-summary mt-5 mb-5">
-                <Card>
+                <Card className="ads-payment-card">
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h3>PAYMENT SUMMERY</h3>
+                            <h3 style={{ color: "#acacac" }}>Ads PAYMENT SUMMERY</h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <Row>
@@ -142,7 +142,7 @@ const StripeCheckOut = ({ id }) => {
                         <ListGroup.Item>
                             <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
                                 <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
-                                <button className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{ads && ads.amountPaid}</div>}</span></button>
+                                <button style={{ background: "#acacac" }} className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{ads && ads.amountPaid}</div>}</span></button>
                                 <br />
                                 {error && <div className="card-error" role="alert">{error}</div>}
                                 {succeeded && <div className="card-error" role="alert">Payment Successed</div>}

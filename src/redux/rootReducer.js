@@ -5,8 +5,8 @@ import { adsReducer } from './reducers/ads'
 import { packageReducer } from './reducers/package'
 import { doctorReducer } from './reducers/doctor'
 import { roomReducer } from './reducers/room'
-import { socketReducer } from "./reducers/socket";
-import { sellerReducer } from "./reducers/seller";
+import { socketReducer } from "./reducers/socket"
+import { sellerReducer } from "./reducers/seller"
 export const rootReducer = combineReducers({
     user: userReducer,
     order: orderReducer,
@@ -15,5 +15,5 @@ export const rootReducer = combineReducers({
     doctor: doctorReducer,
     room: roomReducer,
     socket: socketReducer,
-    seller: sellerReducer
+    seller: sellerReducer,
 })

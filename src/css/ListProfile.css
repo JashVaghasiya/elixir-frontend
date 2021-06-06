@@ -11,3 +11,7 @@
 .complain-div h4 {
     font-size: 20px;
 }
+
+.complain-container {
+    overflow: auto;
+}

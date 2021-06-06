@@ -21,7 +21,7 @@ const RegisterComplete = ({ history }) => {
 
     const submitHandler = async () => {
         setLoading(true)
-        if (password == null) {
+        if (password == null || password.length <= 8) {
             setError("Password field is Empty!")
         } else if (email == null) {
             setError("Email field is Empty!")

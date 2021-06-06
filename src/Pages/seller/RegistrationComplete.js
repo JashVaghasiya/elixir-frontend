@@ -31,7 +31,7 @@ const RegistrationComplete = ({ history }) => {
             if (ifsc === null) {
                 setError('Please Provide IFSC Code!')
             }
-            if (mobile === null && mobile.length < 10) {
+            if (mobile === null || mobile.length < 10) {
                 setError('Please Provide Mobile Number!')
             }
             if (fName === null) {
@@ -42,6 +42,9 @@ const RegistrationComplete = ({ history }) => {
             }
             if (address === null) {
                 setError('Please Provide Address!')
+            }
+            if (password === null && password.length <= 8) {
+                setError('Password must be greater than 8 character!')
             }
         }
         else {

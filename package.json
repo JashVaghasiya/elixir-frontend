@@ -12,9 +12,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
-    "animate.css": "^4.1.1",
     "antd": "^4.11.1",
-    "apexcharts": "^3.26.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "easyinvoice": "^1.0.112",
@@ -22,7 +20,6 @@
     "firebase": "^8.2.4",
     "jquery": "^3.6.0",
     "mongoose": "^5.12.3",
-    "pusher-js": "^7.0.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
@@ -65,5 +62,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

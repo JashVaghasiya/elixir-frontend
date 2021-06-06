@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../css/Footer.css'
 import Logo from '../../images/elixirLogo.png'
 import { Link } from 'react-router-dom'
+import { getCount } from '../../functions/user'
 
 const Footer = () => {
+
+    useEffect(() => {
+
+        getData()
+
+    }, [])
+
+    const [orderData, setOrderData] = useState('')
+    const [stateData, setStateData] = useState('')
+    const [sellerData, setSellerData] = useState('')
+
+    const getData = async () => {
+
+        await getCount().then(res => {
+            if (res) {
+                setOrderData(res.data[0].count)
+                setStateData(res.data[1].count)
+                setSellerData(res.data[2].count)
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     return (
         <>
@@ -13,18 +37,18 @@ const Footer = () => {
                     <h1 class="header">India's No.1 E-Pharmacy Store</h1>
                     <div class="footer-cotnainer pb-5">
                         <div class="sec-section">
-                            <h1>12+</h1>
+                            <h1>{orderData && orderData} +</h1>
+                            <h5>Orders</h5>
+                        </div>
+
+                        <div class="sec-section">
+                            <h1>{stateData && stateData} +</h1>
                             <h5>States</h5>
                         </div>
 
                         <div class="sec-section">
-                            <h1>400+</h1>
+                            <h1>{sellerData && sellerData} +</h1>
                             <h5>Sellers</h5>
-                        </div>
-
-                        <div class="sec-section">
-                            <h1>1600+</h1>
-                            <h5>Products</h5>
                         </div>
                     </div>
                 </div>

@@ -25,12 +25,14 @@ const Products = ({ history }) => {
     const [ad, setAd] = useState(false)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [outOfStock, setOutOfStock] = useState([])
 
     useEffect(() => {
         setLoading(true)
         getSellerProducts(seller && seller._id, seller && seller.token).then(res => {
             setLoading(false)
             setProducts(res.data)
+            res.data.forEach(p => { if (p.stock <= 10) setOutOfStock(outOfStock => [...outOfStock, { name: p.name, id: p._id }]) })
         })
         getPack(seller && seller.package).then(res => {
             setRate(res.data.adsRate)
@@ -38,8 +40,8 @@ const Products = ({ history }) => {
         }).catch(error => {
             console.log(error)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seller])
-
 
     const createAds = async (p) => {
         if (seller.remainingDays < 0) {
@@ -122,12 +124,13 @@ const Products = ({ history }) => {
         <div id="body">
             <div className="container-main">
                 <SellerHeader />
-                <SideNav />
+                <SideNav active="product" />
                 <main>
                     <div className="main__container">
                         <ProductHeader activated="products" />
                         {warning !== null ? <Alert className="mt-3 mb-3 text-white" variant="dark">{warning}</Alert> : null}
                         {error !== null ? <Alert className="mt-3 mb-3 text-white" variant="dark">{error} !<Link className="red-link" to="/package"> Renew</Link></Alert> : null}
+                        {outOfStock.length > 0 ? outOfStock.map(p => <Alert className="mt-3 mb-3 text-white" variant="dark"> <Link to={`/seller/product/${p.id}`}><span style={{ textDecoration: "underline" }}>"{p.name.substr(0, 30)}"</span> is near Out of Stock</Link></Alert>) : null}
                         {loading ? <Loader color="white" /> :
                             <Row>
                                 {products && products.length > 0 ? products.map(p => (

@@ -15,7 +15,7 @@
 
 .progress-bar {
     background: #f1f2f3 !important;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
 }
 
 /* .progress-bar .ant-steps-item .ant-steps-icon {

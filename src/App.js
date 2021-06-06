@@ -2,7 +2,7 @@ import Header from './components/nav/Header'
 import DoctorHeader from './components/nav/DoctorHeader'
 import { Switch } from 'react-router-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Home from '../src/Pages/user/Home'
@@ -105,13 +105,14 @@ import ListOrder from './Pages/user/ListOrder'
 import OrderDetail from './Pages/user/OrderDetail'
 import SearchFilter from './Pages/user/FilterSearch'
 import PaymentSuccess from './Pages/user/PaymentSuccess'
-import Loader from './components/Loader'
 import Code404 from './Pages/error/404'
+import Chatbot from './Pages/user/Chatbot'
 
 const App = ({ history }) => {
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const [bot, setBot] = useState(false)
 
   useEffect(() => {
 
@@ -213,6 +214,14 @@ const App = ({ history }) => {
   }, [dispatch, user, history])
 
 
+  const handleBot = () => {
+    if (bot) {
+      setBot(false)
+    } else {
+      setBot(true)
+    }
+  }
+
   return (
     <>
       <Router>
@@ -240,7 +249,7 @@ const App = ({ history }) => {
           <UserRoute exact path='/update/user/profile' component={UpdateUserProfile}></UserRoute>
           <Route exact path='/user/cart' component={Cart}></Route>
           <UserRoute exact path='/user/shipping' component={Shipping}></UserRoute>
-          <UserRoute exact path='/user/make/complain' component={Complain}></UserRoute>
+          <UserRoute exact path='/user/make/complain/:id' component={Complain}></UserRoute>
           <UserRoute exact path='/user/list/complain' component={ListComplain}></UserRoute>
           <UserRoute exact path='/user/order' component={ListOrder}></UserRoute>
           <UserRoute exact path='/user/order/:id/:status' component={OrderDetail}></UserRoute>
@@ -309,11 +318,13 @@ const App = ({ history }) => {
           <AgencyRoute exact path='/agency/manage/:pageNumber' component={ManageOrders} />
           <AgencyRoute exact path='/agency/change/password' component={AgencyForgotPassword} />
 
-          <Route exact path='/loader' component={Loader}></Route>
           <Route component={Code404} />
         </Switch>
         {((user && user.role === "admin") || (user && user.role === "seller") || (user && user.role === "agency") || (user && user.role === "doctor")) ? '' : <Footer />}
+        {bot && <Chatbot className="chatbot-close" />}
+        <button className="open-button" onClick={() => handleBot()}><i class="far fa-comment-alt"></i></button>
       </Router>
+
     </>
   )
 }

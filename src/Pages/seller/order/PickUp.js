@@ -22,12 +22,14 @@ const PickUp = ({ match }) => {
     const [limit, setLimit] = useState(10)
     const pageNumber = match.params.pageNumber || 1
 
+
     useEffect(() => {
         loadOrders()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [seller, limit, pageNumber, manner, sortName])
 
     const loadOrders = async () => {
+
         setLoading(true)
         await getUnscheduledOrders(limit, pageNumber, sortName, manner, seller && seller._id, seller && seller.token).then(res => {
             setOrders(res.data.orders)
@@ -62,12 +64,12 @@ const PickUp = ({ match }) => {
         <div id="body">
             <div className="container-main">
                 <SellerHeader />
-                <SellerSideNav />
+                <SellerSideNav active="orders" />
                 <main>
                     <div className="main__container">
                         <OrderHeader activated="unschedule" />
                         {loading ? <Loader color="white" /> :
-                            <Table height="500" className="mt-3" striped bordered hover variant="dark" size="xm">
+                            <Table className="mt-3" striped bordered hover variant="dark" size="xm">
                                 <thead>
                                     <tr>
                                         <th>OrderId <i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>
@@ -89,7 +91,7 @@ const PickUp = ({ match }) => {
                                             <td>{o.productId.name}</td>
                                             <td>{o.totalQty}</td>
                                             <td>{o.totalAmount}</td>
-                                            <td><input className="bg-dark" type="date" onChange={(e) => setDate(e.target.value)} /></td>
+                                            <td><input className="bg-dark" type="date" min={new Date().toISOString().split('T')[0]} onChange={(e) => setDate(e.target.value)} /></td>
                                             <td><button className="btn btn-light btn-sm" onClick={() => setPickUp(o._id)}>Schedule</button></td>
                                         </tr>
                                     ))}

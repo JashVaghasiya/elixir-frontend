@@ -176,11 +176,15 @@ const StripeCheckOut = () => {
                                 </h4>
                                 <hr />
 
-                                <h6><strong>Name: </strong>{pack && pack.name}</h6>
-                                <h6><strong>Price: </strong>{pack && pack.price}</h6>
-                                <h6><strong>Duration: </strong>{pack && pack.duration}</h6>
-                                <h6><strong>Ads Rate: </strong>{pack && pack.adsRate}</h6>
-                                <h6><strong>Products: </strong>{pack && pack.products}</h6>
+                                <h6><strong>Package Name: </strong>{pack && pack.name.toUpperCase()}</h6>
+                                <hr />
+                                <h6><strong>Price of Package: </strong>₹{pack && pack.price}</h6>
+                                <hr />
+                                <h6><strong>Package Duration: </strong>{pack && pack.duration} days</h6>
+                                <hr />
+                                <h6><strong>Ads Rate: </strong>₹{pack && pack.adsRate} </h6>
+                                <hr />
+                                <h6><strong>Products: </strong>{pack && pack.products} products</h6>
 
                             </ListGroup.Item>
 
@@ -221,7 +225,7 @@ const StripeCheckOut = () => {
                                 <ListGroup.Item>
                                     <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
                                         <CardElement id="card-element" options={cartStyle} onChange={handleChange} />
-                                        <button className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{pack.price}</div>}</span></button>
+                                        <button style={{ background: "#acacac" }} className="stripe-button" disabled={processing || disabled || succeeded}><span id="button-text">{processing ? <div className="spinner" id="spinner"></div> : <div>Pay ₹{pack.price}</div>}</span></button>
                                         <br />
                                         {error && <div className="card-error" role="alert">{error}</div>}
                                         {succeeded && <div className="card-error" role="alert">Payment Successed</div>}

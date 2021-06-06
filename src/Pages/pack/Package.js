@@ -8,7 +8,6 @@ const Package = ({ history }) => {
     const [pack1, setPack1] = useState([])
     const [pack2, setPack2] = useState([])
     const [pack3, setPack3] = useState([])
-
     const seller = useSelector(state => state.user)
 
     useEffect(() => {
@@ -27,16 +26,17 @@ const Package = ({ history }) => {
     }
 
     const handleSpark = () => {
+
         window.localStorage.setItem("Package Id", pack1._id)
         if (seller && seller._id) {
             history.push('/payment/package')
         } else {
             history.push('/seller/registration')
         }
-
     }
 
     const handleFlame = () => {
+
         window.localStorage.setItem("Package Id", pack2._id)
         if (seller && seller._id) {
             history.push('/payment/package')
@@ -46,6 +46,7 @@ const Package = ({ history }) => {
     }
 
     const handleBlaze = () => {
+
         window.localStorage.setItem("Package Id", pack3._id)
         if (seller && seller._id) {
             history.push('/payment/package')
@@ -75,9 +76,7 @@ const Package = ({ history }) => {
                             <li>Daily Backups</li>
                         </ul>
                     </div>
-
                     <button type="button" className="btn btn-block btn-dark p-3" onClick={() => handleSpark()}>Get {pack1.name}</button>
-
                 </div>
                 <div class="seller-pricing-card">
                     <div class="seller-pricing-card-ribbon">
@@ -122,6 +121,7 @@ const Package = ({ history }) => {
                     </div>
                     <button type="button" className="btn btn-block btn-dark p-3" onClick={() => handleFlame()}>Get {pack2.name}</button>
                 </div>
+
             </div>
         </>
     )
