@@ -70,7 +70,7 @@ const Chat = ({ bot }) => {
             <div className="chatbot">
                 <div className="title">
                     <img src={Bot} className="title-img" alt="title" />
-                    <h5 className="title-text">Mr. Mobo</h5>
+                    <h5 className="title-text">Mr. Bot</h5>
                 </div>
                 <div className="divider">
                     <div></div>
@@ -80,7 +80,7 @@ const Chat = ({ bot }) => {
                         {
                             messages && messages.map((message, index) => (
                                 <>
-                                    {message.content.text && message.content.text.text && <li key={index}><p className={message.who === "user" ? "sent" : "replies"}>{message.content.text.text}</p></li>}
+                                    {message.content.text && message.content.text.text && <li key={index}><p className={message.who === "user" ? "sent-chatbot" : "replies-chatbot"}>{message.content.text.text}</p></li>}
                                     {message.content.payload && message.content.payload.fields.cards && message.content.payload.fields.cards.listValue.values.map((c, i) => <button key={i} className="message-card" onClick={() => redirectToProducts(c.structValue.fields._id.stringValue)}>{c.structValue.fields.name.stringValue}</button>)}
                                     {message.content.payload && message.content.payload.fields.choice && message.content.payload.fields.choice.listValue.values.map((c, i) => <button key={i} className="message-card" onClick={() => redirectToPage(c.structValue.fields.link.stringValue)}>{c.structValue.fields.name.stringValue}</button>)}
                                 </>

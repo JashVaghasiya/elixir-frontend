@@ -34,13 +34,13 @@ const Cart = ({ history }) => {
             history.push('/login')
         }
         if (user && user.token) {
+            setLoading(true)
             getCart()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     const getCart = async () => {
-        setLoading(true)
         await listCart(user && user._id, user && user.token).then(res => {
             setCart(res.data)
             setLoading(false)

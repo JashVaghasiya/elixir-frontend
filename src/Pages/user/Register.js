@@ -13,7 +13,7 @@ const Register = () => {
     window.scrollTo(0, 0)
 
     const submitHandler = async () => {
-        if (email !== null) {
+        if (email !== null && email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
             setLoading(true)
 
             const config = {
@@ -28,7 +28,7 @@ const Register = () => {
             setEmail('')
             setAlert("Registration link has been sent!")
         } else {
-            setAlert("Enter Email in field!")
+            setAlert("Enter Valid Email!")
         }
 
     }

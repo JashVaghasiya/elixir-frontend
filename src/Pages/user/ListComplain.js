@@ -43,13 +43,13 @@ const ListComplain = () => {
                     <hr />
                     {complain && complain.length > 0 && complain.map(c =>
                         <div className="complain-div">
-                            <h1>{c.productName.length > 50 ? c.productName.substr(0, 50).concat('...') : c.productName}</h1>
+                            <p className={c.solved ? "text-red":"text-green"}> {c.solved ? "Closed" : "Open"}</p>
+                            <h3>{c.productName.length > 50 ? c.productName.substr(0, 50).concat('...') : c.productName}</h3>
                             <hr />
                             <h6>Order ID: {c.orderId}</h6>
                             <p>{c.complain}</p>
                         </div>
-                    )}
-                    <Link to="/user/make/complain" className="form-button my-2">Make Complain</Link>
+                    )}  
                 </>
             }
         </Container>

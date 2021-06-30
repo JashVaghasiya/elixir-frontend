@@ -322,7 +322,7 @@ const App = ({ history }) => {
         </Switch>
         {((user && user.role === "admin") || (user && user.role === "seller") || (user && user.role === "agency") || (user && user.role === "doctor")) ? '' : <Footer />}
         {bot && <Chatbot className="chatbot-close" />}
-        <button className="open-button" onClick={() => handleBot()}><i class="far fa-comment-alt"></i></button>
+        {((user === null) || (user && user.role !== "admin")) && <button className="open-button" onClick={() => handleBot()}><i class="far fa-comment-alt"></i></button>}
       </Router>
 
     </>

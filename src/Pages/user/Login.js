@@ -28,7 +28,7 @@ const Login = ({ history }) => {
 
         try {
 
-            if (email !== null) {
+            if (email !== null && email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
 
                 if (password !== null) {
                     const result = await auth.signInWithEmailAndPassword(email, password).catch(err => {
@@ -52,19 +52,22 @@ const Login = ({ history }) => {
 
                     await findUser(token.token).then(res => {
                         if (res) {
-                            console.log(res.data);
-                            roleBasedRedirect(history, res.data)
+                            if (res.data.deactivated) {
+                                setError(res.data.deactivated)
+                            } else {
+                                roleBasedRedirect(history, res.data)
+                            }
                         }
                         setLoading(false)
                     }).catch(err => console.error('Create or Update User Error :', err))
 
                 } else {
-                    setError("Fill Password Properly!")
+                    setError("Enter Password Properly!")
                     setLoading(false)
                 }
 
             } else {
-                setError("Fill Email Properly!")
+                setError("Enter Email Properly!")
                 setLoading(false)
             }
 
@@ -79,7 +82,7 @@ const Login = ({ history }) => {
                 <div style={{ height: "85vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
                     <h2 className="mt-5">Login</h2>
                     <label className="mt-3">Email</label>
-                    <input placeholder='Enter Email' type='email' required size='large' value={email} onChange={e => setEmail(e.target.value)} />
+                    <input placeholder='Enter Email' type='text' size='large' value={email} onChange={e => setEmail(e.target.value)} />
 
                     <label className="mt-3">Password</label>
                     <input placeholder='Enter Password' type='password' size='large' value={password} onChange={e => setPassword(e.target.value)} />

@@ -80,7 +80,7 @@ const Ads = ({ match }) => {
                                 </tbody>
                             </Table>
                         }
-                        {ads && ads.length > 10 ? <Paginator role="orders" setLimit={setLimit} pages={pageData && pageData.pages} pageNumber={pageData && pageData.pageNumber} /> : ''}
+                        {pageData && pageData.pages > 1 ? <Paginator role="ads" setLimit={setLimit} pages={pageData && pageData.pages} pageNumber={pageData && pageData.pageNumber} /> : ''}
                     </div>
                 </main>
             </div>

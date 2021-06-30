@@ -18,17 +18,17 @@ const Paginator = ({ setLimit, pages, pageNumber, role }) => {
     }
 
     return (pages > 1 && (
-        <div>
-            <Link disabled={page === 1} onClick={() => decrement()} className="btn btn-dark text-white" to={role === "orders" ? `/seller/orders/${page - 1}` : role === "pickup" ? `/seller/orders/pickup/${page - 1}` : `/seller/ads/${page - 1}`}>{"<"}</Link>
-            <Link disabled={pages === page} onClick={() => increment()} className="btn btn-dark text-white" to={role === "orders" ? `/seller/orders/${page + 1}` : role === "pickup" ? `/seller/orders/pickup/${page + 1}` : `/seller/ads/${page + 1}`}>{">"}</Link>
-            <select onChange={(e) => setLimit(e.target.value)}>
+        <div style={{ display: "flex" }}>
+            <Link disabled={page === 1} onClick={() => decrement()} className="form-button mr-2" to={role === "orders" ? `/seller/orders/${page - 1}` : role === "pickup" ? `/seller/orders/pickup/${page - 1}` : `/seller/ads/${page - 1}`}>{"<"}</Link>
+            <Link disabled={pages === page} onClick={() => increment()} className="form-button mr-2" to={role === "orders" ? `/seller/orders/${page + 1}` : role === "pickup" ? `/seller/orders/pickup/${page + 1}` : `/seller/ads/${page + 1}`}>{">"}</Link>
+            <select style={{ width: "100px", height: "50px", background: "#414141", color: "white" }} onChange={(e) => setLimit(e.target.value)}>
                 <option value={10}>10</option>
-                <option value={10}>20</option>
-                <option value={10}>30</option>
-                <option value={10}>40</option>
-                <option value={10}>50</option>
+                <option value={20}>20</option>
+                <option value={30}>30</option>
+                <option value={40}>40</option>
+                <option value={50}>50</option>
             </select>
-            <p className="text-dark">{pageNumber} of {pages}</p>
+            <p className="text-white m-2">{pageNumber} of {pages}</p>
         </div>
     ))
 }

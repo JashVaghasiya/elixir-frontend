@@ -84,7 +84,7 @@ const Doctor = () => {
                                             <td>{u.email}</td>
                                             <td>{u.degree}</td>
                                             <td>{u.specialization}</td>
-                                            <td>{u.experience}</td>
+                                            <td>{u.experience} years</td>
                                             <td>{u.mobile}</td>
                                             <td onClick={() => manageDoctors(u._id, u.isActive)}>{u.isActive ? "Click To Deactivate" : "Click To Activate"}</td>
                                         </tr>

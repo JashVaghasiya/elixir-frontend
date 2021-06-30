@@ -12,7 +12,7 @@ const Registration = () => {
     window.scrollTo(0, 0)
 
     const submitHandler = async (e) => {
-        if (email !== null) {
+        if (email !== null && email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
             setLoading(true)
             e.preventDefault()
             const config = {
@@ -23,7 +23,7 @@ const Registration = () => {
             window.localStorage.setItem('email', email)
             setEmail(null)
         } else {
-            setError("Fill the Email field!")
+            setError("Enter Valid Email in field!")
         }
 
     }

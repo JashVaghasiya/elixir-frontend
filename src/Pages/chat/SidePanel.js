@@ -27,7 +27,7 @@ const SidePanel = ({ socket }) => {
 
 
     useEffect(() => {
-        setLoading(true)
+
         if (user && user.role === "user") {
             getDoctors().then(res => {
                 setContacts(res.data)
@@ -36,6 +36,10 @@ const SidePanel = ({ socket }) => {
                 console.log(err);
             })
         }
+    }, [user])
+
+    useEffect(() => {
+        setLoading(true)
         if (user && user.role === "doctor") {
             getAllContacts(user._id).then(res => {
                 setUsers(res.data)
@@ -44,7 +48,6 @@ const SidePanel = ({ socket }) => {
                 console.log(err)
             })
         }
-
     }, [user])
 
 

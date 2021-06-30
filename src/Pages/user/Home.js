@@ -93,7 +93,6 @@ const Home = ({ match, history }) => {
     };
 
     let settings = {
-        // dots: true,
         infinite: true,
         speed: 3000,
         autoplaySpeed: 6000,
@@ -218,12 +217,22 @@ const Home = ({ match, history }) => {
                     {topFeatured && topFeatured.length > 0 && <>
                         <hr className="mt-3" />
                         <h5 className="home-title mt-2">Featured Products</h5>
-                        <h6 className="home-subtitle">Recommended by consultants</h6></>}
-                    <Slider arrows={false} {...adsSettings}>
+                        <h6 className="home-subtitle">Recommended by consultants</h6>
+                    </>}
+                    {topFeatured.length >= 10 && <Slider arrows={false} {...adsSettings}>
                         {topFeatured && topFeatured.map(product => (
-                            <HomeProductCard key={product._id} product={product.productId} />
+                            <div key={product._id}>
+                                <HomeProductCard product={product.productId} />
+                            </div>
                         ))}
-                    </Slider>
+                    </Slider>}
+                    {topFeatured.length < 10 && <div className="product-wrapper mt-3" id="responsive">
+                        {topFeatured && topFeatured.map(product => (
+                            <div key={product._id}>
+                                <HomeProductCard product={product.productId} />
+                            </div>
+                        ))}
+                    </div>}
                     <hr className="mt-3" />
                     <h5 className="home-title mt-2">Best Seller Products</h5>
                     <h6 className="home-subtitle">Our most popular products based on sales</h6>

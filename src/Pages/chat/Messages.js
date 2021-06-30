@@ -35,7 +35,7 @@ const Messages = ({ socket }) => {
         })
     }, [room, room.roomId])
 
-    messRef.current && messRef.current.scrollIntoView({ behavior: "smooth" })
+    // messRef.current && messRef.current.scrollIntoView({ behavior: "smooth" })
 
     const createChat = async () => {
         try {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { getUserCount, getOrderCount, getProductCount } from '../../../functions/admin'
+import { getUserCount, getOrderCount, getProductCount, getCardDetails } from '../../../functions/admin'
 import { useSelector } from 'react-redux'
 import AdminSideNav from '../../../components/nav/Admin'
 import Header from '../../../components/nav/HeaderMain'
@@ -16,6 +16,7 @@ const AdminDashboard = () => {
     const [sellerData, setSellerData] = useState(0)
     const [productData, setProductData] = useState(0)
     const [orderData, setOrderData] = useState(0)
+    const [card, setCard] = useState()
     useEffect(() => {
         if (user && user.token) {
             getData()
@@ -35,8 +36,6 @@ const AdminDashboard = () => {
                 setUserData(res.data[1].count)
                 setSellerData(res.data[0].count)
             }
-            console.log("User:", userData);
-            console.log("Seller:", sellerData);
         }).catch(error => {
             console.log(error)
         })
@@ -44,8 +43,6 @@ const AdminDashboard = () => {
             if (res) {
                 setOrderData(res.data[0].count)
             }
-
-            console.log("Order:", orderData);
         }).catch(error => {
             console.log(error)
         })
@@ -53,10 +50,14 @@ const AdminDashboard = () => {
             if (res) {
                 setProductData(res.data[0].count);
             }
-
-            console.log("Product:", productData);
         }).catch(error => {
             console.log(error)
+        })
+        await getCardDetails(user && user.token).then(res => {
+            if (res) {
+                setCard(res.data)
+                console.log(res.data)
+            }
         })
     }
 
@@ -69,8 +70,8 @@ const AdminDashboard = () => {
                     <div class="main__container">
                         <div class="main__title">
                             <div class="main__greeting">
-                                <h1>Hello </h1>
-                                <p>Welcome to Dashboard</p>
+                                <h1>Hello,</h1>
+                                <p>Welcome to Admin Dashboard</p>
                             </div>
                         </div>
                         <div class="counters">
@@ -120,7 +121,7 @@ const AdminDashboard = () => {
                             <div class="charts__right">
                                 <div class="charts__right__title">
                                     <div>
-                                        <h1>Stats Reports</h1>
+                                        <h1>Revenue Reports</h1>
 
                                     </div>
                                     <i class="fa fa-inr" aria-hidden="true"></i>
@@ -128,23 +129,23 @@ const AdminDashboard = () => {
 
                                 <div class="charts__right__cards">
                                     <div class="card1">
-                                        <h1>Income</h1>
-                                        <h5>₹ 75,300</h5>
+                                        <h1>Order</h1>
+                                        <h5>₹{card && card[0].orderIncome}</h5>
                                     </div>
 
                                     <div class="card2">
-                                        <h1>Sales</h1>
-                                        <h5>₹ 124,200</h5>
+                                        <h1>Package</h1>
+                                        <h5>₹{card && card[2].packageIncome}</h5>
                                     </div>
 
                                     <div class="card3">
-                                        <h1>Users</h1>
-                                        <h5>3900</h5>
+                                        <h1>Ads</h1>
+                                        <h5>₹{card && card[1].adsIncome}</h5>
                                     </div>
 
                                     <div class="card4">
-                                        <h1>Orders</h1>
-                                        <h5>1881</h5>
+                                        <h1>Total Users</h1>
+                                        <h5>{card && card[3].totalUser + card[4].totalDoctor - 2}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -152,9 +153,6 @@ const AdminDashboard = () => {
                         <div class="charts__left" style={{ marginTop: "30px" }}>
                             <div id="apex1"></div>
                         </div>
-                        {/* Chart Ends */}
-
-
                     </div>
                 </main>
             </div>

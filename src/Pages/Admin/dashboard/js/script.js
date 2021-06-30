@@ -1,54 +1,5 @@
 import ChartsEmbedSDK from "@mongodb-js/charts-embed-dom";
 import mongoose from 'mongoose'
-import "regenerator-runtime/runtime"
-
-
-// export const count = () => {
-//   //counter code
-//   const counters = document.querySelectorAll('.counter');
-//   const speed = 300; // The lower the slower
-
-//   counters.forEach(counter => {
-//     const updateCount = () => {
-//       const target = +counter.getAttribute('data-target');
-//       const count = +counter.innerText;
-
-
-//       const inc = target / speed;
-
-//       if (count < target) {
-
-//         counter.innerText = Math.floor(count + inc);
-
-//         setTimeout(updateCount, 1);
-//       } else {
-//         counter.innerText = target;
-//       }
-//     };
-
-//     updateCount();
-//   });
-// }
-
-// Sidebar Toggle Codes;
-
-// var sidebarOpen = false;
-// var sidebar = document.getElementById("sidebar");
-// var sidebarCloseIcon = document.getElementById("sidebarIcon");
-
-// const toggleSidebar = () => {
-//   if (!sidebarOpen) {
-//     sidebar.classList.add("sidebar_responsive");
-//     sidebarOpen = true;
-//   }
-// }
-
-// const closeSidebar = () => {
-//   if (sidebarOpen) {
-//     sidebar.classList.remove("sidebar_responsive");
-//     sidebarOpen = false;
-//   }
-// }
 
 export const renderAdminChart = async () => {
   const sdk = new ChartsEmbedSDK({

@@ -20,7 +20,7 @@ const Paginator = ({ setLimit, pages, pageNumber, role }) => {
 
     return (pages > 1 && (
 
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }}> 
             <Link disabled={page === 1} onClick={() => decrement()} className="form-button mr-2" to={role === "seller" ? `/admin/sellers/${page - 1}` : role === "order" ? `/admin/orders/${page - 1}` : role === "product" ? `/admin/product/${page - 1}` : role === "ads" ? `/admin/ads/${page - 1}` : `/admin/users/${page - 1} `}>{"<"}</Link>
             <Link disabled={pages === page} onClick={() => increment()} className="form-button mr-2 text-white" to={role === "seller" ? `/admin/sellers/${page + 1}` : role === "order" ? `/admin/orders/${page + 1}` : role === "product" ? `/admin/product/${page + 1}` : role === "ads" ? `/admin/ads/${page + 1}` : `/admin/users/${page + 1} `}>{">"}</Link>
 

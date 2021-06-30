@@ -33,13 +33,15 @@ const ForgotPassword = ({ history }) => {
     }
 
     return (
-        <div className="container shipping-form">
-            <div style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
-                <h2 className="mt-5 mb-2">Forgot Password</h2>
-                <label>Email</label>
-                <input type='email' size='large' value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter Email ID" />
-                <button block size='large' onClick={handleForgotPassword} className='form-button btn-block my-3' disabled={loading} >Send Link</button>
-                {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
+        <div className="login-page-container">
+            <div className="container shipping-form">
+                <div style={{ height: "100vh", width: "40%", marginLeft: "auto", marginRight: "auto" }}>
+                    <h2 className="mt-5">Forgot Password</h2>
+                    <label>Email</label>
+                    <input type='email' size='large' value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter Email ID" />
+                    <button block size='large' onClick={handleForgotPassword} className='form-button btn-block my-3' disabled={loading} >Send Link</button>
+                    {alert !== null && <Alert variant="dark" className="text-white">{alert}</Alert>}
+                </div>
             </div>
         </div>
     )

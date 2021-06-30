@@ -4,11 +4,12 @@
 }
 
 .side-nav {
-    width: 20vw;
+    width: 300px;
     height: 100%;
     background: #333;
     color: #fff;
     padding: 40px;
+    position: static;
 }
 
 .filter-heading {
@@ -60,41 +61,4 @@
 
 .ant-slider:hover .ant-slider-track {
     background-color: #7460e2a1 !important;
-}
-
-@media only screen and (max-width: 600px) {
-    .side-nav {
-        width: 15vw;
-    }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .side-nav {
-        width: 15vw;
-    }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    .side-nav {
-        width: 15vw;
-    }
-}
-
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .side-nav {
-        width: 15vw;
-    }
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1400px) {
-    .side-nav {
-        width: 20vw;
-    }
-
 }

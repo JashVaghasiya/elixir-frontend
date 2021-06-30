@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-
 import { getSellerOrder } from '../../../functions/seller'
 import { Progress } from 'antd';
+import { renderOrderChart, renderSellerChart } from '../../Admin/dashboard/js/script'
+import { useSelector } from 'react-redux';
 
 const SellerProfileDashboard = ({ match }) => {
 
-    const user = useSelector(state => state.user)
+    const user = match.params.id
+    const adminToken = useSelector(state => state.user)
     const [orderData, setOrderData] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [productData, setProductData] = useState('')
-    const [userData, setUserData] = useState('')
     const [amountData, setAmountData] = useState({})
     const [adsData, setAdsData] = useState('')
     const [unscheduleData, setUnscheduleData] = useState('')
-
     useEffect(() => {
-        if (user && user.token) {
+        if (adminToken && adminToken.token) {
             getData()
+
         }
+        renderSellerChart(user && user)
+        renderOrderChart(user && user)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     const getData = async () => {
-        await getSellerOrder(match.params.id).then(res => {
+        await getSellerOrder(user && user).then(res => {
             if (res) {
-                console.log(res)
                 setOrderData(res.data[0].count)
                 setAmountData(res.data[1].amount)
                 setProductData(res.data[2].count)
-                setUserData(res.data[3].count)
                 setAdsData(res.data[4].count)
                 setUnscheduleData(res.data[5].count)
             }
@@ -39,73 +39,41 @@ const SellerProfileDashboard = ({ match }) => {
         })
     }
 
+
     return (
         <main style={{ width: "100%" }}>
             <div className="main__container">
                 <Link className="form-button mt-1 mb-1" to="/admin/sellers/1">Go Back</Link>
-                <div class="main__title">
-                    {/* <img src={WelcomeBack} alt="welcome photo" /> */}
-                    <div class="main__greeting">
-                        <h1>Seller Name : {userData && user.name}</h1>
-                        <p>{userData.email}</p>
-                    </div>
-                </div>
                 <div class="counters">
-                    <Link to={`/seller/orders/1`}>
-                        <div class="seller-master-card">
-                            <div className="seller-card-title">
-                                <i className="fas fa-box-open fa-3x"></i>
-                                <h5>Orders</h5>
-                            </div>
-                            <div class="seller-card-chart">
-                                <Progress type="circle" strokeColor="#000" percent={orderData && orderData} format={percent => `${percent}`} width={80} strokeWidth={8} />
-                            </div>
+                    <div class="seller-master-card">
+                        <div className="seller-card-title">
+                            <i className="fas fa-box-open fa-3x"></i>
+                            <h5>Orders</h5>
                         </div>
-                    </Link>
+                        <div class="seller-card-chart">
+                            <Progress type="circle" strokeColor="#64b7d8" percent={orderData && orderData} format={percent => `${percent}`} width={80} strokeWidth={8} />
+                        </div>
+                    </div>
                     <div class="seller-master-card">
                         <div className="seller-card-title">
                             <i class="fas fa-rupee-sign fa-3x"></i>
                             <h5>Income</h5>
                         </div>
                         <div class="seller-card-chart">
-                            <Progress type="circle" strokeColor="#000" percent={amountData && amountData.incomePercentage} format={percent => `${percent} %`} width={80} strokeWidth={8} />
+                            <Progress type="circle" strokeColor="#2a9d8f" percent={amountData && amountData.incomePercentage} format={percent => `${percent} %`} width={80} strokeWidth={8} />
                         </div>
                     </div>
+                </div>
+                {/* MAIN CARDS ENDS HERE */}
 
-                    <div class="seller-master-card">
-                        <div className="seller-card-title">
-                            <i class="fas fa-hourglass-half fa-3x"></i>
-                            <h5>Days Left</h5>
-                        </div>
-                        <div class="seller-card-chart">
-                            <Progress type="circle" strokeColor="#000" style={{ color: "black" }} percent={userData && userData.remainingDays} format={percent => `${percent}`} width={80} strokeWidth={8} />
-                        </div>
-                    </div>
-
-                    <Link to={`/seller/product`}>
-                        <div class="seller-master-card">
-                            <div className="seller-card-title">
-                                <i class="fas fa-pills fa-3x"></i>
-                                <h5>Products Left</h5>
-                            </div>
-                            <div class="seller-card-chart">
-                                <Progress type="circle" strokeColor="#000" style={{ color: "black" }} percent={userData && userData.remainingProducts} format={percent => `${percent}`} width={80} strokeWidth={8} />
-                            </div>
-                        </div>
-                    </Link>
+                {/* Chart */}
+                <div class="charts__left" style={{ marginTop: "50px" }}>
+                    <div id="apex1"></div>
                 </div>
                 <div class="charts">
                     <div class="charts__left">
-                        <div class="charts__left__title">
-                            <div>
-                                <h1>Daily Reports</h1>
-
-                            </div>
-                            <i class="fa fa-inr" aria-hidden="true"></i>
-                        </div>
-                        <div id="apex1"></div>
+                        <div id="orderChart"></div>
                     </div>
-
                     <div class="charts__right">
                         <div class="charts__right__title">
                             <div>
@@ -118,12 +86,12 @@ const SellerProfileDashboard = ({ match }) => {
                         <div class="charts__right__cards">
                             <div class="card1">
                                 <h2>Income</h2>
-                                <h5>₹ {amountData && amountData.income}</h5>
+                                <h5>₹ {amountData ? amountData.income : 0}</h5>
                             </div>
 
                             <div class="card2">
                                 <h2>Sales</h2>
-                                <h5>₹ {amountData && amountData.sales}</h5>
+                                <h5>₹ {amountData ? amountData.sales : 0}</h5>
                             </div>
 
                             <Link to={`/seller/ads/1`}>
@@ -136,7 +104,7 @@ const SellerProfileDashboard = ({ match }) => {
                             <Link to={`/seller/orders/pickup/1`}>
                                 <div class="card4">
                                     <h2>UnSchedule</h2>
-                                    <h5>{unscheduleData && unscheduleData}</h5>
+                                    <h5>{unscheduleData ? unscheduleData : 0}</h5>
                                 </div>
                             </Link>
                         </div>

@@ -60,6 +60,7 @@ const Users = ({ match }) => {
                     <th>User Id <i className="fas fa-sort" onClick={() => setSort("_id")}></i></th>
                     <th>Name <i className="fas fa-sort" onClick={() => setSort("name")}></i></th>
                     <th>Email <i className="fas fa-sort" onClick={() => setSort("email")}></i></th>
+                    <th>Mobile <i className="fas fa-sort" onClick={() => setSort("mobile")}></i></th>
                     <th>Activated or Deactivated <i className="fas fa-sort" onClick={() => setSort("activated")}></i></th>
                   </tr>
                 </thead>
@@ -69,6 +70,7 @@ const Users = ({ match }) => {
                       <td>{u._id}</td>
                       <td>{u.name}</td>
                       <td>{u.email}</td>
+                      <td>{u.mobile && u.mobile}</td>
                       <td>{u.activated ? "Active" : "Deactivated"}</td>
                     </tr>
                   ))}

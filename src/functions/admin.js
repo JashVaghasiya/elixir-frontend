@@ -36,3 +36,11 @@ export const getOtherCount = (authtoken) => {
         }
     })
 }
+
+export const getCardDetails = (authtoken) => {
+    return axios.get('http://localhost:8000/api/admin/card/count', {
+        headers: {
+            authtoken: authtoken
+        }
+    })
+}

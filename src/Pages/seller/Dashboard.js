@@ -52,7 +52,7 @@ const Dashboard = () => {
                             {/* <img src={WelcomeBack} alt="welcome photo" /> */}
                             <div class="main__greeting">
                                 <h1>Hello {user && user.name}</h1>
-                                <p>Welcome to your admin dashboard</p>
+                                <p>Welcome to Dashboard</p>
                             </div>
                         </div>
                         <div class="counters">
@@ -145,36 +145,6 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Chart Ends */}
-
-                        {/* <div className="container-fluid">
-                        <h3>Dashboard</h3>
-                        <hr />
-                        <Row>
-                            {loading ? "Loading..." : userData && userData.length > 0 && userData.map(u => (
-                                <div className="m-2">
-                                    <CountCard data={u} />
-                                </div>
-                            ))}
-                        </Row>
-                        <hr />
-                        <Row>
-                            {loading ? "Loading..." : orderData && orderData.length > 0 && orderData.map(u => (
-                                <div className="m-2">
-                                    <CountCard data={u} />
-                                </div>
-                            ))}
-                        </Row>
-                        <hr />
-                        <Row>
-                            {loading ? "Loading..." : productData && productData.length > 0 && productData.map(u => (
-                                <div className="m-2">
-                                    <CountCard data={u} />
-                                </div>
-                            ))}
-                        </Row>
-                    </div> */}
                     </div>
                 </main>
             </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Container } from 'react-bootstrap'
 import { getUserOrder } from '../../functions/order'
 import Loader from '../../components/Loader'
@@ -75,7 +76,7 @@ const ListOrder = ({ history }) => {
                                 </Col>
                                 <Col md={3} xs={12} style={{ "fontSize": "18px" }}><p className="text-order">{o.createdAt.substr(0, 10).concat(" ").concat(o.createdAt.substr(11, 8))}</p></Col>
                                 <Col md={2} xs={12} style={{ "fontSize": "18px" }}><div className="btn btn-dark text-center"><a href={o.invoiceURL} alt={o.invoiceURL}>Download</a></div></Col>
-                                <Col md={1} xs={12} style={{ "fontSize": "18px" }}><p className="text-order"><div className="btn btn-dark text-center"><a href={`/user/make/complain/${o._id}`}> Complain</a></div></p></Col>
+                                <Col md={1} xs={12} style={{ "fontSize": "18px" }}><p className="text-order"><div className="btn btn-dark text-center"><Link to={`/user/make/complain/${o._id}`}> Complain</Link></div></p></Col>
                                 <Col md={1} xs={12} style={{ "fontSize": "18px" }} onClick={() => copyID(o._id)}><i class="far fa-copy"></i></Col>
                             </Row>
                         </ListGroup.Item>

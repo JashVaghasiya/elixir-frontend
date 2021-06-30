@@ -8,6 +8,7 @@ import Loader from '../../../components/Loader'
 import '../dashboard/css/styles.css'
 import SellerHeader from './SellerHeader';
 import Paginator from '../../../components/paginator/AdminPaginator';
+import { Link } from 'react-router-dom'
 
 const Seller = ({ match }) => {
 
@@ -71,9 +72,9 @@ const Seller = ({ match }) => {
                                 <tbody>
                                     {sellers && sellers.length > 0 && sellers.map(u => (
                                         <tr key={u._id}>
-                                            <td>{u._id}</td>
+                                            <td><Link to={`/admin/seller/${u._id}`}>{u._id}</Link></td>
                                             <td>{u.email}</td>
-                                            <td>{u.packageName}</td>
+                                            <td>{u.packageId.name}</td>
                                             <td>{u.remainingDays}</td>
                                             <td>{u.totalProducts}</td>
                                             <td>{u.activated ? "Active" : "Deactivated"}</td>

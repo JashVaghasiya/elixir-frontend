@@ -176,7 +176,7 @@ const StripeCheckOut = () => {
                                 </h4>
                                 <hr />
 
-                                <h6><strong>Package Name: </strong>{pack && pack.name.toUpperCase()}</h6>
+                                <h6><strong>Package Name: </strong>{pack && pack.name}</h6>
                                 <hr />
                                 <h6><strong>Price of Package: </strong>₹{pack && pack.price}</h6>
                                 <hr />

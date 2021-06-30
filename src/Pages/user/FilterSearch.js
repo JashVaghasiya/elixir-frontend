@@ -23,6 +23,7 @@ const FilterSearch = () => {
     const [search, setSearch] = useState(false)
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(false)
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -84,10 +85,18 @@ const FilterSearch = () => {
         })
     }
 
+    const showFilters = () => {
+        if (show) {
+            setShow(false)
+        } else {
+            setShow(true)
+        }
+    }
+
     return (
         <div className="filter-page" style={{ background: "#e7e7e7" }}>
 
-            <div className="side-nav">
+            {show && <div className="side-nav">
                 <h4 style={{ "color": "#fff" }}>Price</h4>
                 <Slider range max={5000} min={0} defaultValue={[0, 2000]} onChange={value => setPriceRange(value)} />
                 <h4 className="filter-heading">Category</h4>
@@ -169,14 +178,19 @@ const FilterSearch = () => {
                     <button className="form-button mt-3 btn-block" style={{ "background": "#fff", "color": "#000", "margin-top": "10px" }} onClick={() => applyFilter()}>Apply Filters</button>
                 </span>
             </div>
-            <div div className="filter-content container" >
-                {search && location.search.startsWith("?search") ? <h3 className="m-3">Results for "{location.search.split('=')[1]}"</h3> : ''}
+            }
+            <div className="filter-content container" >
+                <button className="form-button mx-2" onClick={() => showFilters()}>{show ? "Hide" : "Show"} Filters</button>
+                <div style={{ display: "flex" }}>
+
+                    {search && location.search.startsWith("?search") ? <h3 className="my-3">Results for "{location.search.split('=')[1]}"</h3> : ''}
+                </div>
                 {
                     loading ? <Loader /> :
-                        <div className="row center">
+                        <div className="row center mx-2">
                             {
                                 products && products.map(product => (
-                                    <div key={product._id} className="mr-2 ml-2">
+                                    <div key={product._id} className="mr-2">
                                         <HomeProductCard product={product} />
                                     </div>
                                 ))
@@ -184,7 +198,7 @@ const FilterSearch = () => {
                         </div>
                 }
             </div>
-        </div >
+        </div>
     )
 }
 

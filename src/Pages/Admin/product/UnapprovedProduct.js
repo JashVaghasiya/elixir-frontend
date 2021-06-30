@@ -51,8 +51,8 @@ const UnapprovedProduct = ({ history }) => {
     }
 
     const rejectProducts = async () => {
-        const reason = prompt("Please enter your name:", "Harry Potter");
-        if (reason == null || reason === "") {
+        const reason = prompt("Please enter reason of rejection:");
+        if (reason === null || reason === "") {
             setError("Enter Reason for rejection in Prompt")
         } else {
             await rejectProduct(rejectId._id, user.token).then(res => {
@@ -63,7 +63,6 @@ const UnapprovedProduct = ({ history }) => {
             })
             await sendRejectedProduct(rejectId.seller.name, rejectId.seller.email, rejectId._id, reason)
         }
-
     }
 
     if (rejectId !== null) {

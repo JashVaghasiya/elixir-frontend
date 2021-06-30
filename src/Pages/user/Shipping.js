@@ -67,7 +67,7 @@ const UserAddress = ({ history }) => {
             setError("Select State !")
         } else if (city == null) {
             setError("Select City !")
-        } else if (pinCode.length === 0 || pinCode.length > 6) {
+        } else if (pinCode.length === 0 || pinCode.length > 6 || pinCode < 0 || pinCode.length < 6) {
             setError("Enter Valid PinCode!")
         } else {
             setError(null)

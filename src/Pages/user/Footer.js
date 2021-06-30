@@ -37,18 +37,18 @@ const Footer = () => {
                     <h1 class="header">India's No.1 E-Pharmacy Store</h1>
                     <div class="footer-cotnainer pb-5">
                         <div class="sec-section">
-                            <h1>{orderData && orderData} +</h1>
-                            <h5>Orders</h5>
+                            <h1>{orderData && orderData}</h1>
+                            <h5>Orders are Delivered</h5>
                         </div>
 
                         <div class="sec-section">
-                            <h1>{stateData && stateData} +</h1>
-                            <h5>States</h5>
+                            <h1>{stateData && stateData}</h1>
+                            <h5>States are Served</h5>
                         </div>
 
                         <div class="sec-section">
-                            <h1>{sellerData && sellerData} +</h1>
-                            <h5>Sellers</h5>
+                            <h1>{sellerData && sellerData}</h1>
+                            <h5>Sellers are Registered</h5>
                         </div>
                     </div>
                 </div>
